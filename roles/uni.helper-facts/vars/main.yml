@@ -1,0 +1,30 @@
+---
+helper_facts_distro: {}
+
+_helper_facts:
+  mapping:
+    debian:
+      jessie:
+        distro: debian
+        osfamily: debian
+        ubuntu_codename: xenial
+      stretch:
+        distro: debian
+        osfamily: debian
+        ubuntu_codename: xenial
+      xenial:
+        distro: ubuntu
+        osfamily: debian
+        ubuntu_codename: xenial
+      bionic:
+        distro: ubuntu
+        osfamily: debian
+        ubuntu_codename: bionic
+      sylvia:
+        distro: linuxmint
+        osfamily: debian
+        ubuntu_codename: xenial
+      tara:
+        distro: linuxmint
+        osfamily: debian
+        ubuntu_codename: bionic
