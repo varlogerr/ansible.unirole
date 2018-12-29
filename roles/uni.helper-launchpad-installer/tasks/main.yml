@@ -1,12 +1,12 @@
 ---
 - fail: msg="helper_launchpad_installer.app is required"
-  when: helper_launchpad_installer.app is not defined
+  when: helper_launchpad_installer.app is undefined
 
 - fail: msg="helper_launchpad_installer.ppa is required"
-  when: helper_launchpad_installer.ppa is not defined
+  when: helper_launchpad_installer.ppa is undefined
 
 - fail: msg="helper_launchpad_installer.ppa_fingerprint is required"
-  when: helper_launchpad_installer.ppa_fingerprint is not defined
+  when: helper_launchpad_installer.ppa_fingerprint is undefined
 
 - name: set list name
   set_fact:
@@ -16,10 +16,9 @@
 - name: set list name
   set_fact:
     _helper_launchpad_installer_list_name: "{{ helper_launchpad_installer.app }}"
-  when: helper_launchpad_installer.listname is not defined
+  when: helper_launchpad_installer.listname is undefined
 
 - block:
-
   - name: add '{{ helper_launchpad_installer.app }}' apt fingerprint
     apt_key:
       id: "{{ helper_launchpad_installer.ppa_fingerprint }}"
@@ -49,5 +48,4 @@
       name: "{{ helper_launchpad_installer.app }}"
       update_cache: yes
       state: latest
-
   become: true
