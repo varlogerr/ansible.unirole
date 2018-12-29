@@ -1,4 +1,4 @@
-Install git:
+Install git from launchpad
 
 Usage
 ```
