@@ -4,6 +4,7 @@ Usage
 ```
 ---
 # ...
+  roles:
   - role: uni.git
 # ...
 ```

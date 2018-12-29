@@ -3,7 +3,7 @@ Usage
 ---
 # ...
   roles:
-    - role: uni.helper-facts
+  - role: uni.helper-facts
 # ...
 ```
 

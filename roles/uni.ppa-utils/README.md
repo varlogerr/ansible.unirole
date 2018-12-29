@@ -8,6 +8,7 @@ Usage
 ```
 ---
 # ...
+  roles:
   - role: uni.ppa-utils
 # ...
 ```

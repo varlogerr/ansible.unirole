@@ -5,18 +5,19 @@ Usage
 ---
 # ...
   roles:
-    - role: uni.helper-launchpad-installer
-      helper_launchpad_installer:
-        app: "..." # application name, required
-        ppa: "..." # ppa name, required
-        ppa_fingerprint: "..." # fingerpring, required
-        listname: "..." # list filename, optional. if not specified app name will be used
+  - role: uni.helper-launchpad-installer
+    helper_launchpad_installer:
+      app: "..." # application name, required
+      ppa: "..." # ppa name, required
+      ppa_fingerprint: "..." # fingerpring, required
+      listname: "..." # list filename, optional. if not specified app name will be used
 # ...
 ```
 
 Demo
 ```
 # ...
+  roles:
   - role: uni.helper-launchpad-installer
     helper_launchpad_installer:
       app: git
