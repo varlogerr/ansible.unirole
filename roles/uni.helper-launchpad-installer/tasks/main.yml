@@ -1,0 +1,34 @@
+---
+- block:
+
+  - name: add '{{ helper_launchpad_installer.app }}' apt fingerprint
+    apt_key:
+      id: "{{ helper_launchpad_installer.ppa_fingerprint }}"
+      keyserver: hkp://keyserver.ubuntu.com:80
+      state: present
+    register: _helper_launchpad_installer_apt_key_added
+    ignore_errors: yes
+
+  - name: add '{{ helper_launchpad_installer.app }}' apt fingerprint
+    apt_key:
+      id: "{{ helper_launchpad_installer.ppa_fingerprint }}"
+      keyserver: keyserver.ubuntu.com
+      state: present
+    when: _helper_launchpad_installer_apt_key_added is failed
+
+  - name: add '{{ helper_launchpad_installer.app }}' ppa
+    apt_repository:
+      repo: "{{ item }}"
+      filename: "{{ helper_launchpad_installer.app }}"
+      state: present
+    with_items:
+    - "deb http://ppa.launchpad.net/{{ helper_launchpad_installer.ppa }}/ubuntu {{ helper_facts_distro.ubuntu_codename }} main"
+    - "deb-src http://ppa.launchpad.net/{{ helper_launchpad_installer.ppa }}/ubuntu {{ helper_facts_distro.ubuntu_codename }} main"
+
+  - name: install '{{ helper_launchpad_installer.app }}'
+    apt:
+      name: "{{ helper_launchpad_installer.app }}"
+      update_cache: yes
+      state: latest
+
+  become: true
