@@ -1,0 +1,13 @@
+---
+- block:
+  - name: add apt signing key
+    apt_key: url="https://download.docker.com/linux/{{ helper_facts_distro.name }}/gpg" state=present
+
+  - name: add apt list
+    apt_repository:
+      repo: "deb [arch=amd64] https://download.docker.com/linux/{{ helper_facts_distro.name }} {{ helper_facts_distro.codename }} stable"
+      filename: docker
+
+  - name: install docker
+    apt: name=docker-ce state=latest update_cache=yes
+  become: true

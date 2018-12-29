@@ -1,0 +1,10 @@
+---
+- include_tasks: install-docker.debian.yml
+  when: helper_facts_distro.name == 'debian'
+
+- include_tasks: install-docker.ubuntu.yml
+  when: (helper_facts_distro.osfamily == 'debian') and (helper_facts_distro.name != 'debian')
+
+- name: start docker
+  service: name=docker state=started enabled=yes
+  become: true
