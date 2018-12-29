@@ -1,4 +1,13 @@
 ---
+- fail: msg="helper_launchpad_installer.app is required"
+  when: helper_launchpad_installer.app is not defined
+
+- fail: msg="helper_launchpad_installer.ppa is required"
+  when: helper_launchpad_installer.ppa is not defined
+
+- fail: msg="helper_launchpad_installer.ppa_fingerprint is required"
+  when: helper_launchpad_installer.ppa_fingerprint is not defined
+
 - name: set list name
   set_fact:
     _helper_launchpad_installer_list_name: "{{ helper_launchpad_installer.listname }}"
