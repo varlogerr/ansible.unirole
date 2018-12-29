@@ -1,4 +1,14 @@
 ---
+- name: set list name
+  set_fact:
+    _helper_launchpad_installer_list_name: "{{ helper_launchpad_installer.listname }}"
+  when: helper_launchpad_installer.listname is defined
+
+- name: set list name
+  set_fact:
+    _helper_launchpad_installer_list_name: "{{ helper_launchpad_installer.app }}"
+  when: helper_launchpad_installer.listname is not defined
+
 - block:
 
   - name: add '{{ helper_launchpad_installer.app }}' apt fingerprint
@@ -16,10 +26,10 @@
       state: present
     when: _helper_launchpad_installer_apt_key_added is failed
 
-  - name: add '{{ helper_launchpad_installer.app }}' ppa
+  - name: add '{{ helper_launchpad_installer.app }}' apt list
     apt_repository:
       repo: "{{ item }}"
-      filename: "{{ helper_launchpad_installer.app }}"
+      filename: "{{ _helper_launchpad_installer_list_name }}"
       state: present
     with_items:
     - "deb http://ppa.launchpad.net/{{ helper_launchpad_installer.ppa }}/ubuntu {{ helper_facts_distro.ubuntu_codename }} main"

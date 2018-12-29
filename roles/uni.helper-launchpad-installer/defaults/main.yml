@@ -3,3 +3,4 @@ helper_launchpad_installer:
   app:
   ppa:
   ppa_fingerprint:
+  listname:
