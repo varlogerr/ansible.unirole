@@ -1,0 +1,7 @@
+---
+- include_role: name=uni.helper-launchpad-installer
+  vars:
+    helper_launchpad_installer:
+      app: git
+      ppa: git-core/ppa
+      ppa_fingerprint: E1DD270288B4E6030699E45FA1715D88E1DF1F24
