@@ -1,0 +1,6 @@
+---
+- block:
+  - name: install nano
+    apt: name=nano state=present
+    when: helper_facts_distro.osfamily == 'debian'
+  become: true
