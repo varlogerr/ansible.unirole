@@ -20,4 +20,3 @@
     when: _docker_compose_installed_version is version(_docker_compose.release, "!=")
     become: true
   when: _docker_compose_installed_version_tmp.rc == 0
-
