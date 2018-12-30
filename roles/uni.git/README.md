@@ -1,4 +1,4 @@
-Install git from launchpad
+Install git from https://launchpad.net/~git-core/+archive/ubuntu/ppa
 
 Usage
 ```

@@ -1,4 +1,4 @@
-Install ansible from launchpad
+Install ansible from https://launchpad.net/~ansible/+archive/ubuntu/ansible
 
 Usage
 ```
