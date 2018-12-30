@@ -1,0 +1,17 @@
+---
+- block:
+  - name: add apt signing key
+    apt_key:
+      url: "https://packages.microsoft.com/keys/microsoft.asc"
+      keyring: /etc/apt/trusted.gpg.d/microsoft.gpg
+      state: present
+
+  - name: add apt list
+    apt_repository:
+      repo: "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+      filename: vscode
+      state: present
+  
+  - name: install vscode
+    apt: name=code update_cache=yes state=latest
+  become: true
