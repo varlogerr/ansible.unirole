@@ -1,0 +1,6 @@
+---
+- block:
+  - name: install terminator
+    apt: name=terminator state=latest
+    when: helper_facts_distro.osfamily == 'debian'
+  become: true
