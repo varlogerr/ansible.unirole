@@ -1,0 +1,6 @@
+---
+_desk_defaults:
+  version: "0.6.0"
+
+_desk:
+  bin_path: /usr/local/bin/desk
