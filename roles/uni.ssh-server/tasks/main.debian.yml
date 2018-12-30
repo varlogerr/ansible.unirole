@@ -1,0 +1,8 @@
+---
+- block:
+  - name: install ssh-server (openssh-server)
+    apt: name=openssh-server state=present
+
+  - name: start ssh-server (openssh-server)
+    service: name=ssh state=started enabled=yes
+  become: true
