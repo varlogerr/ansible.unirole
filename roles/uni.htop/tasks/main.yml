@@ -1,0 +1,6 @@
+---
+- block:
+  - name: install htop
+    apt: name=htop state=present
+    when: helper_facts_distro.osfamily == 'debian'
+  become: true
