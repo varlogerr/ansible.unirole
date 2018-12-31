@@ -2,6 +2,6 @@
 - include_role: name=uni.helper-launchpad-installer
   vars:
     helper_launchpad_installer:
-        app: copyq
-        ppa: hluk/copyq
-        ppa_fingerprint: 407DCF2158B84056D11BBC944F0B2F06AA07D22F
+      pkg: copyq
+      ppa: hluk/copyq
+      ppa_fingerprint: 407DCF2158B84056D11BBC944F0B2F06AA07D22F

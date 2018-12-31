@@ -1,6 +1,6 @@
 ---
-- fail: msg="helper_launchpad_installer.app is required"
-  when: helper_launchpad_installer.app is undefined
+- fail: msg="helper_launchpad_installer.pkg is required"
+  when: helper_launchpad_installer.pkg is undefined
 
 - fail: msg="helper_launchpad_installer.ppa is required"
   when: helper_launchpad_installer.ppa is undefined
@@ -15,11 +15,11 @@
 
 - name: set list name
   set_fact:
-    _helper_launchpad_installer_list_name: "{{ helper_launchpad_installer.app }}"
+    _helper_launchpad_installer_list_name: "{{ helper_launchpad_installer.pkg }}"
   when: helper_launchpad_installer.listname is undefined
 
 - block:
-  - name: add '{{ helper_launchpad_installer.app }}' apt fingerprint
+  - name: add '{{ helper_launchpad_installer.pkg }}' apt fingerprint
     apt_key:
       id: "{{ helper_launchpad_installer.ppa_fingerprint }}"
       keyserver: hkp://keyserver.ubuntu.com:80
@@ -27,14 +27,14 @@
     register: _helper_launchpad_installer_apt_key_added
     ignore_errors: yes
 
-  - name: add '{{ helper_launchpad_installer.app }}' apt fingerprint
+  - name: add '{{ helper_launchpad_installer.pkg }}' apt fingerprint
     apt_key:
       id: "{{ helper_launchpad_installer.ppa_fingerprint }}"
       keyserver: keyserver.ubuntu.com
       state: present
     when: _helper_launchpad_installer_apt_key_added is failed
 
-  - name: add '{{ helper_launchpad_installer.app }}' apt list
+  - name: add '{{ helper_launchpad_installer.pkg }}' apt list
     apt_repository:
       repo: "{{ item }}"
       filename: "{{ _helper_launchpad_installer_list_name }}"
@@ -43,9 +43,9 @@
     - "deb http://ppa.launchpad.net/{{ helper_launchpad_installer.ppa }}/ubuntu {{ helper_facts_distro.ubuntu_codename }} main"
     - "deb-src http://ppa.launchpad.net/{{ helper_launchpad_installer.ppa }}/ubuntu {{ helper_facts_distro.ubuntu_codename }} main"
 
-  - name: install '{{ helper_launchpad_installer.app }}'
+  - name: install '{{ helper_launchpad_installer.pkg }}'
     apt:
-      name: "{{ helper_launchpad_installer.app }}"
+      name: "{{ helper_launchpad_installer.pkg }}"
       update_cache: yes
       state: latest
   become: true

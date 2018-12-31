@@ -2,6 +2,6 @@
 - include_role: name=uni.helper-launchpad-installer
   vars:
     helper_launchpad_installer:
-      app: ansible
+      pkg: ansible
       ppa: ansible/ansible
       ppa_fingerprint: 6125E2A8C77F2818FB7BD15B93C4A3FD7BB9C367

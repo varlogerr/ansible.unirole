@@ -2,7 +2,7 @@
 - include_role: name=uni.helper-launchpad-installer
   vars:
     helper_launchpad_installer:
-      app: "{{ _golang.pkg }}"
+      pkg: "{{ _golang.pkg }}"
       ppa: gophers/archive
       ppa_fingerprint: C73998DC9DFEA6DCF1241057308C15A29AD198E9
       listname: gophers

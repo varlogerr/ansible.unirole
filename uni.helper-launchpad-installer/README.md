@@ -1,4 +1,4 @@
-Install app from launchpad.net
+Install package from launchpad.net
 
 Usage
 ```
@@ -7,10 +7,10 @@ Usage
   roles:
   - role: uni.helper-launchpad-installer
     helper_launchpad_installer:
-      app: "..." # application name, required
+      pkg: "..." # package name, required
       ppa: "..." # ppa name, required
       ppa_fingerprint: "..." # fingerpring, required
-      listname: "..." # list filename, optional. if not specified app name will be used
+      listname: "..." # list filename, optional. if not specified package name will be used
 # ...
 ```
 
@@ -20,7 +20,7 @@ Demo
   roles:
   - role: uni.helper-launchpad-installer
     helper_launchpad_installer:
-      app: git
+      pkg: git
       ppa: git-core/ppa
       ppa_fingerprint: E1DD270288B4E6030699E45FA1715D88E1DF1F24
 # ...

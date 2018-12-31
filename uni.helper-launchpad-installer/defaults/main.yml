@@ -1,6 +1,6 @@
 ---
 helper_launchpad_installer:
-  app:
+  pkg:
   ppa:
   ppa_fingerprint:
   listname:
