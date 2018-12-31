@@ -19,7 +19,7 @@ Demo
 # ...
   roles:
   - role: uni.helper-launchpad-installer
-    helper_launchpad_installer:
+    helper_launchpad_ppa:
       ppa: ondrej/php
       fingerprint: 14AA40EC0831756756D7F66C4F4EA0AAE5267A6C
       listname: ondrej-php
