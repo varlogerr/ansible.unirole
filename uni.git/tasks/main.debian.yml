@@ -4,4 +4,4 @@
     helper_launchpad_installer:
       pkg: git
       ppa: git-core/ppa
-      ppa_fingerprint: E1DD270288B4E6030699E45FA1715D88E1DF1F24
+      fingerprint: E1DD270288B4E6030699E45FA1715D88E1DF1F24

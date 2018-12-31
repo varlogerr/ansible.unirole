@@ -4,5 +4,4 @@
     helper_launchpad_installer:
       pkg: "{{ _golang.pkg }}"
       ppa: gophers/archive
-      ppa_fingerprint: C73998DC9DFEA6DCF1241057308C15A29AD198E9
-      listname: gophers
+      fingerprint: C73998DC9DFEA6DCF1241057308C15A29AD198E9

@@ -2,50 +2,16 @@
 - fail: msg="helper_launchpad_installer.pkg is required"
   when: helper_launchpad_installer.pkg is undefined
 
-- fail: msg="helper_launchpad_installer.ppa is required"
+- fail: msg="helper_launchpad_installer.ppa is required for {{ helper_launchpad_installer.pkg }}"
   when: helper_launchpad_installer.ppa is undefined
 
-- fail: msg="helper_launchpad_installer.ppa_fingerprint is required"
-  when: helper_launchpad_installer.ppa_fingerprint is undefined
+- fail: msg="helper_launchpad_installer.fingerprint is required for {{ helper_launchpad_installer.pkg }}"
+  when: helper_launchpad_installer.fingerprint is undefined
 
-- name: set list name
-  set_fact:
-    _helper_launchpad_installer_list_name: "{{ helper_launchpad_installer.listname }}"
-  when: helper_launchpad_installer.listname is defined
+- include_role: name=uni.helper-launchpad-ppa
+  vars:
+    helper_launchpad_ppa: "{{ helper_launchpad_installer }}"
 
-- name: set list name
-  set_fact:
-    _helper_launchpad_installer_list_name: "{{ helper_launchpad_installer.pkg }}"
-  when: helper_launchpad_installer.listname is undefined
-
-- block:
-  - name: add '{{ helper_launchpad_installer.pkg }}' apt fingerprint
-    apt_key:
-      id: "{{ helper_launchpad_installer.ppa_fingerprint }}"
-      keyserver: hkp://keyserver.ubuntu.com:80
-      state: present
-    register: _helper_launchpad_installer_apt_key_added
-    ignore_errors: yes
-
-  - name: add '{{ helper_launchpad_installer.pkg }}' apt fingerprint
-    apt_key:
-      id: "{{ helper_launchpad_installer.ppa_fingerprint }}"
-      keyserver: keyserver.ubuntu.com
-      state: present
-    when: _helper_launchpad_installer_apt_key_added is failed
-
-  - name: add '{{ helper_launchpad_installer.pkg }}' apt list
-    apt_repository:
-      repo: "{{ item }}"
-      filename: "{{ _helper_launchpad_installer_list_name }}"
-      state: present
-    with_items:
-    - "deb http://ppa.launchpad.net/{{ helper_launchpad_installer.ppa }}/ubuntu {{ helper_facts_distro.ubuntu_codename }} main"
-    - "deb-src http://ppa.launchpad.net/{{ helper_launchpad_installer.ppa }}/ubuntu {{ helper_facts_distro.ubuntu_codename }} main"
-
-  - name: install '{{ helper_launchpad_installer.pkg }}'
-    apt:
-      name: "{{ helper_launchpad_installer.pkg }}"
-      update_cache: yes
-      state: latest
+- name: install '{{ helper_launchpad_installer.pkg }}'
+  apt: name="{{ helper_launchpad_installer.pkg }}" update_cache=yes state=latest
   become: true
