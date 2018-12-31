@@ -9,7 +9,7 @@ Usage
     helper_launchpad_ppa:
       ppa: "..." # ppa name, required
       fingerprint: "..." # fingerpring, required
-      listname: "..." # list filename, optional
+      listname: "..." # list filename, optional. defaults to a file name based on the repository source url
       ubuntu_codename: "..." # distro codename, optional. defaults to {{ helper_facts_distro.ubuntu_codename }}
 # ...
 ```
