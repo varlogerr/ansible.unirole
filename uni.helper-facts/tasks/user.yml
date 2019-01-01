@@ -1,21 +1,16 @@
 ---
 - name: get user group name
-  shell: "/bin/grep :{{ helper_facts.user.gid }}: /etc/group | /usr/bin/cut -f1 -d:"
+  shell: "/bin/grep :{{ ansible_user_gid }}: /etc/group | /usr/bin/cut -f1 -d:"
   changed_when: false
   check_mode: false
   register: _helper_facts_user_group
 
-- name: set user group
+- name: setup user helper facts
   set_fact:
-    _helper_facts_user:
-      uid: "{{ helper_facts.user.uid }}"
-      gid: "{{ helper_facts.user.gid }}"
-      name: "{{ helper_facts.user.name }}"
-      homedir: "{{ helper_facts.user.homedir }}"
-      group: "{{ _helper_facts_user_group.stdout }}"
-
-- name: assigh result to external fact
-  set_fact:
-    helper_facts:
-      distro: "{{ helper_facts.distro }}"
-      user: "{{ _helper_facts_user }}"
+    helper_facts: "{{ helper_facts | combine({'user': {
+      'uid': ansible_user_uid,
+      'gid': ansible_user_gid,
+      'name': ansible_user_id,
+      'homedir': ansible_user_dir,
+      'group': _helper_facts_user_group.stdout
+    }})}}"

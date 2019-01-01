@@ -1,42 +1,15 @@
 ---
-- name: set internal state
+- name: set internal mapping
   set_fact:
     _helper_facts:
       distro:
         map: "{{ _helper_facts.distro.map.debian[ansible_lsb.codename] }}"
 
-- name: >
-      set distro name to '{{ _helper_facts.distro.map.name }}'
-      and distro codename to '{{ ansible_lsb.codename }}'
+- name: setup distro helper facts
   set_fact:
-    _helper_facts_distro: {
-      name: "{{ _helper_facts.distro.map.name }}",
-      codename: "{{ ansible_lsb.codename }}"
-    }
-
-- name: >
-      set '{{ _helper_facts_distro.name }}:{{ _helper_facts_distro.codename }}'
-      '{{ _helper_facts.distro.map.ubuntu_codename }}' ubuntu codename
-  set_fact:
-    _helper_facts_distro: {
-      name: "{{ _helper_facts_distro.name }}",
-      codename: "{{ _helper_facts_distro.codename }}",
-      ubuntu_codename: "{{ _helper_facts.distro.map.ubuntu_codename }}"
-    }
-
-- name: >
-      set '{{ _helper_facts_distro.name }}:{{ _helper_facts_distro.codename }}'
-      '{{ _helper_facts.distro.map.osfamily }}' os family
-  set_fact:
-    _helper_facts_distro: {
-      name: "{{ _helper_facts_distro.name }}",
-      codename: "{{ _helper_facts_distro.codename }}",
-      ubuntu_codename: "{{ _helper_facts_distro.ubuntu_codename }}",
-      osfamily: "{{ _helper_facts.distro.map.osfamily }}"
-    }
-
-- name: assigh result to external fact
-  set_fact:
-    helper_facts:
-      distro: "{{ _helper_facts_distro }}"
-      user: "{{ helper_facts.user }}"
+    helper_facts: "{{ helper_facts | combine({'distro': {
+      'name': _helper_facts.distro.map.name,
+      'codename': ansible_lsb.codename,
+      'ubuntu_codename': _helper_facts.distro.map.ubuntu_codename,
+      'osfamily': _helper_facts.distro.map.osfamily
+    }})}}"
