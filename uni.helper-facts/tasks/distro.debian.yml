@@ -1,36 +1,41 @@
 ---
-- name: set internal mapping
+- name: set internal state
   set_fact:
     _helper_facts:
-      mapping: "{{ _helper_facts.mapping }}"
-      map: "{{ _helper_facts.mapping.debian[ansible_lsb.codename] }}"
+      distro:
+        map: "{{ _helper_facts.distro.map.debian[ansible_lsb.codename] }}"
 
 - name: >
-      set distro to '{{ _helper_facts.map.distro }}'
+      set distro name to '{{ _helper_facts.distro.map.name }}'
       and distro codename to '{{ ansible_lsb.codename }}'
   set_fact:
-    helper_facts_distro: {
-      name: "{{ _helper_facts.map.distro }}",
+    _helper_facts_distro: {
+      name: "{{ _helper_facts.distro.map.name }}",
       codename: "{{ ansible_lsb.codename }}"
     }
 
 - name: >
-      map {{ helper_facts_distro.name }} '{{ helper_facts_distro.codename }}' codename
-      to ubuntu '{{ _helper_facts.map.ubuntu_codename }}'
+      set '{{ _helper_facts_distro.name }}:{{ _helper_facts_distro.codename }}'
+      '{{ _helper_facts.distro.map.ubuntu_codename }}' ubuntu codename
   set_fact:
-    helper_facts_distro: {
-      name: "{{ helper_facts_distro.name }}",
-      codename: "{{ helper_facts_distro.codename }}",
-      ubuntu_codename: "{{ _helper_facts.map.ubuntu_codename }}"
+    _helper_facts_distro: {
+      name: "{{ _helper_facts_distro.name }}",
+      codename: "{{ _helper_facts_distro.codename }}",
+      ubuntu_codename: "{{ _helper_facts.distro.map.ubuntu_codename }}"
     }
 
 - name: >
-      set '{{ helper_facts_distro.name }}:{{ helper_facts_distro.codename }}'
-      distro osfamily to '{{ _helper_facts.map.osfamily }}'
+      set '{{ _helper_facts_distro.name }}:{{ _helper_facts_distro.codename }}'
+      '{{ _helper_facts.distro.map.osfamily }}' os family
   set_fact:
-    helper_facts_distro: {
-      name: "{{ helper_facts_distro.name }}",
-      codename: "{{ helper_facts_distro.codename }}",
-      ubuntu_codename: "{{ helper_facts_distro.ubuntu_codename }}",
-      osfamily: "{{ _helper_facts.map.osfamily }}"
+    _helper_facts_distro: {
+      name: "{{ _helper_facts_distro.name }}",
+      codename: "{{ _helper_facts_distro.codename }}",
+      ubuntu_codename: "{{ _helper_facts_distro.ubuntu_codename }}",
+      osfamily: "{{ _helper_facts.distro.map.osfamily }}"
     }
+
+- name: assigh result to external fact
+  set_fact:
+    helper_facts:
+      distro: "{{ _helper_facts_distro }}"

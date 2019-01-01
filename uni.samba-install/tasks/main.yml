@@ -1,10 +1,10 @@
 ---
-- include_vars: "{{ helper_facts_distro.osfamily }}.yml"
+- include_vars: "{{ helper_facts.distro.osfamily }}.yml"
 
 - block:
   - name: install samba
     apt: name=samba state=present
-    when: helper_facts_distro.osfamily == 'debian'
+    when: helper_facts.distro.osfamily == 'debian'
 
   - name: start samba server
     service: name={{ _samba_install.daemon }} state=started enabled=yes

@@ -14,4 +14,4 @@
       pkg: "golang-{{ _golang_install.version }}"
   when: _golang_install.full
 
-- include_tasks: "main.{{ helper_facts_distro.osfamily }}.yml"
+- include_tasks: "main.{{ helper_facts.distro.osfamily }}.yml"

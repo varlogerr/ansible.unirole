@@ -9,9 +9,10 @@ Usage
 
 Produces helper facts
 ```
-helper_facts_distro: 
-  name: "..." // distribution name
-  codename: "..." // distribution code name
-  ubuntu_codename: "..." // distribution ubuntu equivalent code name
-  osfamily: "..." // distribution os family
+helper_facts:
+  distro:
+    name: "..." # distro name
+    codename: "..." # distro code name
+    ubuntu_codename: "..." # (for debian-based only) distro ubuntu equivalent code name
+    osfamily: "..." # distro os family
 ```

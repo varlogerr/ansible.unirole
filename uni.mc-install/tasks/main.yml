@@ -2,5 +2,5 @@
 - block:
   - name: install mc
     apt: name=mc state=present
-    when: helper_facts_distro.osfamily == 'debian'
+    when: helper_facts.distro.osfamily == 'debian'
   become: true
