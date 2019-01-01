@@ -2,26 +2,13 @@ Add launchpad.net ppa
 
 Usage
 ```
----
 # ...
   roles:
   - role: uni.helper-launchpad-ppa
     helper_launchpad_ppa:
-      ppa: "..." # ppa name, required
-      fingerprint: "..." # fingerprint, required
-      listname: "..." # list filename, optional. defaults to a file name based on the repository source url
-      ubuntu_codename: "..." # distro codename, optional. defaults to {{ helper_facts_distro.ubuntu_codename }}
-# ...
-```
-
-Demo
-```
-# ...
-  roles:
-  - role: uni.helper-launchpad-installer
-    helper_launchpad_ppa:
-      ppa: ondrej/php
-      fingerprint: 14AA40EC0831756756D7F66C4F4EA0AAE5267A6C
-      listname: ondrej-php
+      ppa: ondrej/php # ppa name, required
+      fingerprint: 14AA40EC0831756756D7F66C4F4EA0AAE5267A6C # fingerprint, required
+      listname: ondrej-php # list filename, optional. defaults to a file name based on the repository source url
+      ubuntu_codename: "xenial" # distro codename, optional. defaults to {{ helper_facts_distro.ubuntu_codename }}
 # ...
 ```
