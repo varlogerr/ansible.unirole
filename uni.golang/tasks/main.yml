@@ -4,15 +4,9 @@
     _golang:
       version: "{{ golang.version | default(_golang_defaults.version) }}"
       full: "{{ golang.full | default(_golang_defaults.full) }}"
+      pkg: "golang-{{ golang.version | default(_golang_defaults.version) }}-go"
 
-- name: set package name to 'golang-{{ _golang.version }}-go'
-  set_fact:
-    _golang:
-      version: "{{ _golang.version }}"
-      full: "{{ _golang.full }}"
-      pkg: "golang-{{ _golang.version }}-go"
-
-- name: override package name with 'golang-{{ _golang.version }}'
+- name: set full go to install
   set_fact:
     _golang:
       version: "{{ _golang.version }}"
