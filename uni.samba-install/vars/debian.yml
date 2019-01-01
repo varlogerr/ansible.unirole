@@ -1,0 +1,3 @@
+---
+_samba_install:
+  daemon: smbd

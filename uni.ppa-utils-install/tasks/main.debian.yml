@@ -1,0 +1,4 @@
+---
+- name: install apt utils {{ _ppa_utils_install.utils_list }}
+  apt: name="{{ _ppa_utils_install.utils_list }}" state=present
+  become: true

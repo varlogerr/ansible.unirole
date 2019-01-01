@@ -1,0 +1,4 @@
+---
+_dockered_nexus_install_defaults:
+  version: "3.14.0"
+  network_mode: host

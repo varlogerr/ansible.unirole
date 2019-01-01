@@ -1,4 +1,4 @@
 ---
 dependencies:
-- uni.ppa-utils-install
 - uni.helper-facts
+- uni.ppa-utils-install

@@ -1,0 +1,7 @@
+---
+_docker_compose_install_defaults:
+  release: "1.23.2"
+
+_docker_compose_install:
+  bin_path: /usr/local/bin/docker-compose
+  bash_completion_path: /etc/bash_completion.d/docker-compose

@@ -1,0 +1,17 @@
+---
+- name: override defaults
+  set_fact:
+    _golang_install:
+      version: "{{ golang_install.version | default(_golang_install_defaults.version) }}"
+      full: "{{ golang_install.full | default(_golang_install_defaults.full) }}"
+      pkg: "golang-{{ golang_install.version | default(_golang_install_defaults.version) }}-go"
+
+- name: set full go to install
+  set_fact:
+    _golang_install:
+      version: "{{ _golang_install.version }}"
+      full: "{{ _golang_install.full }}"
+      pkg: "golang-{{ _golang_install.version }}"
+  when: _golang_install.full
+
+- include_tasks: "main.{{ helper_facts_distro.osfamily }}.yml"

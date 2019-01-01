@@ -1,0 +1,17 @@
+---
+- fail: msg="helper_launchpad_pkg.pkg is required"
+  when: helper_launchpad_pkg.pkg is undefined
+
+- fail: msg="helper_launchpad_pkg.ppa is required for {{ helper_launchpad_pkg.pkg }}"
+  when: helper_launchpad_pkg.ppa is undefined
+
+- fail: msg="helper_launchpad_pkg.fingerprint is required for {{ helper_launchpad_pkg.pkg }}"
+  when: helper_launchpad_pkg.fingerprint is undefined
+
+- include_role: name=uni.helper-launchpad-ppa
+  vars:
+    helper_launchpad_ppa: "{{ helper_launchpad_pkg }}"
+
+- name: install '{{ helper_launchpad_pkg.pkg }}'
+  apt: name="{{ helper_launchpad_pkg.pkg }}" update_cache=yes state=latest
+  become: true

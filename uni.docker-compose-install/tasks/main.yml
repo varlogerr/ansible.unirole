@@ -1,0 +1,23 @@
+---
+- name: override defaults
+  set_fact:
+    _docker_compose_install:
+      release: "{{ docker_compose_install.release | default(_docker_compose_install_defaults.release) }}"
+      bin_path: "{{ _docker_compose_install.bin_path }}"
+      bash_completion_path: "{{ _docker_compose_install.bash_completion_path }}"
+
+- include_tasks: uninstall-docker-compose.yml
+
+- block:
+  - name: install docker-compose:{{ _docker_compose_install.release }}
+    get_url:
+      url: https://github.com/docker/compose/releases/download/{{ _docker_compose_install.release }}/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}
+      dest: "{{ _docker_compose_install.bin_path }}"
+      mode: 0755
+
+  - name: install docker-compose:{{ _docker_compose_install.release }} bash completion
+    get_url:
+      url: https://raw.githubusercontent.com/docker/compose/{{ _docker_compose_install.release }}/contrib/completion/bash/docker-compose
+      dest: "{{ _docker_compose_install.bash_completion_path }}"
+      mode: 0644
+  become: true

@@ -1,0 +1,5 @@
+---
+dependencies:
+- uni.helper-facts
+- uni.ppa-utils-install
+- uni.curl-install

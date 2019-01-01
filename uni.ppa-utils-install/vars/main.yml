@@ -1,0 +1,7 @@
+---
+_ppa_utils_install:
+  utils_list:
+  - apt-transport-https
+  - ca-certificates
+  - gnupg2
+  - software-properties-common

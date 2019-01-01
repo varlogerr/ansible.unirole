@@ -1,5 +1,0 @@
----
-dependencies:
-- uni.helper-facts
-- uni.ppa-utils
-- uni.curl
