@@ -1,6 +1,11 @@
 ---
 helper_facts:
   distro: {}
+  user:
+    uid: "{{ ansible_user_uid }}"
+    gid: "{{ ansible_user_gid }}"
+    name: "{{ ansible_user_id }}"
+    homedir: "{{ ansible_user_dir }}"
 
 _helper_facts:
   distro:

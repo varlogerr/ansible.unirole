@@ -1,0 +1,21 @@
+---
+- name: get user group name
+  shell: "/bin/grep :{{ helper_facts.user.gid }}: /etc/group | /usr/bin/cut -f1 -d:"
+  changed_when: false
+  check_mode: false
+  register: _helper_facts_user_group
+
+- name: set user group
+  set_fact:
+    _helper_facts_user:
+      uid: "{{ helper_facts.user.uid }}"
+      gid: "{{ helper_facts.user.gid }}"
+      name: "{{ helper_facts.user.name }}"
+      homedir: "{{ helper_facts.user.homedir }}"
+      group: "{{ _helper_facts_user_group.stdout }}"
+
+- name: assigh result to external fact
+  set_fact:
+    helper_facts:
+      distro: "{{ helper_facts.distro }}"
+      user: "{{ _helper_facts_user }}"

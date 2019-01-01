@@ -39,3 +39,4 @@
   set_fact:
     helper_facts:
       distro: "{{ _helper_facts_distro }}"
+      user: "{{ helper_facts.user }}"
