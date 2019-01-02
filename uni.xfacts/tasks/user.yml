@@ -3,14 +3,14 @@
   shell: "/bin/grep :{{ ansible_user_gid }}: /etc/group | /usr/bin/cut -f1 -d:"
   changed_when: false
   check_mode: false
-  register: _helper_facts_user_group
+  register: _xfacts_user_group
 
 - name: setup user helper facts
   set_fact:
-    helper_facts: "{{ helper_facts | combine({'user': {
+    xfacts: "{{ xfacts | combine({'user': {
       'uid': ansible_user_uid,
       'gid': ansible_user_gid,
       'name': ansible_user_id,
       'homedir': ansible_user_dir,
-      'group': _helper_facts_user_group.stdout
+      'group': _xfacts_user_group.stdout
     }})}}"

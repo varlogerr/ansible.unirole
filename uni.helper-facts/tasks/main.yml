@@ -1,5 +1,0 @@
----
-- include_tasks: distro.debian.yml
-  when: _helper_facts.distro.map.debian[ansible_lsb.codename] is defined
-
-- include_tasks: user.yml

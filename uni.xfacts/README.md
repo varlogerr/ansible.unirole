@@ -3,13 +3,13 @@ Usage
 ---
 # ...
   roles:
-  - role: uni.helper-facts
+  - role: uni.xfacts
 # ...
 ```
 
-Produces helper facts
+Produces extra facts
 ```
-helper_facts:
+xfacts:
   distro: # abstracts away distro info
     name: "..." # distro name
     codename: "..." # distro code name

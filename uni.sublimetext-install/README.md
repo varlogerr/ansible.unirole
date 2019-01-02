@@ -10,5 +10,5 @@ Usage
 ```
 
 dependencies:
-- uni.helper-facts
+- uni.xfacts
 - uni.ppa-utils-install

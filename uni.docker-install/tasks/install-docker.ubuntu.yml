@@ -5,7 +5,7 @@
 
   - name: add apt list
     apt_repository:
-      repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ helper_facts.distro.ubuntu_codename }} stable"
+      repo: "deb [arch=amd64] https://download.docker.com/linux/ubuntu {{ xfacts.distro.ubuntu_codename }} stable"
       filename: docker
 
   - name: install docker

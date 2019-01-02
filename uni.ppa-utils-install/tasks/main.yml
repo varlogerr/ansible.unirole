@@ -1,2 +1,2 @@
 ---
-- include_tasks: "main.{{ helper_facts.distro.osfamily }}.yml"
+- include_tasks: "main.{{ xfacts.distro.osfamily }}.yml"

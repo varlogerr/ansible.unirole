@@ -1,9 +1,9 @@
 ---
-helper_facts:
+xfacts:
   distro: {}
   user: {}
 
-_helper_facts:
+_xfacts:
   distro:
     map:
       debian:

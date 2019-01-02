@@ -1,3 +1,3 @@
 ---
 _helper_launchpad_ppa_defaults:
-  ubuntu_codename: "{{ helper_facts.distro.ubuntu_codename }}"
+  ubuntu_codename: "{{ xfacts.distro.ubuntu_codename }}"

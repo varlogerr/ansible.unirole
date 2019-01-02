@@ -1,11 +1,11 @@
 ---
 - block:
   - name: add apt signing key
-    apt_key: url="https://download.docker.com/linux/{{ helper_facts.distro.name }}/gpg" state=present
+    apt_key: url="https://download.docker.com/linux/{{ xfacts.distro.name }}/gpg" state=present
 
   - name: add apt list
     apt_repository:
-      repo: "deb [arch=amd64] https://download.docker.com/linux/{{ helper_facts.distro.name }} {{ helper_facts.distro.codename }} stable"
+      repo: "deb [arch=amd64] https://download.docker.com/linux/{{ xfacts.distro.name }} {{ xfacts.distro.codename }} stable"
       filename: docker
 
   - name: install docker
