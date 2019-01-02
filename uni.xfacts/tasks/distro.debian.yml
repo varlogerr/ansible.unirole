@@ -1,15 +1,13 @@
 ---
 - name: set internal mapping
   set_fact:
-    _xfacts:
-      distro:
-        map: "{{ _xfacts.distro.map.debian[ansible_lsb.codename] }}"
+    _xfacts_distromap: "{{ _xfacts.distro.map.debian[ansible_lsb.codename] }}"
 
 - name: setup distro helper facts
   set_fact:
     xfacts: "{{ xfacts | combine({'distro': {
-      'name': _xfacts.distro.map.name,
+      'name': _xfacts_distromap.name,
       'codename': ansible_lsb.codename,
-      'ubuntu_codename': _xfacts.distro.map.ubuntu_codename,
-      'osfamily': _xfacts.distro.map.osfamily
+      'ubuntu_codename': _xfacts_distromap.ubuntu_codename,
+      'osfamily': _xfacts_distromap.osfamily
     }})}}"
