@@ -1,0 +1,4 @@
+---
+_dockered_registry_install:
+  port: 5000
+  version: "2.7"
