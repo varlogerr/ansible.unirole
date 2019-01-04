@@ -12,5 +12,4 @@
     state: started
     restart_policy: unless-stopped
     network_mode: "{{ _dockered_nexus_install.network_mode }}"
-  # 'become: true' as work around for https://github.com/ansible/ansible/issues/20604
-  become: true
+  become: true # work around for https://github.com/ansible/ansible/issues/20604
