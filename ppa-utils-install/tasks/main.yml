@@ -1,2 +1,5 @@
 ---
-- include_tasks: "main.{{ xfacts.distro.osfamily }}.yml"
+- name: install apt utils {{ _ppa_utils_install.utils_list }}
+  apt: name="{{ _ppa_utils_install.utils_list }}" state=present
+  when: xfacts.distro.osfamily == 'debian'
+  become: true

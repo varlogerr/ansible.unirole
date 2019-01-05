@@ -1,0 +1,18 @@
+---
+- block:
+  - name: add gpg key
+    rpm_key:
+      key: https://download.docker.com/linux/centos/gpg
+      state: present
+
+  - name: add repository
+    get_url:
+      url: https://download.docker.com/linux/centos/docker-ce.repo
+      dest: /etc/yum.repos.d/docker-ce.repo
+      owner: root
+      group: root
+      mode: 0644
+
+  - name: install docker
+    yum: name=docker-ce state=present
+  become: true

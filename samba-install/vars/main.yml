@@ -1,0 +1,8 @@
+---
+_samba:
+  samba_daemon:
+    debian: smbd
+    redhat: smb
+  netbios_daemon:
+    debian: nmbd
+    redhat: nmb

@@ -7,7 +7,7 @@
   set_fact:
     xfacts: "{{ xfacts | combine({'distro': {
       'name': _xfacts_distromap.name,
+      'osfamily': _xfacts_distromap.osfamily
       'codename': ansible_lsb.codename,
       'ubuntu_codename': _xfacts_distromap.ubuntu_codename,
-      'osfamily': _xfacts_distromap.osfamily
     }})}}"

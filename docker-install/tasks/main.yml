@@ -5,6 +5,9 @@
 - include_tasks: install-docker.ubuntu.yml
   when: (xfacts.distro.osfamily == 'debian') and (xfacts.distro.name != 'debian')
 
+- include_tasks: install-docker.redhat.yml
+  when: xfacts.distro.osfamily == 'redhat'
+
 - name: start docker
   service: name=docker state=started enabled=yes
   become: true

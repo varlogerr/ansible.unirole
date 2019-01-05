@@ -1,2 +1,4 @@
 ---
-- include_tasks: "main.{{ xfacts.distro.osfamily }}.yml"
+- name: install python-pip
+  package: name=python-pip state=present
+  become: true

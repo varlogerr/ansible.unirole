@@ -1,11 +1,11 @@
 ---
-- include_vars: "{{ xfacts.distro.osfamily }}.yml"
-
 - block:
   - name: install samba
-    apt: name=samba state=present
-    when: xfacts.distro.osfamily == 'debian'
+    package: name=samba state=present
 
   - name: start samba server
-    service: name={{ _samba_install.daemon }} state=started enabled=yes
+    service: name={{ _samba.samba_daemon[xfacts.distro.osfamily] }} state=started enabled=yes
+
+  - name: start netbios server
+    service: name={{ _samba.netbios_daemon[xfacts.distro.osfamily] }} state=started enabled=yes
   become: true

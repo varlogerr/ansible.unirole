@@ -1,2 +1,4 @@
 ---
-- include_tasks: "main.{{ xfacts.distro.osfamily }}.yml"
+- name: install curl
+  package: name=curl state=present
+  become: true

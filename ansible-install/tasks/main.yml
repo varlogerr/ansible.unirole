@@ -1,2 +1,12 @@
 ---
-- include_tasks: "main.{{ xfacts.distro.osfamily }}.yml"
+- include_role: name=helper-launchpad-ppa
+  vars:
+    helper_launchpad_ppa:
+      ppa: ansible/ansible
+      fingerprint: 6125E2A8C77F2818FB7BD15B93C4A3FD7BB9C367
+  when: xfacts.distro.osfamily == 'debian'
+
+- name: install ansible
+  package: name=ansible state=present
+  become: true
+

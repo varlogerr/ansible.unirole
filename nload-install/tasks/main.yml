@@ -1,6 +1,5 @@
 ---
 - block:
   - name: install nload
-    apt: name=nload state=present
-    when: xfacts.distro.osfamily == 'debian'
+    package: name=nload state=present
   become: true

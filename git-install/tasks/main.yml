@@ -1,2 +1,18 @@
 ---
-- include_tasks: "main.{{ xfacts.distro.osfamily }}.yml"
+- include_role: name=helper-launchpad-ppa
+  vars:
+    helper_launchpad_ppa:
+      ppa: git-core/ppa
+      fingerprint: E1DD270288B4E6030699E45FA1715D88E1DF1F24
+  when: xfacts.distro.osfamily == 'debian'
+
+- name: install wandisco repo
+  yum:
+    name: http://opensource.wandisco.com/centos/7/git/x86_64/wandisco-git-release-7-2.noarch.rpm
+    state: present
+  when: xfacts.distro.osfamily == 'redhat'
+  become: true
+
+- name: install git
+  package: name=git state=present
+  become: true

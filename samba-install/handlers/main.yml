@@ -1,4 +1,8 @@
 ---
-- name: restart samba
-  service: name={{ _samba_install.daemon }} state=restarted
+- block:
+  - name: restart samba
+    service: name={{ _samba.samba_daemon[xfacts.distro.osfamily] }} state=restarted
+
+  - name: restart netbios
+    service: name={{ _samba.netbios_daemon[xfacts.distro.osfamily] }} state=restarted
   become: true

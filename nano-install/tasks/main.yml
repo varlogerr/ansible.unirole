@@ -1,6 +1,5 @@
 ---
 - block:
   - name: install nano
-    apt: name=nano state=present
-    when: xfacts.distro.osfamily == 'debian'
+    package: name=nano state=present
   become: true

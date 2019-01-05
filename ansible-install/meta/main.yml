@@ -1,3 +1,4 @@
 ---
 dependencies:
+- epel-release-install
 - xfacts

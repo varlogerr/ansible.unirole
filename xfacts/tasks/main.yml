@@ -2,4 +2,7 @@
 - include_tasks: distro.debian.yml
   when: (ansible_lsb.codename is defined) and (_xfacts.distro.map.debian[ansible_lsb.codename] is defined)
 
+- include_tasks: distro.redhat.yml
+  when: ansible_os_family == "RedHat"
+
 - include_tasks: user.yml

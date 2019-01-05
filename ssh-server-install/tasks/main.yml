@@ -1,2 +1,8 @@
 ---
-- include_tasks: "main.{{ xfacts.distro.osfamily }}.yml"
+- block:
+  - name: install ssh server (openssh-server)
+    package: name=openssh-server state=present
+
+  - name: start ssh server (openssh-server)
+    service: name="{{ _ssh_server.daemon[xfacts.distro.osfamily] }}" state=started enabled=yes
+  become: true

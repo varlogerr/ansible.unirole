@@ -1,6 +1,5 @@
 ---
 - block:
   - name: install vim
-    apt: name=vim state=present
-    when: xfacts.distro.osfamily == 'debian'
+    package: name=vim state=present
   become: true

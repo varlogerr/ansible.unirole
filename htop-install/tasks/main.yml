@@ -1,6 +1,5 @@
 ---
 - block:
   - name: install htop
-    apt: name=htop state=present
-    when: xfacts.distro.osfamily == 'debian'
+    package: name=htop state=present
   become: true

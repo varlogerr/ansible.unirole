@@ -1,6 +1,5 @@
 ---
 - block:
   - name: install mc
-    apt: name=mc state=present
-    when: xfacts.distro.osfamily == 'debian'
+    package: name=mc state=present
   become: true

@@ -1,4 +1,4 @@
 ---
 - name: restart ssh server
-  service: name=ssh state=restarted
+  service: name="{{ _ssh_server.daemon[xfacts.distro.osfamily] }}" state=restarted
   become: true
