@@ -1,4 +1,0 @@
----
-dependencies:
-- uni.docker-install
-- uni.pip-install-docker-module

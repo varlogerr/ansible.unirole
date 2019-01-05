@@ -1,0 +1,7 @@
+---
+- include_role: name=helper-launchpad-pkg
+  vars:
+    helper_launchpad_pkg:
+      pkg: git
+      ppa: git-core/ppa
+      fingerprint: E1DD270288B4E6030699E45FA1715D88E1DF1F24
