@@ -1,7 +1,0 @@
----
-- include_role: name=helper-launchpad-pkg
-  vars:
-    helper_launchpad_pkg:
-      pkg: copyq
-      ppa: hluk/copyq
-      fingerprint: 407DCF2158B84056D11BBC944F0B2F06AA07D22F
