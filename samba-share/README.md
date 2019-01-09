@@ -7,20 +7,20 @@ Usage
 ---
 # ...
   roles:
-  - role: samba-shares
+  - role: samba-share
     # list of dirs to be created, optional. defaults to [].
     # each element of list should be a dict with valid parateres for
     # ansible file module. valid values for 'state' can be one
     # of ['directory', 'link', 'hard']. if not specified or has invalid
     # value defaults to 'directory'
-    samba_shares_dirs:
+    samba_share_dirs:
     - path: "{{ xfacts.user.homedir }}/Share"
       owner: "{{ xfacts.user.name }}"
       group: "{{ xfacts.user.group }}"
       mode: "0775"
     # dictionary of share configuration, optional. defaults to {}.
     # dictionary keys serve for naming files, values fill their contents
-    samba_shares_confs:
+    samba_share_confs:
       Share: |
         [Share]
           available = yes

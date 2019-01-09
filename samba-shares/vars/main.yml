@@ -1,2 +1,0 @@
----
-samba_shares_confd: "/etc/samba/ansible-managed-conf.d"
