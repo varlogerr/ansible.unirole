@@ -1,4 +1,14 @@
 ---
+samba_default_options:
+- name: browsable
+  value: "yes"
+- name: writable
+  value: "yes"
+- name: read only
+  value: "no"
+- name: map to guest
+  value: Bad User
+
 _samba:
   samba_daemon:
     debian: smbd
