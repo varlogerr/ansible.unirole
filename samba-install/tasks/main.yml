@@ -8,4 +8,8 @@
 
   - name: start netbios server
     service: name={{ _samba.netbios_daemon[xfacts.distro.osfamily] }} state=started enabled=yes
+
+  - name: create default configuration
+    copy: src=smb.conf dest=/etc/samba
+    notify: restart samba
   become: true
