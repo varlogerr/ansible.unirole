@@ -1,15 +1,9 @@
 ---
-- name: override defaults
-  set_fact:
-    _desk_install:
-      version: "{{ desk_install.version | default(_desk_install_defaults.version) }}"
-      bin_path: "{{ _desk_install.bin_path }}"
-
 - include_tasks: uninstall-desk.yml
 
-- name: install desk:{{ _desk_install.version }}
+- name: install desk:{{ desk_version }}
   get_url:
-    url: https://raw.githubusercontent.com/jamesob/desk/v{{ _desk_install.version }}/desk
-    dest: "{{ _desk_install.bin_path }}"
+    url: https://raw.githubusercontent.com/jamesob/desk/v{{ desk_version }}/desk
+    dest: "{{ desk_bin_path }}"
     mode: 0755
   become: true

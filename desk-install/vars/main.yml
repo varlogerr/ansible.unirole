@@ -1,6 +1,2 @@
 ---
-_desk_install_defaults:
-  version: "0.6.0"
-
-_desk_install:
-  bin_path: /usr/local/bin/desk
+desk_bin_path: /usr/local/bin/desk
