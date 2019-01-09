@@ -4,6 +4,6 @@
     copy: content="{{ samba_share_conf_content }}" dest="{{ samba_share_conf_file }}"
 
   - name: configure samba
-    lineinfile: dest=/etc/samba/smb.conf line="include = {{ samba_share_conf_file }}"
+    lineinfile: dest={{ samba_conf_path }} line="include = {{ samba_share_conf_file }}"
     notify: restart samba
   become: true

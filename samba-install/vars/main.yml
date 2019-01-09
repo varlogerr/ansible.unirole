@@ -1,4 +1,6 @@
 ---
+samba_conf_path: /etc/samba/smb.conf
+
 samba_default_options:
 - name: browsable
   value: "yes"

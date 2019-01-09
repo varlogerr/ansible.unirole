@@ -24,7 +24,7 @@
 
 - name: clean up samba main config
   lineinfile:
-    dest: /etc/samba/smb.conf
+    dest: "{{ samba_conf_path }}"
     line: "include = {{ item }}"
     state: absent
   with_items: "{{ _samba_share_rm_paths }}"

@@ -1,7 +1,7 @@
 ---
 - name: create default configuration
   ini_file:
-    path: /etc/samba/smb.conf
+    path: "{{ samba_conf_path }}"
     section: global
     option: "{{ samba_default_option.name }}"
     value: "{{ samba_default_option.value }}"
