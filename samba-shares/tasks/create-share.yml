@@ -1,0 +1,9 @@
+---
+- block:
+  - name: create samba custom configuration for {{ samba_shares_conf_file }}
+    copy: content="{{ samba_shares_conf_content }}" dest="{{ samba_shares_conf_file }}"
+
+  - name: configure samba
+    lineinfile: dest=/etc/samba/smb.conf line="include = {{ samba_shares_conf_file }}"
+    notify: restart samba
+  become: true

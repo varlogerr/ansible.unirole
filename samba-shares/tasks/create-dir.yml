@@ -1,0 +1,14 @@
+---
+- set_fact:
+    _samba_shares_dir: "{{ samba_shares_dir | combine({'state': 'directory'}) }}"
+  when: (samba_shares_dir.state is undefined) or (samba_shares_dir.state not in ['link', 'hard'])
+
+- name: create dir
+  file: "{{ _samba_shares_dir }}"
+  register: _samba_share_dir_created
+  ignore_errors: yes
+
+- name: create dir as root
+  file: "{{ _samba_shares_dir }}"
+  when: _samba_share_dir_created is failed
+  become: true

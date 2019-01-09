@@ -1,0 +1,4 @@
+---
+dependencies:
+- xfacts
+- samba-install
