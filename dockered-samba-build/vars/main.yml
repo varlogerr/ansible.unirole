@@ -1,0 +1,3 @@
+---
+dockered_samba_image_name: localhost/samba
+dockered_samba_image_src: /usr/src/dockered-samba

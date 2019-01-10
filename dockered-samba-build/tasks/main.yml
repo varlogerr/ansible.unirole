@@ -1,0 +1,10 @@
+---
+- name: copy build files
+  copy: src=files/samba/ dest={{ dockered_samba_image_src }}
+  become: true
+
+- name: build image
+  docker_image:
+    path: "{{ dockered_samba_image_src }}"
+    name: "{{ dockered_samba_image_name }}"
+  become: true
