@@ -6,3 +6,5 @@
   when: ansible_os_family == "RedHat"
 
 - include_tasks: user.yml
+
+- include_tasks: system.yml

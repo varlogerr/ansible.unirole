@@ -24,4 +24,9 @@ xfacts:
     name: "..." # ansible user name
     group: "..." # ansible user group
     homedir: "..." # ansible user home directory
+  system: # system data
+    ansible_configured_dir: '...' # directory for ansible configured stuff
+    ansible_configured_hidden_dir: '...' # hidden directory for ansible configured stuff
+    build_time: "..." # build time in Y-m-d_H-i-s format
+    build_timestamp: "..." # build timestamp
 ```

@@ -1,0 +1,13 @@
+---
+- name: prepare build time
+  set_fact:
+    _xfacts_build_time: "{{ansible_date_time.date}}_{{ansible_date_time.hour}}-{{ansible_date_time.minute}}-{{ansible_date_time.second}}"
+
+- name: setup system facts
+  set_fact:
+    xfacts: "{{ xfacts | combine({'system': {
+      'ansible_configured_dir': 'ansible-configured',
+      'ansible_configured_hidden_dir': '.ansible-configured',
+      'build_time': _xfacts_build_time,
+      'build_timestamp': ansible_date_time.epoch,
+    }})}}"
