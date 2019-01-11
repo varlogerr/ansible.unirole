@@ -17,11 +17,6 @@ RUN  apt-get update \
 # create custom config directory
 RUN mkdir ${SAMBA_CUSTOM_CONF_DIR}
 
-# copy assets
-ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/local/bin
-COPY docker-entrypoint.sh /usr/local/bin
-COPY smb.conf /etc/samba
-
 # create smbshare user
 RUN addgroup -q --gid 1000 ${SMBSHARE_GROUP} \
     && adduser -q --disabled-login \
@@ -30,15 +25,20 @@ RUN addgroup -q --gid 1000 ${SMBSHARE_GROUP} \
       --home /home/${SMBSHARE_USER} \
       --uid 1000 ${SMBSHARE_USER}
 
-# change binaries permission
-RUN  cd /usr/local/bin \
-  && chmod +x tini \
-  && chmod +x docker-entrypoint.sh
-
 EXPOSE 445
 
 VOLUME ["${DATA_DIR}"]
 WORKDIR ${DATA_DIR}
+
+# copy assets
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/local/bin
+COPY docker-entrypoint.sh /usr/local/bin
+COPY smb.conf /etc/samba
+
+# change binaries permission
+RUN  cd /usr/local/bin \
+  && chmod +x tini \
+  && chmod +x docker-entrypoint.sh
 
 ENTRYPOINT ["tini", "--"]
 CMD /usr/local/bin/docker-entrypoint.sh

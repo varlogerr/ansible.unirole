@@ -40,3 +40,5 @@ Demo usage after building the image
           directory mask = 0775
           force directory mode = 0775
 ```
+
+All numbered in the sample envs can be iterated, i.e. `group_name_1: groupone` and `group_name_2: grouptwo` will create `groupone` and `grouptwo` groups, `group_name_` prefix denotes meaning of the variable value. Same applies `shares_` prefix. Postprefix part of shares is mostly meaningless, serves for differing env variables and naming samba config files inside resulting image.
