@@ -1,0 +1,65 @@
+---
+- set_fact:
+    docker_image: {}
+  when: docker_image is undefined
+
+- fail: msg="docker_image.name is required"
+  when: docker_image.name is undefined
+
+- fail: msg="docker_image.local_src is required"
+  when: docker_image.local_src is undefined
+
+- fail: msg="docker_image.remote_src is required"
+  when: docker_image.remote_src is undefined
+
+- set_fact:
+    _docker_image: {
+      name: "{{ docker_image.name }}",
+      local_src: "{{ docker_image.local_src }}",
+      remote_src: "{{ docker_image.remote_src }}",
+      src_hash_file: "{{ docker_image.remote_src }}.checksum",
+    }
+
+- set_fact:
+    _docker_image: "{{ docker_image | combine({'src_hash_file': docker_image.src_hash_file}) }}"
+  when: docker_image.src_hash_file is defined
+
+- set_fact: _docker_image_src_old_hash=""
+
+- name: calculate {{ _docker_image.name }} image configuration checksum
+  local_action: "shell find {{ _docker_image.local_src }} f -exec cat {} + | md5sum -b | cut -d' ' -f1"
+  changed_when: false
+  register: _docker_image_src_hash_result
+
+- set_fact: _docker_image_src_hash={{ _docker_image_src_hash_result.stdout }}
+
+- block:
+  - name: read old checksum
+    slurp: src={{ _docker_image.src_hash_file }}
+    ignore_errors: yes
+    register: _docker_image_src_old_hash_result
+
+  - set_fact: _docker_image_src_old_hash={{ _docker_image_src_old_hash_result.content | b64decode }}
+    when: _docker_image_src_old_hash_result is not failed
+
+  - block:
+    - name: create remote {{ _docker_image.name }} source directory
+      file: path={{ _docker_image.remote_src }} state=directory
+
+    - name: copy build files
+      copy:
+        src: "{{ _docker_image.local_src | regex_replace('\\/$', '') }}/"
+        dest: "{{ _docker_image.remote_src }}"
+
+    - name: build {{ _docker_image.name }} image
+      docker_image:
+        path: "{{ _docker_image.remote_src }}"
+        name: "{{ _docker_image.name }}"
+        force: yes
+
+    - name: create {{ _docker_image.name }} checksum file
+      copy:
+        content: "{{ _docker_image_src_hash }}"
+        dest: "{{ _docker_image.src_hash_file }}"
+    when: _docker_image_src_hash != _docker_image_src_old_hash
+  become: true
