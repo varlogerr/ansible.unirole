@@ -40,9 +40,9 @@ users_list="$(compgen -e | grep ^user_name_ | sort -V)"
 if [ -n "${users_list}" ]; then
   while read var_name; do
     user_no=${var_name:10}
-    uid_var_name="user_uid_${group_no}"
-    group_var_name="user_group_${group_no}"
-    groups_var_name="user_groups_${group_no}"
+    uid_var_name="user_uid_${user_no}"
+    group_var_name="user_group_${user_no}"
+    groups_var_name="user_groups_${user_no}"
 
     user_name=${!var_name}
     uid=${!uid_var_name}
