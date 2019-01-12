@@ -1,4 +1,6 @@
 ---
-- name: add erlang solutions repository
-  apt: deb=https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb state=present
-  when: xfacts.distro.osfamily == 'debian'
+- block:
+  - name: add erlang solutions repository
+    apt: deb=https://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb state=present
+    when: xfacts.distro.osfamily == 'debian'
+  become: true
