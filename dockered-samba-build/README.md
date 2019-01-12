@@ -40,5 +40,20 @@ Demo usage after building the image
           directory mask = 0775
           force directory mode = 0775
 ```
-
-All numbered in the sample envs can be iterated, i.e. `group_name_1: groupone` and `group_name_2: grouptwo` will create `groupone` and `grouptwo` groups, `group_name_` prefix denotes meaning of the variable value. Same applies `shares_` prefix. Postprefix part of shares is mostly meaningless, serves for differing env variables and naming samba config files inside resulting image.
+All numbered in the sample envs can be iterated, i.e. `group_name_1: groupone` and `group_name_2: grouptwo` will create `groupone` and `grouptwo` groups, `group_name_` prefix denotes meaning of the variable value. Same applies `shares_` prefix. Postprefix part of shares is mostly meaningless, serves for differing env variables and naming samba config files inside resulting image.  
+Baked in global samba configuration `smb.conf`  
+```
+[global]
+browsable = yes
+writable = yes
+read only = no
+map to guest = Bad User
+available = yes
+allow insecure wide links = yes
+nt acl support = no
+map archive = no
+follow symlinks = yes
+wide links = yes
+hide dot files = no
+```
+By default you have `sam` user with uid `1000` ans group `sam` with gid `1000`.
