@@ -1,0 +1,32 @@
+---
+- fail: msg="dockered_samba_users.name is required"
+  when: _dockered_samba_user_data.name is undefined
+
+- set_fact:
+    _dokered_samba_user_name_var: "user_name_{{ _dockered_samba_user_data_ix }}"
+    _dokered_samba_user_uid_var: "user_uid_{{ _dockered_samba_user_data_ix }}"
+    _dokered_samba_user_group_var: "user_group_{{ _dockered_samba_user_data_ix }}"
+    _dokered_samba_user_groups_var: "user_groups_{{ _dockered_samba_user_data_ix }}"
+
+- set_fact:
+    _dockered_samba_env: "{{ _dockered_samba_env | combine({
+      _dokered_samba_user_name_var: _dockered_samba_user_data.name
+    }) }}"
+
+- set_fact:
+    _dockered_samba_env: "{{ _dockered_samba_env | combine({
+      _dokered_samba_user_uid_var: _dockered_samba_user_data.uid
+    }) }}"
+  when: _dockered_samba_user_data.uid is defined
+
+- set_fact:
+    _dockered_samba_env: "{{ _dockered_samba_env | combine({
+      _dokered_samba_user_group_var: _dockered_samba_user_data.group
+    }) }}"
+  when: _dockered_samba_user_data.group is defined
+
+- set_fact:
+    _dockered_samba_env: "{{ _dockered_samba_env | combine({
+      _dokered_samba_user_groups_var: _dockered_samba_user_data.groups
+    }) }}"
+  when: _dockered_samba_user_data.groups is defined

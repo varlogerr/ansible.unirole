@@ -1,0 +1,16 @@
+---
+- fail: msg="dockered_samba_samba_users.name is required"
+  when: _dockered_samba_samba_user_data.name is undefined
+
+- fail: msg="dockered_samba_samba_users.pass is required"
+  when: _dockered_samba_samba_user_data.pass is undefined
+
+- set_fact:
+    _dockered_samba_samba_user_name_var: "samba_user_name_{{ _dockered_samba_samba_user_data_ix }}"
+    _dockered_samba_samba_user_pass_var: "samba_user_pass_{{ _dockered_samba_samba_user_data_ix }}"
+
+- set_fact:
+    _dockered_samba_env: "{{ _dockered_samba_env | combine({
+      _dockered_samba_samba_user_name_var: _dockered_samba_samba_user_data.name,
+      _dockered_samba_samba_user_pass_var: _dockered_samba_samba_user_data.pass,
+    }) }}"

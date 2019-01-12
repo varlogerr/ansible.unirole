@@ -1,0 +1,32 @@
+---
+- fail: msg="dockered_samba_dirs.path is required"
+  when: _dockered_samba_dir_data.path is undefined
+
+- set_fact:
+    _dokered_samba_dir_path_var: "dir_path_{{ _dockered_samba_dir_data_ix }}"
+    _dokered_samba_dir_owner_var: "dir_owner_{{ _dockered_samba_dir_data_ix }}"
+    _dokered_samba_dir_group_var: "dir_group_{{ _dockered_samba_dir_data_ix }}"
+    _dokered_samba_dir_mode_var: "dir_mode_{{ _dockered_samba_dir_data_ix }}"
+
+- set_fact:
+    _dockered_samba_env: "{{ _dockered_samba_env | combine({
+      _dokered_samba_dir_path_var: _dockered_samba_dir_data.path
+    }) }}"
+
+- set_fact:
+    _dockered_samba_env: "{{ _dockered_samba_env | combine({
+      _dokered_samba_dir_owner_var: _dockered_samba_dir_data.owner
+    }) }}"
+  when: _dockered_samba_dir_data.owner is defined
+
+- set_fact:
+    _dockered_samba_env: "{{ _dockered_samba_env | combine({
+      _dokered_samba_dir_group_var: _dockered_samba_dir_data.group
+    }) }}"
+  when: _dockered_samba_dir_data.group is defined
+
+- set_fact:
+    _dockered_samba_env: "{{ _dockered_samba_env | combine({
+      _dokered_samba_dir_mode_var: _dockered_samba_dir_data.mode
+    }) }}"
+  when: _dockered_samba_dir_data.mode is defined

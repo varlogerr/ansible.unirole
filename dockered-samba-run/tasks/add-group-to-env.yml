@@ -1,0 +1,19 @@
+---
+- fail: msg="dockered_samba_groups.name is required"
+  when: _dockered_samba_group_data.name is undefined
+
+- set_fact:
+    _dokered_samba_group_name_var: "group_name_{{ _dockered_samba_group_data_ix }}"
+    _dokered_samba_group_gid_var: "group_gid_{{ _dockered_samba_group_data_ix }}"
+
+- set_fact:
+    _dockered_samba_env: "{{ _dockered_samba_env | combine({
+      _dokered_samba_group_name_var: _dockered_samba_group_data.name
+    }) }}"
+
+- set_fact:
+    _dockered_samba_env: "{{ _dockered_samba_env | combine({
+      _dokered_samba_group_gid_var: _dockered_samba_group_data.gid
+    }) }}"
+  when: _dockered_samba_group_data.gid is defined
+

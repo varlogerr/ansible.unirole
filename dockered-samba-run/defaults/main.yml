@@ -1,0 +1,10 @@
+---
+dockered_samba_host_mount_dir: /
+dockered_samba_host_port: 445
+dockered_samba_container_name: samba
+dockered_samba_restart_policy: unless-stopped
+dockered_samba_groups: []
+dockered_samba_users: []
+dockered_samba_samba_users: []
+dockered_samba_dirs: []
+dockered_samba_shares: []

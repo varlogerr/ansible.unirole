@@ -1,0 +1,47 @@
+---
+- set_fact:
+    _dockered_samba_env: {}
+
+- include_tasks: add-group-to-env.yml
+  vars:
+    _dockered_samba_group_data_ix: "{{ item.0 }}"  
+    _dockered_samba_group_data: "{{ item.1 }}"  
+  with_indexed_items: "{{ dockered_samba_groups }}"
+
+- include_tasks: add-user-to-env.yml
+  vars:
+    _dockered_samba_user_data_ix: "{{ item.0 }}"  
+    _dockered_samba_user_data: "{{ item.1 }}"  
+  with_indexed_items: "{{ dockered_samba_users }}"
+
+- include_tasks: add-samba-user-to-env.yml
+  vars:
+    _dockered_samba_samba_user_data_ix: "{{ item.0 }}"  
+    _dockered_samba_samba_user_data: "{{ item.1 }}"  
+  with_indexed_items: "{{ dockered_samba_samba_users }}"
+
+- include_tasks: add-dir-to-env.yml
+  vars:
+    _dockered_samba_dir_data_ix: "{{ item.0 }}"  
+    _dockered_samba_dir_data: "{{ item.1 }}"  
+  with_indexed_items: "{{ dockered_samba_dirs }}"
+
+- include_tasks: add-share-to-env.yml
+  vars:
+    _dockered_samba_share_data_ix: "{{ item.0 }}"  
+    _dockered_samba_share_data: "{{ item.1 }}"  
+  with_indexed_items: "{{ dockered_samba_shares }}"
+
+- name: run dockered samba
+  docker_container:
+    name: "{{ dockered_samba_container_name }}"
+    image: "{{ dockered_samba_image_name }}"
+    state: started
+    restart_policy: "{{ dockered_samba_restart_policy }}"
+    network_mode: bridge
+    ports:
+    - "{{ dockered_samba_host_port }}:445"
+    volumes:
+    - "{{ dockered_samba_host_mount_dir }}:/data"
+    env: "{{ _dockered_samba_env }}"
+  become: true # work around for https://github.com/ansible/ansible/issues/20604

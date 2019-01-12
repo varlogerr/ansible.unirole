@@ -1,0 +1,8 @@
+---
+- set_fact:
+    _dokered_samba_share_name_var: "shares_Share{{ _dockered_samba_share_data_ix }}"
+
+- set_fact:
+    _dockered_samba_env: "{{ _dockered_samba_env | combine({
+      _dokered_samba_share_name_var: _dockered_samba_share_data
+    }) }}"
