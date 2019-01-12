@@ -1,4 +1,6 @@
 ---
-- name: install erlang
-  apt: name=esl-erlang state=present update_cache=yes
+- block:
+  - name: install erlang
+    apt: name=esl-erlang state=present update_cache=yes
+    when: xfacts.distro.osfamily == 'debian'
   become: true
