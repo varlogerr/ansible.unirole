@@ -1,0 +1,9 @@
+---
+asdf_apps_install_prefixes:
+  nodejs: NODEJS_CHECK_SIGNATURES=no
+
+asdf_apps_deps:
+  erlang:
+  - libgl1-mesa-dev
+  - libwxgtk3.0-dev
+  - m4
