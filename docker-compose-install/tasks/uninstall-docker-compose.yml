@@ -4,12 +4,12 @@
   changed_when: false
   failed_when: false
   check_mode: false
-  register: _docker_compose_installed_version_tmp
+  register: _docker_compose_installed_version_result
 
 - block:
   - name: get installed version
     set_fact:
-      _docker_compose_installed_version: "{{ _docker_compose_installed_version_tmp.stdout | regex_replace('^.*?(\\d+\\.\\d+\\.\\d+)[^\\d].*$', '\\1') }}"
+      _docker_compose_installed_version: "{{ _docker_compose_installed_version_result.stdout | regex_replace('^.*?(\\d+\\.\\d+\\.\\d+)[^\\d].*$', '\\1') }}"
 
   - block:
     - name: uninstall docker-compose:{{ _docker_compose_installed_version }}
@@ -19,4 +19,4 @@
       file: path="{{ docker_compose_bash_completion_path }}" state=absent
     when: _docker_compose_installed_version is version(docker_compose_version, "!=")
     become: true
-  when: _docker_compose_installed_version_tmp.rc == 0
+  when: _docker_compose_installed_version_result.rc == 0
