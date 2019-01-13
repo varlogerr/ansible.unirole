@@ -1,0 +1,10 @@
+---
+- name: run docker registry:{{ dockered_registry_version }}
+  docker_container:
+    name: "{{ dockered_registry_container_name }}"
+    image: "registry:{{ dockered_registry_version }}"
+    state: started
+    restart_policy: "{{ dockered_registry_restart_policy }}"
+    network_mode: "{{ dockered_registry_network_mode }}"
+    ports: "{{ dockered_registry_ports }}"
+  become: true # work around for https://github.com/ansible/ansible/issues/20604

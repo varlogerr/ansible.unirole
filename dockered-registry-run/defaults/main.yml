@@ -1,0 +1,6 @@
+---
+dockered_registry_container_name: registry
+dockered_registry_version: "2.7"
+dockered_registry_restart_policy: always
+dockered_registry_network_mode: host
+dockered_registry_ports: []
