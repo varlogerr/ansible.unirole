@@ -2,6 +2,6 @@
 - include_role: name=helper-launchpad-pkg
   vars:
     helper_launchpad_pkg:
-      pkg: "{{ _golang_install.pkg }}"
+      pkg: "{{ golang_pkg }}"
       ppa: gophers/archive
       fingerprint: C73998DC9DFEA6DCF1241057308C15A29AD198E9

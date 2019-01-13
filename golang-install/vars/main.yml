@@ -1,4 +1,0 @@
----
-_golang_install_defaults:
-  version: "1.10"
-  full: false
