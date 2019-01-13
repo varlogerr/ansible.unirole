@@ -1,15 +1,10 @@
 ---
-- name: override defaults
-  set_fact:
-    _dockered_nexus_install:
-      version: "{{ dockered_nexus_install.version | default(_dockered_nexus_install_defaults.version) }}"
-      network_mode: "{{ dockered_nexus_install.network_mode | default(_dockered_nexus_install_defaults.network_mode) }}"
-
-- name: run nexus:{{ _dockered_nexus_install.version }}
+- name: run nexus:{{ dockered_nexus_version }}
   docker_container:
-    name: nexus
-    image: "sonatype/nexus3:{{ _dockered_nexus_install.version }}"
+    name: "{{ dockered_nexus_container_name }}"
+    image: "sonatype/nexus3:{{ dockered_nexus_version }}"
     state: started
-    restart_policy: unless-stopped
-    network_mode: "{{ _dockered_nexus_install.network_mode }}"
+    restart_policy: "{{ dockered_nexus_restart_policy }}"
+    network_mode: "{{ dockered_nexus_network_mode }}"
+    ports: "{{ dockered_nexus_ports }}"
   become: true # work around for https://github.com/ansible/ansible/issues/20604
