@@ -1,5 +1,5 @@
 ---
-- name: run nexus:{{ dockered_nexus_version }}
+- name: run docker nexus:{{ dockered_nexus_version }}
   docker_container:
     name: "{{ dockered_nexus_container_name }}"
     image: "sonatype/nexus3:{{ dockered_nexus_version }}"
