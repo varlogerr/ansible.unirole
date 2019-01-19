@@ -1,0 +1,25 @@
+---
+- set_fact:
+    _hosts_file_domain_grep_regex: "{{ _hosts_file_domain | regex_escape() | regex_escape() }}"
+    _hosts_file_ip_grep_regex: "{{ _hosts_file_ip | regex_escape() | regex_escape() }}"
+    # we don't really need to check valid domains as there is no need in validating,
+    # only check if it's similar to a domain
+    _hosts_file_valid_domain_grep_regex: "[a-z0-9\\\\.\\\\-]*"
+- set_fact:
+    _hosts_file_entry_grep_regex: "^\\\\s*{{ _hosts_file_ip_grep_regex }}\\\\s+({{ _hosts_file_valid_domain_grep_regex }}\\\\s+)*{{ _hosts_file_domain_grep_regex }}\\\\b"
+
+- block:
+  - name: check {{ hosts_file_file_path }} contains {{ _hosts_file_domain }} mapped to {{ _hosts_file_ip }}
+    command: "grep -Eoc {{ _hosts_file_entry_grep_regex }} {{ hosts_file_file_path }}"
+    register: _hosts_file_hostpairs_count_result
+    failed_when: false
+    check_mode: no
+    changed_when: no
+
+  - name: map {{ _hosts_file_domain }} to {{ _hosts_file_ip }} in {{ hosts_file_file_path }}
+    lineinfile:
+      dest: "{{ hosts_file_file_path }}"
+      line: "{{ _hosts_file_ip }} {{ _hosts_file_domain }}"
+      insertafter: EOF
+    when: _hosts_file_hostpairs_count_result.stdout == "0"
+  become: true
