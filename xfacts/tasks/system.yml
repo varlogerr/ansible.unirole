@@ -6,8 +6,8 @@
 - name: setup system facts
   set_fact:
     xfacts: "{{ xfacts | combine({'system': {
-      'ansible_managed_dir': 'ansible-managed',
-      'ansible_managed_hidden_dir': '.ansible-managed',
+      'ansible_managed_prefix': 'ansible-managed',
+      'ansible_managed_hidden_prefix': '.ansible-managed',
       'build_time': _xfacts_build_time,
       'build_timestamp': ansible_date_time.epoch,
     }})}}"
