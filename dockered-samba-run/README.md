@@ -5,7 +5,7 @@ Demo usage
   - role: dockered-samba-run
     dockered_samba_host_port: 445 # optional. defaults to "445"
     dockered_samba_host_mount_dir: "{{ xfacts.user.homedir }}/Shares" # optional. defaults to "/"
-    dockered_samba_container_name: samba # optional. defaults to "samba"
+    dockered_samba_container_name: samba # optional. defaults to "{{xfacts.system.ansible_managed_prefix}}-samba"
     dockered_samba_restart_policy: unless-stopped # optional. defaults to "unless-stopped"
     dockered_samba_groups: # optional. defaults to []
     - name: app1 # required
