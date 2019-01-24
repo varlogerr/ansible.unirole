@@ -3,7 +3,8 @@ Demo usage
 # ...
   roles:
   - role: dockered-samba-run
-    dockered_samba_publish_ports: # optional. defaults to ["445:445"]
+    dockered_samba_network_mode: bridge # optional. defaults to host
+    dockered_samba_publish_ports: # optional. defaults to []
     - 445:445
     dockered_samba_host_mount_dir: "{{ xfacts.user.homedir }}/Shares" # optional. defaults to "/"
     dockered_samba_container_name: samba # optional. defaults to "{{xfacts.system.ansible_managed_prefix}}-samba"

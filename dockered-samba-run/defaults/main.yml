@@ -1,7 +1,7 @@
 ---
 dockered_samba_host_mount_dir: /
-dockered_samba_publish_ports:
-- 445:445
+dockered_samba_network_mode: host
+dockered_samba_publish_ports: []
 dockered_samba_container_name: "{{xfacts.system.ansible_managed_prefix}}-samba"
 dockered_samba_restart_policy: unless-stopped
 dockered_samba_groups: []

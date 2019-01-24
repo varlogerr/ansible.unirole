@@ -38,7 +38,7 @@
     image: "{{ dockered_samba_image_name }}"
     state: started
     restart_policy: "{{ dockered_samba_restart_policy }}"
-    network_mode: bridge
+    network_mode: "{{ dockered_samba_network_mode }}"
     ports: "{{ dockered_samba_publish_ports }}"
     volumes:
     - "{{ dockered_samba_host_mount_dir }}:/app"
