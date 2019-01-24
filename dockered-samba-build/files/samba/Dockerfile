@@ -1,15 +1,6 @@
-FROM ubuntu:18.04
+FROM alpine:3.8
 LABEL maintainer="Varlog <varlog.err@gmail.com>"
 
-# basic layer
-ENV TINI_VERSION=v0.18.0
-ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/local/bin
-RUN chmod 0700 /usr/local/bin/tini
-
-# often layer, install supervisor
-RUN apt-get update && apt-get install -y supervisor
-
-# app layer
 ENV SAMBA_APP_DIR=/app
 ENV SAMBA_CONF_DIR=/etc/samba
 ENV SAMBA_CONF=${SAMBA_CONF_DIR}/smb.conf
@@ -17,18 +8,15 @@ ENV SAMBA_CUSTOM_CONF_DIR=${SAMBA_CONF_DIR}/conf.d
 ENV SMBSHARE_USER=app
 ENV SMBSHARE_GROUP=app
 
-# install samba and run cleanup
-RUN apt-get install -y samba && apt-get clean -y
+# install samba, bash, supervisor and tini
+RUN apk --no-cache add samba bash supervisor tini
 
 # create custom config directory
 RUN mkdir ${SAMBA_CUSTOM_CONF_DIR}
 
 # create smbshare user
-RUN addgroup -q --gid 1000 ${SMBSHARE_GROUP} \
-    && adduser -q --disabled-login \
-      --ingroup ${SMBSHARE_GROUP} \
-      --shell /bin/false \
-      --no-create-home --uid 1000 ${SMBSHARE_USER}
+RUN  addgroup -g 1000 ${SMBSHARE_GROUP} \
+  && adduser -D -H -G ${SMBSHARE_GROUP} -s /bin/false -u 1000 ${SMBSHARE_USER}
 
 # copy assets
 COPY docker-entrypoint.sh /usr/local/bin
