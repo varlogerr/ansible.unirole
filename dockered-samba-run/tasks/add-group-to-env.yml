@@ -16,4 +16,3 @@
       _dokered_samba_group_gid_var: _dockered_samba_group_data.gid
     }) }}"
   when: _dockered_samba_group_data.gid is defined
-
