@@ -107,5 +107,4 @@ if [ -n "${dirs_list}" ]; then
   done <<< "${dirs_list}"
 fi
 
-service nmbd start
-smbd -FS < /dev/null
+supervisord -c /etc/supervisord.conf
