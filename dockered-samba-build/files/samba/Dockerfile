@@ -2,7 +2,7 @@ FROM debian:9.6
 LABEL maintainer="Varlog <varlog.err@gmail.com>"
 
 ENV TINI_VERSION=v0.18.0
-ENV DATA_DIR=/data
+ENV SAMBA_APP_DIR=/app
 ENV SAMBA_CONF_DIR=/etc/samba
 ENV SAMBA_CONF=${SAMBA_CONF_DIR}/smb.conf
 ENV SAMBA_CUSTOM_CONF_DIR=${SAMBA_CONF_DIR}/conf.d
@@ -25,11 +25,6 @@ RUN addgroup -q --gid 1000 ${SMBSHARE_GROUP} \
       --home /home/${SMBSHARE_USER} \
       --uid 1000 ${SMBSHARE_USER}
 
-EXPOSE 445
-
-VOLUME ["${DATA_DIR}"]
-WORKDIR ${DATA_DIR}
-
 # copy assets
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/local/bin
 COPY docker-entrypoint.sh /usr/local/bin
@@ -39,6 +34,12 @@ COPY smb.conf /etc/samba
 RUN  cd /usr/local/bin \
   && chmod +x tini \
   && chmod +x docker-entrypoint.sh
+
+# exposes samba default ports (137, 138 for nmbd and 139, 445 for smbd)
+EXPOSE 137/udp 138/udp 139 445
+
+VOLUME ["${SAMBA_APP_DIR}"]
+WORKDIR ${SAMBA_APP_DIR}
 
 ENTRYPOINT ["tini", "--"]
 CMD /usr/local/bin/docker-entrypoint.sh

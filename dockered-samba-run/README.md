@@ -3,7 +3,8 @@ Demo usage
 # ...
   roles:
   - role: dockered-samba-run
-    dockered_samba_host_port: 445 # optional. defaults to "445"
+    dockered_samba_publish_ports: # optional. defaults to ["445:445"]
+    - 445:445
     dockered_samba_host_mount_dir: "{{ xfacts.user.homedir }}/Shares" # optional. defaults to "/"
     dockered_samba_container_name: samba # optional. defaults to "{{xfacts.system.ansible_managed_prefix}}-samba"
     dockered_samba_restart_policy: unless-stopped # optional. defaults to "unless-stopped"
@@ -25,18 +26,18 @@ Demo usage
     - name: app2 # required
       pass: qwerty # required
     dockered_samba_dirs: # optional. defaults to []
-    - path: /data/Share1 # required
+    - path: /app/Share1 # required
       owner: app1 # optional
       group: sam # optional
       mode: "0755" # optional
-    - path: /data/Share2 # required
+    - path: /app/Share2 # required
       owner: app2 # optional
       group: sam # optional
       mode: "0755" # optional
     dockered_samba_shares: # optional. defaults to []
     - |
       [pub]
-        path = /data/Share1
+        path = /app/Share1
         guest ok = yes
         force user = app1
         force group = sam
@@ -46,7 +47,7 @@ Demo usage
         force directory mode = 0775
     - |
       [Homenet]
-        path = /data/Share2
+        path = /app/Share2
         valid users = @sam
         guest ok = no
         writable = yes

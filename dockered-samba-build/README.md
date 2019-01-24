@@ -10,7 +10,7 @@ Demo usage after building the image
     ports:
     - "445:445"
     volumes:
-    - /:/data
+    - /:/app
     env:
       # create group
       group_name_1: app
@@ -24,14 +24,14 @@ Demo usage after building the image
       samba_user_name_1: app
       samba_user_pass_1: qwerty # optional
       # create directory
-      dir_path_1: /data/Share
+      dir_path_1: /app/Share
       dir_owner_1: app # optional
       dir_group_1: sam # optional
       dir_mode_1: "0755" # optional
       # create share configuration
       shares_Share: |
         [Share]
-          path = /data/Share
+          path = /app/Share
           guest ok = yes
           force user = app
           force group = sam
