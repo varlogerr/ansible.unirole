@@ -1,6 +1,12 @@
 FROM alpine:3.8
 LABEL maintainer="Varlog <varlog.err@gmail.com>"
 
+# base layer, install tini and bash
+RUN apk --no-cache upgrade && apk --no-cache add tini bash
+
+# often layer, install supervisor
+RUN apk --no-cache add supervisor
+
 ENV SAMBA_APP_DIR=/app
 ENV SAMBA_CONF_DIR=/etc/samba
 ENV SAMBA_CONF=${SAMBA_CONF_DIR}/smb.conf
@@ -8,8 +14,8 @@ ENV SAMBA_CUSTOM_CONF_DIR=${SAMBA_CONF_DIR}/conf.d
 ENV SMBSHARE_USER=app
 ENV SMBSHARE_GROUP=app
 
-# install samba, bash, supervisor and tini
-RUN apk --no-cache add samba bash supervisor tini
+# install samba, and supervisor
+RUN apk --no-cache add samba
 
 # create custom config directory
 RUN mkdir ${SAMBA_CUSTOM_CONF_DIR}
