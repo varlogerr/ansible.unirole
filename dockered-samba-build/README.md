@@ -13,19 +13,19 @@ Demo usage after building the image
     - /:/app
     env:
       # create group
-      group_name_1: app
+      group_name_1: sam
       group_gid_1: 1001 # optional
       # create user
-      user_name_1: app
+      user_name_1: sam
       user_uid_1: 1001 # optional
-      user_group_1: app # optional
-      user_groups_1: sam # optional
+      user_group_1: sam # optional
+      user_groups_1: app # optional
       # create samba user
-      samba_user_name_1: app
+      samba_user_name_1: sam
       samba_user_pass_1: qwerty # optional
       # create directory
       dir_path_1: /app/Share
-      dir_owner_1: app # optional
+      dir_owner_1: sam # optional
       dir_group_1: sam # optional
       dir_mode_1: "0755" # optional
       # create share configuration
@@ -33,8 +33,8 @@ Demo usage after building the image
         [Share]
           path = /app/Share
           guest ok = yes
-          force user = app
-          force group = sam
+          force user = sam
+          force group = app
           create mask = 0664
           force create mode = 0664
           directory mask = 0775
@@ -56,4 +56,4 @@ follow symlinks = yes
 wide links = yes
 hide dot files = no
 ```
-By default you have `sam` user with uid `1000` ans group `sam` with gid `1000`.
+Out of the box you have `app` user with uid `1000` and group `app` with gid `1000`.

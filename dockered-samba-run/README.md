@@ -18,22 +18,22 @@ Demo usage
     - name: app1 # required
       uid: 1001 # optional
       group: app1 # optional
-      groups: sam # optional
+      groups: app # optional
     - name: app2 # required
       uid: 1002 # optional
       group: app2 # optional
-      groups: sam,app1 # optional
+      groups: app,app1 # optional
     dockered_samba_samba_users: # optional. defaults to []
     - name: app2 # required
       pass: qwerty # required
     dockered_samba_dirs: # optional. defaults to []
     - path: /app/Share1 # required
       owner: app1 # optional
-      group: sam # optional
+      group: app # optional
       mode: "0755" # optional
     - path: /app/Share2 # required
       owner: app2 # optional
-      group: sam # optional
+      group: app # optional
       mode: "0755" # optional
     dockered_samba_shares: # optional. defaults to []
     - |
@@ -41,7 +41,7 @@ Demo usage
         path = /app/Share1
         guest ok = yes
         force user = app1
-        force group = sam
+        force group = app
         create mask = 0664
         force create mode = 0664
         directory mask = 0775
@@ -49,7 +49,7 @@ Demo usage
     - |
       [Homenet]
         path = /app/Share2
-        valid users = @sam
+        valid users = @app
         guest ok = no
         writable = yes
         browsable = yes
