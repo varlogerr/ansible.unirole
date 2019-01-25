@@ -2,7 +2,7 @@ FROM alpine:3.8
 LABEL maintainer="Varlog <varlog.err@gmail.com>"
 
 # base layer, install tini and bash
-RUN apk --no-cache upgrade && apk --no-cache add tini bash
+RUN apk --no-cache upgrade && apk --no-cache add tini bash coreutils
 
 # often layer, install supervisor
 RUN apk --no-cache add supervisor
