@@ -25,7 +25,7 @@ RUN  addgroup -g 1000 ${SMBSHARE_GROUP} \
   && adduser -D -H -G ${SMBSHARE_GROUP} -s /bin/false -u 1000 ${SMBSHARE_USER}
 
 # copy assets
-COPY docker-entrypoint.sh /usr/local/bin
+COPY docker-entrypoint-alpine.sh /usr/local/bin/docker-entrypoint.sh
 COPY smb.conf /etc/samba
 COPY supervisord.conf /etc/
 

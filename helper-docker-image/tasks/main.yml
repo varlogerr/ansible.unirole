@@ -18,6 +18,7 @@
       local_src: "{{ docker_image.local_src }}",
       remote_src: "{{ docker_image.remote_src }}",
       src_hash_file: "{{ docker_image.remote_src }}.checksum",
+      dockerfile: "{{ docker_image.dockerfile | default('Dockerfile') }}",
     }
 
 - set_fact:
@@ -55,6 +56,7 @@
       docker_image:
         path: "{{ _docker_image.remote_src }}"
         name: "{{ _docker_image.name }}"
+        dockerfile: "{{ _docker_image.dockerfile }}"
         force: yes
 
     - name: create {{ _docker_image.name }} checksum file
