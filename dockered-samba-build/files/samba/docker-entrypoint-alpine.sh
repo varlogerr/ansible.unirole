@@ -69,7 +69,7 @@ if [ -n "${users_list}" ]; then
     if [ -n "${group}" ]; then
       eval_cmd="${eval_cmd} -G ${group}"
     elif [ $(getent group "${user_name}") ]; then
-      eval_cmd="${eval_cmd} -g ${user_name}"
+      eval_cmd="${eval_cmd} -G ${user_name}"
     fi
     eval_cmd="${eval_cmd} ${user_name}"
     
