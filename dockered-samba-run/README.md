@@ -11,18 +11,18 @@ Demo usage
     dockered_samba_restart_policy: unless-stopped # optional. defaults to "unless-stopped"
     dockered_samba_groups: # optional. defaults to []
     - name: app1 # required
-      gid: 1001 # optional
+      gid: "1001" # optional
     - name: app2 # required
-      gid: 1002 # optional
+      gid: "1002" # optional
     dockered_samba_users: # optional. defaults to []
     - name: app1 # required
-      uid: 1001 # optional
+      uid: "1001" # optional
       group: app1 # optional
-      groups: app # optional
+      groups: app # comma separated, optional
     - name: app2 # required
-      uid: 1002 # optional
+      uid: "1002" # optional
       group: app2 # optional
-      groups: app,app1 # optional
+      groups: app,app1 # comma separated, optional
     dockered_samba_samba_users: # optional. defaults to []
     - name: app2 # required
       pass: qwerty # required

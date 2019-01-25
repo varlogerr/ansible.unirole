@@ -25,7 +25,7 @@ if [ -n "${groups_list}" ]; then
     group_name=${!var_name}
     gid=${!gid_var_name}
 
-    eval_cmd="groupadd"
+    eval_cmd="addgroup"
     if [ -n "${gid}" ]; then
       eval_cmd="${eval_cmd} -g ${gid}"
     fi
@@ -47,23 +47,27 @@ if [ -n "${users_list}" ]; then
     user_name=${!var_name}
     uid=${!uid_var_name}
     group=${!group_var_name}
-    groups=${!groups_var_name}
+    groups=$(echo ${!groups_var_name} | tr ',' "\n")
 
-    eval_cmd="useradd"
+    eval_cmd="adduser -D -H -s /bin/false"
     if [ -n "${uid}" ]; then
       eval_cmd="${eval_cmd} -u ${uid}"
     fi
     if [ -n "${group}" ]; then
-      eval_cmd="${eval_cmd} -g ${group}"
+      eval_cmd="${eval_cmd} -G ${group}"
     elif [ $(getent group "${user_name}") ]; then
       eval_cmd="${eval_cmd} -g ${user_name}"
-    fi
-    if [ -n "${groups}" ]; then
-      eval_cmd="${eval_cmd} -G ${groups}"
     fi
     eval_cmd="${eval_cmd} ${user_name}"
     
     eval "${eval_cmd}"
+
+    # add user to groups
+    if [ -n "${groups}" ]; then
+      while read group; do
+        adduser "${user_name}" "${group}"
+      done <<< "${groups}"
+    fi
   done <<< "${users_list}"
 fi
 
