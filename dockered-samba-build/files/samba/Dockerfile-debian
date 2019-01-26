@@ -6,7 +6,7 @@ ENV TINI_VERSION=v0.18.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/local/bin
 RUN chmod 0700 /usr/local/bin/tini
 
-# common layer
+# common layer, create app user and app directory
 ENV APP_USER=app
 ENV APP_GROUP=app
 ENV APP_DIR=/app

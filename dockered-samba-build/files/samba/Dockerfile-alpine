@@ -4,7 +4,7 @@ LABEL maintainer="Varlog <varlog.err@gmail.com>"
 # base layer, install tini and bash
 RUN apk --no-cache upgrade && apk --no-cache add tini bash coreutils
 
-# common layer
+# common layer, create app user and app directory
 ENV APP_USER=app
 ENV APP_GROUP=app
 ENV APP_DIR=/app
