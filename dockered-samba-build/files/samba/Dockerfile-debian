@@ -10,8 +10,11 @@ RUN chmod 0700 /usr/local/bin/tini
 ENV APP_USER=app
 ENV APP_GROUP=app
 ENV APP_DIR=/app
-RUN  addgroup -g 1000 ${APP_GROUP} \
-  && adduser -D -H -G ${APP_GROUP} -s /bin/false -u 1000 ${APP_USER}
+RUN addgroup -q --gid 1000 ${APP_GROUP} \
+    && adduser -q --disabled-login \
+      --ingroup ${APP_GROUP} \
+      --shell /bin/false \
+      --no-create-home --uid 1000 ${APP_USER}
 VOLUME ["${APP_DIR}"]
 WORKDIR ${APP_DIR}
 
