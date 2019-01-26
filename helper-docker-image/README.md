@@ -15,5 +15,7 @@ Demo
       # remote file for image src hash, optional.
       # defaults to "{{ helper_docker_image.remote_src }}.checksum"
       src_hash_file: "/usr/local/src/{{ xfacts.system.ansible_managed_prefix }}/myimage.txt"
+      # dockerfile name, optional. defaults to "Dockerfile"
+      dockerfile: MyDockerfile
 # ...
 ```
