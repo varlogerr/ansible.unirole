@@ -1,0 +1,45 @@
+---
+- block:
+  - name: remove anonymous users
+    mysql_user:
+      name: ''
+      host_all: true
+      login_user: root
+      login_password: "{{ mariadb_root_password }}"
+      state: absent
+    when: mariadb_no_anonymous_user
+
+  - name: create the users
+    mysql_user:
+      name: "{{ item.name }}"
+      password: "{{ item.password }}"
+      host: "{{ item.host | default('localhost') }}"
+      priv: "{{ item.priv | default('*.*:ALL,GRANT') }}"
+      append_privs: "{{ item.append_privs | default('no') }}"
+      login_user: root
+      login_password: "{{ mariadb_root_password }}"
+      state: present
+    with_items: "{{ mariadb_users }}"
+    tags: mariadb
+  when: mariadb_root_password is defined
+
+- block:
+  - name: remove anonymous users
+    mysql_user:
+      name: ''
+      host_all: true
+      login_user: root
+      state: absent
+    when: mariadb_no_anonymous_user
+
+  - name: create users
+    mysql_user:
+      name: "{{ item.name }}"
+      password: "{{ item.password }}"
+      host: "{{ item.host | default('%') }}"
+      priv: "{{ item.priv | default('*.*:ALL,GRANT') }}"
+      append_privs: "{{ item.append_privs | default('no') }}"
+      login_user: root
+      state: present
+    with_items: "{{ mariadb_users }}"
+  when: mariadb_root_password is not defined

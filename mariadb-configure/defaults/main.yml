@@ -1,0 +1,3 @@
+---
+mariadb_no_anonymous_user: false
+mariadb_users: []
