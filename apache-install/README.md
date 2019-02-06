@@ -1,11 +1,10 @@
-Install amp server
+Install apache
 
 Usage
 ```
 ---
 # ...
   roles:
-  - ampserv-install
+  - apache-install
 # ...
 ```
-For role params see params in `apache-install`, `mariadb-install` and `mariadb-configure` roles
