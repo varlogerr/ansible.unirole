@@ -11,7 +11,7 @@ Usage
     mariadb_users: # optional. defaults to []
     - name: test # required
       password: qwerty # required
-      host: 69.69.69.69 # optional. defaults to localhost
+      host: 69.69.69.69 # optional. defaults to '%'
       priv: 'wordpress.*:ALL' # optional. defaults to '*.*:ALL,GRANT'
       append_privs: yes # optional. defaults to no
 # ...
