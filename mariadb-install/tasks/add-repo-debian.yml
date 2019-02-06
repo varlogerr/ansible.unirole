@@ -1,0 +1,28 @@
+---
+- set_fact:
+    _mariadb_facts: "{{ mariadb_map[xfacts.distro.name][xfacts.distro.codename] }}"
+
+- block:
+  - name: add mariadb apt fingerprint
+    apt_key:
+      id: "{{ _mariadb_facts.key }}"
+      keyserver: hkp://keyserver.ubuntu.com:80
+      state: present
+    register: _mariadb_ppa_apt_key_added
+    ignore_errors: yes
+
+  - name: add mariadb apt fingerprint
+    apt_key:
+      id: "{{ _mariadb_facts.key }}"
+      keyserver: keyserver.ubuntu.com
+      state: present
+    when: _mariadb_ppa_apt_key_added is failed
+
+  - name: add mariadb repo
+    apt_repository:
+      repo: "deb [arch=amd64,i386,ppc64el] http://nyc2.mirrors.digitalocean.com/mariadb/repo/{{ mariadb_version }}/{{ _mariadb_facts.osname }} {{ _mariadb_facts.codename }} main"
+      state: present
+
+  - name: update cache
+    apt: update_cache=yes
+  become: true

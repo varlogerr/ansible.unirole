@@ -1,0 +1,33 @@
+---
+mariadb_map:
+  debian:
+    jessie:
+      key: "0xcbcb082a1bb943db"
+      osname: debian
+      codename: jessie
+    stretch:
+      key: "0xF1656F24C74CD1D8"
+      osname: debian
+      codename: stretch
+  ubuntu:
+    xenial:
+      key: "0xF1656F24C74CD1D8"
+      osname: ubuntu
+      codename: xenial
+    bionic:
+      key: "0xF1656F24C74CD1D8"
+      osname: ubuntu
+      codename: bionic
+  linuxmint:
+    sylvia:
+      key: "0xF1656F24C74CD1D8"
+      osname: ubuntu
+      codename: xenial
+    tara:
+      key: "0xF1656F24C74CD1D8"
+      osname: ubuntu
+      codename: bionic
+
+mariadb_packages:
+- mariadb-server
+- mariadb-client

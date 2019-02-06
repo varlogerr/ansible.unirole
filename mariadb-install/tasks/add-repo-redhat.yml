@@ -1,0 +1,4 @@
+---
+- name: add mariadb repo
+  template: src=MariaDB.repo.j2 dest=/etc/yum.repos.d/MariaDB.repo
+  become: true

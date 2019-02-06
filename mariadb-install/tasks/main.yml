@@ -1,0 +1,11 @@
+---
+- include_vars: "{{ xfacts.distro.osfamily }}.yml"
+- include_tasks: "add-repo-{{ xfacts.distro.osfamily }}.yml"
+
+- block:
+  - name: install mariadb
+    package: name="{{ mariadb_packages }}" state=present
+
+  - name: start mariadb
+    service: name=mysql state=started enabled=yes
+  become: true
