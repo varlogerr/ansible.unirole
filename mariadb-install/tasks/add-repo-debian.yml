@@ -22,7 +22,9 @@
     apt_repository:
       repo: "deb [arch=amd64,i386,ppc64el] http://nyc2.mirrors.digitalocean.com/mariadb/repo/{{ mariadb_version }}/{{ _mariadb_facts.osname }} {{ _mariadb_facts.codename }} main"
       state: present
+    register: _mariadb_repo_changed
 
   - name: update cache
     apt: update_cache=yes
+    when: _mariadb_repo_changed.changed
   become: true
