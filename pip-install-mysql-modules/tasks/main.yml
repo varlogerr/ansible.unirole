@@ -1,0 +1,5 @@
+---
+- name: install pip PyMySQL module
+  pip: name=PyMySQL state=present
+  when: ansible_python_version is version('2.7', '>=')
+  become: true

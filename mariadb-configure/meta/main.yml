@@ -1,0 +1,4 @@
+---
+dependencies:
+- mariadb-install
+- pip-install-mysql-modules
