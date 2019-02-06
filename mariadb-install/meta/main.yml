@@ -1,3 +1,4 @@
 ---
 dependencies:
 - ppa-utils-install
+- xfacts
