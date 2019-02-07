@@ -3,4 +3,8 @@
   - name: install erlang
     apt: name=esl-erlang state=present update_cache=yes
     when: xfacts.distro.osfamily == 'debian'
+
+  - name: install erlang
+    yum: name=esl-erlang state=present
+    when: xfacts.distro.osfamily == 'redhat'
   become: true
