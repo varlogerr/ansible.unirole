@@ -1,6 +1,5 @@
 ---
-- block:
-  - name: install erlang
-    apt: name=elixir state=present update_cache=yes
-    when: xfacts.distro.osfamily == 'debian'
+- name: install erlang
+  apt: name=elixir state=present update_cache=yes
+  when: xfacts.distro.osfamily == 'debian'
   become: true
