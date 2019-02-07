@@ -1,0 +1,38 @@
+---
+- set_fact:
+    _dockered_mariadb_env: {}
+
+- set_fact:
+    _dockered_mariadb_env: "{{ _dockered_mariadb_env | combine({
+      'MYSQL_ROOT_PASSWORD': dockered_mariadb_root_pass
+    })}}"
+  when: dockered_mariadb_root_pass is defined
+
+- set_fact:
+    _dockered_mariadb_env: "{{ _dockered_mariadb_env | combine({
+      'MYSQL_USER': dockered_mariadb_user
+    })}}"
+  when: dockered_mariadb_user is defined
+
+- set_fact:
+    _dockered_mariadb_env: "{{ _dockered_mariadb_env | combine({
+      'MYSQL_PASSWORD': dockered_mariadb_pass
+    })}}"
+  when: dockered_mariadb_pass is defined
+
+- set_fact:
+    _dockered_mariadb_env: "{{ _dockered_mariadb_env | combine({
+      'MYSQL_DATABASE': dockered_mariadb_db
+    })}}"
+  when: dockered_mariadb_db is defined
+
+- name: run docker mariadb:{{ dockered_mariadb_version }}
+  docker_container:
+    name: "{{ dockered_mariadb_container_name }}"
+    image: "mariadb:{{ dockered_mariadb_version }}"
+    state: started
+    restart_policy: "{{ dockered_mariadb_restart_policy }}"
+    network_mode: "{{ dockered_mariadb_network_mode }}"
+    ports: "{{ dockered_mariadb_ports }}"
+    env: "{{ _dockered_mariadb_env }}"
+  become: true # work around for https://github.com/ansible/ansible/issues/20604
