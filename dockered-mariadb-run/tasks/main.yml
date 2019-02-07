@@ -3,6 +3,9 @@
     _dockered_mariadb_env: {}
 
 - set_fact:
+    _dockered_mariadb_volumes: []
+
+- set_fact:
     _dockered_mariadb_env: "{{ _dockered_mariadb_env | combine({
       'MYSQL_ROOT_PASSWORD': dockered_mariadb_root_pass
     })}}"
@@ -26,6 +29,10 @@
     })}}"
   when: dockered_mariadb_db is defined
 
+- set_fact:
+    _dockered_mariadb_volumes: ["{{ dockered_mariadb_host_db_dir }}:/var/lib/mysql"]
+  when: dockered_mariadb_host_db_dir is defined
+
 - name: run docker mariadb:{{ dockered_mariadb_version }}
   docker_container:
     name: "{{ dockered_mariadb_container_name }}"
@@ -35,4 +42,5 @@
     network_mode: "{{ dockered_mariadb_network_mode }}"
     ports: "{{ dockered_mariadb_ports }}"
     env: "{{ _dockered_mariadb_env }}"
+    volumes: "{{ _dockered_mariadb_volumes }}"
   become: true # work around for https://github.com/ansible/ansible/issues/20604
