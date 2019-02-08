@@ -28,6 +28,5 @@ mariadb_map:
       osname: ubuntu
       codename: bionic
 
-mariadb_packages:
-- mariadb-server
-- mariadb-client
+mariadb_package_client_name: mariadb-client
+mariadb_package_server_name: mariadb-server

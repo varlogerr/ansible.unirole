@@ -1,4 +1,3 @@
 ---
-mariadb_packages:
-- MariaDB-server 
-- MariaDB-client
+mariadb_package_client_name: MariaDB-client
+mariadb_package_server_name: MariaDB-server

@@ -1,4 +1,5 @@
 ---
 - name: restart mariadb
   service: name=mysql state=restarted
+  when: _maridb_server_installed is defined
   become: true

@@ -3,9 +3,18 @@
 - include_tasks: "add-repo-{{ xfacts.distro.osfamily }}.yml"
 
 - block:
-  - name: install mariadb
-    package: name="{{ mariadb_packages }}" state=present
+  - name: install mariadb client
+    package: name="{{ mariadb_package_client_name }}" state=present
+    when: mariadb_install_client
 
-  - name: start mariadb
-    service: name=mysql state=started enabled=yes
+  - block:
+    - name: install mariadb server
+      package: name="{{ mariadb_package_server_name }}" state=present
+
+    - set_fact:
+        _mariadb_server_installed: true
+
+    - name: start mariadb
+      service: name=mysql state=started enabled=yes
+    when: mariadb_install_server
   become: true
