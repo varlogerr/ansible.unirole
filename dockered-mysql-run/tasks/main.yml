@@ -1,0 +1,46 @@
+---
+- set_fact:
+    _dockered_mysql_env: {}
+
+- set_fact:
+    _dockered_mysql_volumes: []
+
+- set_fact:
+    _dockered_mysql_env: "{{ _dockered_mysql_env | combine({
+      'MYSQL_ROOT_PASSWORD': dockered_mysql_root_pass
+    })}}"
+  when: dockered_mysql_root_pass is defined
+
+- set_fact:
+    _dockered_mysql_env: "{{ _dockered_mysql_env | combine({
+      'MYSQL_USER': dockered_mysql_user
+    })}}"
+  when: dockered_mysql_user is defined
+
+- set_fact:
+    _dockered_mysql_env: "{{ _dockered_mysql_env | combine({
+      'MYSQL_PASSWORD': dockered_mysql_pass
+    })}}"
+  when: dockered_mysql_pass is defined
+
+- set_fact:
+    _dockered_mysql_env: "{{ _dockered_mysql_env | combine({
+      'MYSQL_DATABASE': dockered_mysql_db
+    })}}"
+  when: dockered_mysql_db is defined
+
+- set_fact:
+    _dockered_mysql_volumes: ["{{ dockered_mysql_host_db_dir }}:/var/lib/mysql"]
+  when: dockered_mysql_host_db_dir is defined
+
+- name: run docker {{ dockered_mysql_image }}
+  docker_container:
+    name: "{{ dockered_mysql_container_name }}"
+    image: "{{ dockered_mysql_image }}"
+    state: started
+    restart_policy: "{{ dockered_mysql_restart_policy }}"
+    network_mode: "{{ dockered_mysql_network_mode }}"
+    ports: "{{ dockered_mysql_ports }}"
+    env: "{{ _dockered_mysql_env }}"
+    volumes: "{{ _dockered_mysql_volumes }}"
+  become: true # work around for https://github.com/ansible/ansible/issues/20604

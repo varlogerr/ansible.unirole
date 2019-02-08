@@ -1,7 +1,0 @@
----
-dockered_mariadb_container_name: "{{xfacts.system.ansible_managed_prefix}}-mariadb"
-dockered_mariadb_version: 10.3.12
-dockered_mariadb_restart_policy: always
-dockered_mariadb_network_mode: host
-dockered_mariadb_ports: []
-dockered_mariadb_root_pass: 'qwerty'

@@ -1,0 +1,7 @@
+---
+dockered_mysql_container_name: "{{xfacts.system.ansible_managed_prefix}}-mysql"
+dockered_mysql_image: mariadb:10.3.12
+dockered_mysql_restart_policy: always
+dockered_mysql_network_mode: host
+dockered_mysql_ports: []
+dockered_mysql_root_pass: 'qwerty'
