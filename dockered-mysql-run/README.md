@@ -19,5 +19,6 @@ Usage
     dockered_mysql_user: myuser # optional. defaults to None
     dockered_mysql_pass: mypass # optional. defaults to None
     dockered_mysql_db: mydb # optional. default no None
+    dockered_mysql_host_db_dir: /opt/database/mysql # optional. defaults to None
 # ...
 ```
