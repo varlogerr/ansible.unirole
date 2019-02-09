@@ -6,7 +6,7 @@ Usage
 ```
 # ...
   roles:
-  - role: dockered-joomla-run
+  - role: dockered-cms-joomla-run
     dockered_joomla_container_name: myjoomla # optional. defaults to  "{{xfacts.system.ansible_managed_prefix}}-joomla"
     dockered_joomla_image_tag: 3.9.2-php7.2-apache # optional. defaults to 3.9.2-php7.3-apache
     dockered_joomla_restart_policy: unless-stopped # optional. defaults always
