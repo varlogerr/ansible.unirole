@@ -8,6 +8,7 @@
     network_mode: "{{ dockered_joomla_network_mode }}"
     ports: "{{ dockered_joomla_ports }}"
     volumes: "{{ dockered_joomla_volumes }}"
+    links: "{{ dockered_joomla_links }}"
     env:
       JOOMLA_DB_HOST: "{{ dockered_joomla_dbhost }}"
       JOOMLA_DB_USER: "{{ dockered_joomla_dbuser }}"

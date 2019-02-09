@@ -2,10 +2,11 @@
 dockered_joomla_container_name: "{{xfacts.system.ansible_managed_prefix}}-joomla"
 dockered_joomla_image_tag: 3.9.2-php7.3-apache
 dockered_joomla_restart_policy: always
-dockered_joomla_network_mode: host
+dockered_joomla_network_mode: bridge
 dockered_joomla_dbhost: 127.0.0.1
 dockered_joomla_dbuser: root
 dockered_joomla_dbpass: qwerty
 dockered_joomla_dbname: joomla
 dockered_joomla_volumes: []
 dockered_joomla_ports: []
+dockered_joomla_links: []
