@@ -1,0 +1,12 @@
+---
+dockered_wordpress_container_name: "{{ xfacts.system.ansible_managed_prefix }}-wordpress"
+dockered_wordpress_image_tag: 5.0.3-php7.3-apache
+dockered_wordpress_restart_policy: always
+dockered_wordpress_network_mode: bridge
+dockered_wordpress_dbhost: 127.0.0.1
+dockered_wordpress_dbuser: root
+dockered_wordpress_dbpass: qwerty
+dockered_wordpress_dbname: wordpress
+dockered_wordpress_volumes: []
+dockered_wordpress_ports: []
+dockered_wordpress_links: []

@@ -1,0 +1,17 @@
+---
+- name: run docker wordpress:{{ dockered_wordpress_image_tag }}
+  docker_container:
+    name: "{{ dockered_wordpress_container_name }}"
+    image: "wordpress:{{ dockered_wordpress_image_tag }}"
+    state: started
+    restart_policy: "{{ dockered_wordpress_restart_policy }}"
+    network_mode: "{{ dockered_wordpress_network_mode }}"
+    ports: "{{ dockered_wordpress_ports }}"
+    volumes: "{{ dockered_wordpress_volumes }}"
+    links: "{{ dockered_wordpress_links }}"
+    env:
+      WORDPRESS_DB_HOST: "{{ dockered_wordpress_dbhost }}"
+      WORDPRESS_DB_USER: "{{ dockered_wordpress_dbuser }}"
+      WORDPRESS_DB_PASSWORD: "{{ dockered_wordpress_dbpass }}"
+      WORDPRESS_DB_NAME: "{{ dockered_wordpress_dbname }}"
+  become: true # work around for https://github.com/ansible/ansible/issues/20604
