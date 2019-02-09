@@ -1,0 +1,16 @@
+---
+- name: run docker joomla:{{ dockered_joomla_image_tag }}
+  docker_container:
+    name: "{{ dockered_joomla_container_name }}"
+    image: "joomla:{{ dockered_joomla_image_tag }}"
+    state: started
+    restart_policy: "{{ dockered_joomla_restart_policy }}"
+    network_mode: "{{ dockered_joomla_network_mode }}"
+    ports: "{{ dockered_joomla_ports }}"
+    volumes: "{{ dockered_joomla_volumes }}"
+    env:
+      JOOMLA_DB_HOST: "{{ dockered_joomla_dbhost }}"
+      JOOMLA_DB_USER: "{{ dockered_joomla_dbuser }}"
+      JOOMLA_DB_PASSWORD: "{{ dockered_joomla_dbpass }}"
+      JOOMLA_DB_NAME: "{{ dockered_joomla_dbname }}"
+  become: true # work around for https://github.com/ansible/ansible/issues/20604

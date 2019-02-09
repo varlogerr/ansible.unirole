@@ -1,0 +1,6 @@
+---
+dependencies:
+- docker-install
+- dockered-mysql-run
+- pip-install-docker-module
+- xfacts
