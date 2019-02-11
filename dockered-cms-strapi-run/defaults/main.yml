@@ -1,0 +1,14 @@
+---
+dockered_strapi_dbclient: mysql
+dockered_strapi_container_name: "{{xfacts.system.ansible_managed_prefix}}-strapi"
+dockered_strapi_image_tag: v3.0.0-alpha.14.5
+dockered_strapi_restart_policy: always
+dockered_strapi_network_mode: bridge
+dockered_strapi_dbhost: 127.0.0.1
+dockered_strapi_dbport: "3306"
+dockered_strapi_dbuser: root
+dockered_strapi_dbpass: qwerty
+dockered_strapi_dbname: strapi
+dockered_strapi_volumes: []
+dockered_strapi_ports: []
+dockered_strapi_links: []

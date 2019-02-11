@@ -1,0 +1,19 @@
+---
+- name: run docker strapi:{{ dockered_strapi_image_tag }}
+  docker_container:
+    name: "{{ dockered_strapi_container_name }}"
+    image: "strapi/strapi:{{ dockered_strapi_image_tag }}"
+    state: started
+    restart_policy: "{{ dockered_strapi_restart_policy }}"
+    network_mode: "{{ dockered_strapi_network_mode }}"
+    ports: "{{ dockered_strapi_ports }}"
+    volumes: "{{ dockered_strapi_volumes }}"
+    links: "{{ dockered_strapi_links }}"
+    env:
+      DATABASE_CLIENT: "{{ dockered_strapi_dbclient }}"
+      DATABASE_HOST: "{{ dockered_strapi_dbhost }}"
+      DATABASE_PORT: "{{ dockered_strapi_dbport }}"
+      DATABASE_USERNAME: "{{ dockered_strapi_dbuser }}"
+      DATABASE_PASSWORD: "{{ dockered_strapi_dbpass }}"
+      DATABASE_NAME: "{{ dockered_strapi_dbname }}"
+  become: true # work around for https://github.com/ansible/ansible/issues/20604
