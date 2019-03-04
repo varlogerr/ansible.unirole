@@ -8,13 +8,16 @@ RUN chmod 0700 /usr/local/bin/tini
 
 # common layer, create app user and app directory
 ENV APP_USER=app
+ENV APP_USER_ID=1000
 ENV APP_GROUP=app
+ENV APP_GROUP_ID=1000
 ENV APP_DIR=/app
-RUN addgroup -q --gid 1000 ${APP_GROUP} \
+
+RUN addgroup -q --gid ${APP_GROUP_ID} ${APP_GROUP} \
     && adduser -q --disabled-login \
       --ingroup ${APP_GROUP} \
       --shell /bin/false \
-      --no-create-home --uid 1000 ${APP_USER}
+      --no-create-home --uid ${APP_USER_ID} ${APP_USER}
 VOLUME ["${APP_DIR}"]
 WORKDIR ${APP_DIR}
 

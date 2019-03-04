@@ -6,10 +6,13 @@ RUN apk --no-cache upgrade && apk --no-cache add tini bash coreutils
 
 # common layer, create app user and app directory
 ENV APP_USER=app
+ENV APP_USER_ID=1000
 ENV APP_GROUP=app
+ENV APP_GROUP_ID=1000
 ENV APP_DIR=/app
-RUN  addgroup -g 1000 ${APP_GROUP} \
-  && adduser -D -H -G ${APP_GROUP} -s /bin/false -u 1000 ${APP_USER}
+
+RUN  addgroup -g ${APP_GROUP_ID} ${APP_GROUP} \
+  && adduser -D -H -G ${APP_GROUP} -s /bin/false -u ${APP_USER_ID} ${APP_USER}
 VOLUME ["${APP_DIR}"]
 WORKDIR ${APP_DIR}
 
