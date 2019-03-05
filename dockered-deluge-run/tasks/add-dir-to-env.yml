@@ -1,0 +1,13 @@
+---
+- set_fact:
+    _dockered_deluge_dir_split: "{{ _dockered_deluge_dir.split(':') }}"
+    _dockered_deluge_dir_var_name: "dir_path_{{ _dockered_deluge_dir_ix }}"
+
+- set_fact:
+    _dockered_deluge_env: "{{ _dockered_deluge_env | combine({
+      _dockered_deluge_dir_var_name: _dockered_deluge_dir_split[1]
+    }) }}"
+
+- set_fact:
+    _dockered_deluge_volumes: "{{ _dockered_deluge_volumes + [ _dockered_deluge_dir ] }}"
+  when: _dockered_deluge_dir_split[0] != ""

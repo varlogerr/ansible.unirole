@@ -1,0 +1,8 @@
+---
+dockered_deluge_uid: "1000"
+dockered_deluge_gid: "1000"
+dockered_deluge_dirs: []
+dockered_deluge_network_mode: host
+dockered_deluge_publish_ports: []
+dockered_deluge_container_name: "{{xfacts.system.ansible_managed_prefix}}-deluge"
+dockered_deluge_restart_policy: unless-stopped

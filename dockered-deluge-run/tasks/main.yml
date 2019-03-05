@@ -1,0 +1,25 @@
+---
+- set_fact:
+    _dockered_deluge_env: {
+      APP_USER_ID: "{{ dockered_deluge_uid }}",
+      APP_GROUP_ID: "{{ dockered_deluge_gid }}",
+    }
+    _dockered_deluge_volumes: []
+
+- include_tasks: add-dir-to-env.yml
+  vars:
+    _dockered_deluge_dir_ix: "{{ item.0 }}"  
+    _dockered_deluge_dir: "{{ item.1 }}"  
+  with_indexed_items: "{{ dockered_deluge_dirs }}"
+
+- name: run dockered deluge
+  docker_container:
+    name: "{{ dockered_deluge_container_name }}"
+    image: "{{ dockered_deluge_image_name }}"
+    state: started
+    restart_policy: "{{ dockered_deluge_restart_policy }}"
+    network_mode: "{{ dockered_deluge_network_mode }}"
+    ports: "{{ dockered_deluge_publish_ports }}"
+    volumes: "{{ _dockered_deluge_volumes }}"
+    env: "{{ _dockered_deluge_env }}"
+  become: true # work around for https://github.com/ansible/ansible/issues/20604
