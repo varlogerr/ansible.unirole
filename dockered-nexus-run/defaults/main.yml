@@ -1,6 +1,6 @@
 ---
 dockered_nexus_container_name: "{{xfacts.system.ansible_managed_prefix}}-nexus"
-dockered_nexus_version: 3.14.0
+dockered_nexus_version: 3.15.2
 dockered_nexus_restart_policy: always
 dockered_nexus_network_mode: host
 dockered_nexus_ports: []
