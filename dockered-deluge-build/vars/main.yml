@@ -1,3 +1,2 @@
 ---
-dockered_deluge_image_name: "{{ xfacts.system.ansible_managed_prefix }}-deluge"
 dockered_deluge_remote_src: "/usr/local/src/{{ xfacts.system.ansible_managed_prefix }}/dockered-deluge"

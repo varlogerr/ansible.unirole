@@ -1,0 +1,2 @@
+---
+dockered_samba_image_name: "{{ xfacts.system.ansible_managed_prefix }}-samba"

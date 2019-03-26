@@ -1,0 +1,2 @@
+---
+dockered_deluge_image_name: "{{ xfacts.system.ansible_managed_prefix }}-deluge"
