@@ -17,6 +17,7 @@ Demo usage after building the image
     - "8112:8112"
     volumes:
     - "{{ xfacts.user.homedir }}/config/deluge:/app/.config"
+    - "{{ xfacts.user.homedir }}/.torrents:/app/.torrents"
     - "{{ xfacts.user.homedir }}/Downloads:/app/Downloads"
     - "{{ xfacts.user.homedir }}/Uploads:/app/Uploads"
     - "{{ xfacts.user.homedir }}/Mix:/app/Mix"

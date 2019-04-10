@@ -13,6 +13,7 @@ ENV DEFAULT_APP_GROUP_ID=1000
 ENV APP_DIR=/app
 ENV APP_DOWNLOADS_DIR=${APP_DIR}/Downloads
 ENV APP_CONFIG_DIR=${APP_DIR}/.config
+ENV APP_TORRENTS_DIR=${APP_DIR}/.torrents
 
 # install build dependences
 RUN apt-get update \
@@ -30,7 +31,7 @@ RUN apt-get update && apt-get install -y supervisor
 RUN apt-get -y clean autoclean autoremove \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-VOLUME ["${APP_DOWNLOADS_DIR}", "${APP_CONFIG_DIR}"]
+VOLUME ["${APP_DOWNLOADS_DIR}", "${APP_CONFIG_DIR}", "${APP_TORRENTS_DIR}"]
 WORKDIR ${APP_DIR}
 
 # exposes ports
@@ -39,6 +40,7 @@ EXPOSE 8112/tcp 45682 53160/tcp 53160/udp 58846/tcp
 # copy assets
 COPY docker-entrypoint.sh /usr/local/bin/
 COPY supervisord.conf /etc/
+COPY core.conf /tmp/
 
 # change binaries permission
 RUN chmod 0700 /usr/local/bin/docker-entrypoint.sh

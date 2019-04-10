@@ -37,4 +37,8 @@ if [ -n "${dirs_list}" ]; then
   echo ""
 fi
 
+mkdir -p ${APP_CONFIG_DIR}
+[[ ! -f ${APP_CONFIG_DIR}/core.conf ]] && cp -f /tmp/core.conf ${APP_CONFIG_DIR}
+chown -R ${APP_USER}:${APP_GROUP} ${APP_CONFIG_DIR} 
+
 supervisord -c /etc/supervisord.conf

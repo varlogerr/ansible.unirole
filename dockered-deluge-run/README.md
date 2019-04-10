@@ -12,6 +12,7 @@ Demo usage
     dockered_deluge_gid: "1001" # optional. defaults to "1000"
     dockered_deluge_dirs: # optional. defaults to []
     - "{{xfacts.user.homedir}}/.config/deluge:/app/.config"
+    - "{{xfacts.user.homedir}}/.torrents:/app/.torrents"
     - "{{xfacts.user.homedir}}/Downloads:/app/Downloads"
     - "{{xfacts.user.homedir}}/Uploads:/app/Uploads" # will be created and mounted
     - ":/app/Mix" # will be created in the container only
