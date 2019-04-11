@@ -28,8 +28,10 @@ if [ -n "${dirs_list}" ]; then
     owner=${APP_USER}
     group=${APP_GROUP}
 
-    mkdir -p "${path}"
-    chown "${owner}":"${group}" "${path}"
+    if [[ ! -d "${path}" ]]; then
+      mkdir -p "${path}"
+      chown "${owner}":"${group}" "${path}"
+    fi
 
     echo "\"${path}\" directory created..."
   done <<< "${dirs_list}"
