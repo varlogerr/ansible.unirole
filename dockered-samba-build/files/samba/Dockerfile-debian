@@ -1,47 +1,50 @@
-FROM debian:9.6-slim
+FROM debian:9.8-slim
 LABEL maintainer="Varlog <varlog.err@gmail.com>"
 
-# base layer, install tini
-ENV TINI_VERSION=v0.18.0
-ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/local/bin
-RUN chmod 0700 /usr/local/bin/tini
+ENV TINI_VERSION=v0.18.0 \
+    APP_USER=app \
+    APP_USER_ID=1000 \
+    APP_GROUP=app \
+    APP_GROUP_ID=1000 \
+    APP_DIR=/app \
+    SAMBA_CONF_DIR=/etc/samba
 
-# common layer, create app user and app directory
-ENV APP_USER=app
-ENV APP_USER_ID=1000
-ENV APP_GROUP=app
-ENV APP_GROUP_ID=1000
-ENV APP_DIR=/app
+ENV SAMBA_CONF=${SAMBA_CONF_DIR}/smb.conf \
+    SAMBA_CUSTOM_CONF_DIR=${SAMBA_CONF_DIR}/conf.d
 
-RUN addgroup -q --gid ${APP_GROUP_ID} ${APP_GROUP} \
+RUN : \
+    # install supervisor
+    && apt-get update && apt-get install -y supervisor \
+    # install samba
+    && apt-get install -y samba \
+    # create app user and group
+    && addgroup -q --gid ${APP_GROUP_ID} ${APP_GROUP} \
     && adduser -q --disabled-login \
       --ingroup ${APP_GROUP} \
       --shell /bin/false \
-      --no-create-home --uid ${APP_USER_ID} ${APP_USER}
+      --no-create-home --uid ${APP_USER_ID} ${APP_USER} \
+    # create custom config directory
+    && mkdir ${SAMBA_CUSTOM_CONF_DIR} \
+    # clean up
+    && apt-get -y clean \
+    && apt-get -y autoclean \
+    && apt-get -y autoremove \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 VOLUME ["${APP_DIR}"]
 WORKDIR ${APP_DIR}
-
-# often layer, install supervisor
-RUN apt-get update && apt-get install -y supervisor
-
-# app layer
-ENV SAMBA_CONF_DIR=/etc/samba
-ENV SAMBA_CONF=${SAMBA_CONF_DIR}/smb.conf
-ENV SAMBA_CUSTOM_CONF_DIR=${SAMBA_CONF_DIR}/conf.d
-
-# install samba and run cleanup
-RUN apt-get install -y samba && apt-get clean -y
-
-# create custom config directory
-RUN mkdir ${SAMBA_CUSTOM_CONF_DIR}
 
 # copy assets
 COPY docker-entrypoint-debian.sh /usr/local/bin/docker-entrypoint.sh
 COPY smb.conf /etc/samba
 COPY supervisord.conf /etc/
+# install tini
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/local/bin
 
 # change binaries permission
-RUN chmod 0700 /usr/local/bin/docker-entrypoint.sh
+RUN : \
+    && chmod 0700 /usr/local/bin/docker-entrypoint.sh \
+    && chmod 0700 /usr/local/bin/tini
 
 # exposes samba default ports (137, 138 for nmbd and 139, 445 for smbd)
 EXPOSE 137/udp 138/udp 139 445

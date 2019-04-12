@@ -2,9 +2,6 @@
 
 set +x
 
-APP_USER_ID=${APP_USER_ID:-${DEFAULT_APP_USER_ID}}
-APP_GROUP_ID=${APP_GROUP_ID:-${DEFAULT_APP_GROUP_ID}}
-
 # create app group and user
 addgroup -q --gid ${APP_GROUP_ID} ${APP_GROUP} \
 && adduser -q --disabled-login \
@@ -39,7 +36,6 @@ if [ -n "${dirs_list}" ]; then
   echo ""
 fi
 
-mkdir -p ${APP_CONFIG_DIR}
 [[ ! -f ${APP_CONFIG_DIR}/core.conf ]] && cp -f /tmp/core.conf ${APP_CONFIG_DIR}
 chown -R ${APP_USER}:${APP_GROUP} ${APP_CONFIG_DIR} 
 

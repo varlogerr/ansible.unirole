@@ -1,34 +1,32 @@
-FROM alpine:3.8
+FROM alpine:3.9
 LABEL maintainer="Varlog <varlog.err@gmail.com>"
 
-# base layer, install tini and bash
-RUN apk --no-cache upgrade && apk --no-cache add tini bash coreutils
+ENV APP_USER=app \
+    APP_USER_ID=1000 \
+    APP_GROUP=app \
+    APP_GROUP_ID=1000 \
+    APP_DIR=/app \
+    SAMBA_CONF_DIR=/etc/samba
 
-# common layer, create app user and app directory
-ENV APP_USER=app
-ENV APP_USER_ID=1000
-ENV APP_GROUP=app
-ENV APP_GROUP_ID=1000
-ENV APP_DIR=/app
+ENV SAMBA_CONF=${SAMBA_CONF_DIR}/smb.conf \
+    SAMBA_CUSTOM_CONF_DIR=${SAMBA_CONF_DIR}/conf.d
 
-RUN  addgroup -g ${APP_GROUP_ID} ${APP_GROUP} \
-  && adduser -D -H -G ${APP_GROUP} -s /bin/false -u ${APP_USER_ID} ${APP_USER}
+RUN : \
+    # install tini and bash
+    && apk --no-cache upgrade \
+    && apk --no-cache add tini bash coreutils \
+    # install supervisor
+    && apk --no-cache add supervisor \
+    #  install samba
+    && apk --no-cache add samba \
+    # create app user and group
+    && addgroup -g ${APP_GROUP_ID} ${APP_GROUP} \
+    && adduser -D -H -G ${APP_GROUP} -s /bin/false -u ${APP_USER_ID} ${APP_USER} \
+    # create custom config directory
+    && mkdir ${SAMBA_CUSTOM_CONF_DIR}
+
 VOLUME ["${APP_DIR}"]
 WORKDIR ${APP_DIR}
-
-# often layer, install supervisor
-RUN apk --no-cache add supervisor
-
-# app layer
-ENV SAMBA_CONF_DIR=/etc/samba
-ENV SAMBA_CONF=${SAMBA_CONF_DIR}/smb.conf
-ENV SAMBA_CUSTOM_CONF_DIR=${SAMBA_CONF_DIR}/conf.d
-
-# install samba, and supervisor
-RUN apk --no-cache add samba
-
-# create custom config directory
-RUN mkdir ${SAMBA_CUSTOM_CONF_DIR}
 
 # copy assets
 COPY docker-entrypoint-alpine.sh /usr/local/bin/docker-entrypoint.sh
@@ -38,7 +36,7 @@ COPY supervisord.conf /etc/
 # change binaries permission
 RUN chmod 0700 /usr/local/bin/docker-entrypoint.sh
 
-# exposes samba default ports (137, 138 for nmbd and 139, 445 for smbd)
+# expose samba default ports (137, 138 for nmbd and 139, 445 for smbd)
 EXPOSE 137/udp 138/udp 139 445
 
 ENTRYPOINT ["tini", "--"]
