@@ -1,0 +1,8 @@
+---
+- set_fact:
+    _vbox_distro_codename: "{{ vbox_distrocodename_remapping[xfacts.distro.codename] }}"
+  when: vbox_distrocodename_remapping[xfacts.distro.codename] is defined
+
+- set_fact:
+    _vbox_distro_codename: "{{ xfacts.distro.ubuntu_codename }}"
+  when: vbox_distrocodename_remapping[xfacts.distro.osfamily] is not defined

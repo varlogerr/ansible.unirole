@@ -1,0 +1,5 @@
+---
+vbox_distrocodename_remapping:
+  jessie: jessie
+  stretch: stretch
+  buster: bionic
