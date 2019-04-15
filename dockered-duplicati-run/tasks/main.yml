@@ -1,0 +1,33 @@
+---
+- set_fact:
+    _dockered_duplicati_env: {}
+
+- set_fact:
+    _dockered_duplicati_env: "{{ _dockered_duplicati_env | combine({
+      'PUID': dockered_duplicati_env.uid
+    }) }}"
+  when: dockered_duplicati_env.uid is defined
+
+- set_fact:
+    _dockered_duplicati_env: "{{ _dockered_duplicati_env | combine({
+      'PGID': dockered_duplicati_env.gid
+    }) }}"
+  when: dockered_duplicati_env.gid is defined
+
+- set_fact:
+    _dockered_duplicati_env: "{{ _dockered_duplicati_env | combine({
+      'TZ': dockered_duplicati_env.tz
+    }) }}"
+  when: dockered_duplicati_env.tz is defined
+
+- name: run docker duplicati:{{ dockered_duplicati_version }}
+  docker_container:
+    name: "{{ dockered_duplicati_container_name }}"
+    image: "linuxserver/duplicati:{{ dockered_duplicati_version }}"
+    state: started
+    restart_policy: "{{ dockered_duplicati_restart_policy }}"
+    network_mode: "{{ dockered_duplicati_network_mode }}"
+    ports: "{{ dockered_duplicati_ports }}"
+    env: "{{ _dockered_duplicati_env }}"
+    volumes: "{{ dockered_duplicati_volumes }}"
+  become: true # work around for https://github.com/ansible/ansible/issues/20604

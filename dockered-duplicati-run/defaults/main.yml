@@ -1,0 +1,8 @@
+---
+dockered_duplicati_env: {}
+dockered_duplicati_container_name: "{{xfacts.system.ansible_managed_prefix}}-duplicati"
+dockered_duplicati_version: amd64-v2.0.4.5-2.0.4.5_beta_2018-11-28-ls15
+dockered_duplicati_restart_policy: always
+dockered_duplicati_network_mode: host
+dockered_duplicati_ports: []
+dockered_duplicati_volumes: []
