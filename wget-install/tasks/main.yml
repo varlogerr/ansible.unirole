@@ -1,0 +1,5 @@
+---
+- block:
+  - name: install htop
+    package: name=wget state=present
+  become: true
