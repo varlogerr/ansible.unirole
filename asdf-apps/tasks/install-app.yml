@@ -2,33 +2,33 @@
 - fail: msg="asdf_apps.name is required"
   when: _asdf_apps_app.name is undefined
 
-- fail: msg="asdf_apps.version is required"
-  when: _asdf_apps_app.version is undefined
-
 - set_fact:
     _asdf_apps_app_name: "{{ _asdf_apps_app.name }}"
-- set_fact:
-    _asdf_apps_app_version: "{{ _asdf_apps_app.version }}"
 
 - set_fact:
     _asdf_apps_app_install_prefix: "{{ asdf_apps_install_prefixes[_asdf_apps_app_name] | default('') }}"
-
-- name: "install {{ _asdf_apps_app_name }} deps"
-  apt: name="{{ packages }}" install_recommends=no state=present
-  vars:
-    packages: "{{ asdf_apps_deps[_asdf_apps_app_name] }}"
-  when: asdf_apps_deps[_asdf_apps_app_name] is defined
-  become: true
 
 - name: "install {{ _asdf_apps_app_name }} plugin"
   command: "bash -lc 'asdf plugin-add {{ _asdf_apps_app_name }}'"
   args:
     creates: "{{ asdf_dir }}/plugins/{{ _asdf_apps_app_name }}"
 
-- name: "install {{ _asdf_apps_app_name }}:{{ _asdf_apps_app_version }}"
-  command: "bash -lc '{{ _asdf_apps_app_install_prefix }} asdf install {{ _asdf_apps_app_name }} {{ _asdf_apps_app_version }}'"
-  args:
-    creates: "{{ asdf_dir }}/installs/{{ _asdf_apps_app_name }}/{{ _asdf_apps_app_version }}"
+- block:
+  - set_fact:
+      _asdf_apps_app_version: "{{ _asdf_apps_app.version }}"
 
-- name: "set {{ _asdf_apps_app_name }}:{{ _asdf_apps_app_version }} as global"
-  command: "bash -lc 'asdf global {{ _asdf_apps_app_name }} {{ _asdf_apps_app_version }}'"
+  - name: "install {{ _asdf_apps_app_name }} deps"
+    apt: name="{{ packages }}" install_recommends=no state=present
+    vars:
+      packages: "{{ asdf_apps_deps[_asdf_apps_app_name] }}"
+    when: asdf_apps_deps[_asdf_apps_app_name] is defined
+    become: true
+
+  - name: "install {{ _asdf_apps_app_name }}:{{ _asdf_apps_app_version }}"
+    command: "bash -lc '{{ _asdf_apps_app_install_prefix }} asdf install {{ _asdf_apps_app_name }} {{ _asdf_apps_app_version }}'"
+    args:
+      creates: "{{ asdf_dir }}/installs/{{ _asdf_apps_app_name }}/{{ _asdf_apps_app_version }}"
+
+  - name: "set {{ _asdf_apps_app_name }}:{{ _asdf_apps_app_version }} as global"
+    command: "bash -lc 'asdf global {{ _asdf_apps_app_name }} {{ _asdf_apps_app_version }}'"
+  when: _asdf_apps_app.version is defined

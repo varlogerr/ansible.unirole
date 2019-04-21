@@ -8,7 +8,7 @@ Usage
   - role: asdf-apps
     asdf_apps: # optional. defaults to []
     - name: golang     # required
-      version: 1.11.4  # required
+      version: 1.11.4  # optional. If absent, only plugin will be installed
     - name: elixir
       version: 1.7.3
     - name: nodejs
