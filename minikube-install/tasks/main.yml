@@ -1,0 +1,15 @@
+---
+- include_tasks: uninstall-minikube.yml
+
+- block:
+  - name: install minikube:{{ minikube_release }}
+    get_url:
+      url: https://storage.googleapis.com/minikube/releases/{{ minikube_release }}/minikube-linux-amd64
+      dest: "{{ minikube_bin_path }}"
+      mode: 0755
+    register: _minikube_installed_result
+
+  - name: generate autocomplete
+    shell: "minikube completion bash > {{ minikube_autocomplete_path }}"
+    when: _minikube_installed_result.changed
+  become: true
