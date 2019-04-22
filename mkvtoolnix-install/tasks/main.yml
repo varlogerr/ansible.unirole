@@ -1,0 +1,19 @@
+---
+- block:
+  - name: add apt signing key
+    apt_key:
+      url: "https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt"
+      state: present
+
+  - name: add ppa
+    apt_repository:
+      repo: "deb http://mkvtoolnix.download/ubuntu/ {{ xfacts.distro.ubuntu_codename }} main"
+      filename: bunkus.org
+
+  - name: install mkvtoolnix
+    apt:
+      state: latest
+      name:
+        - mkvtoolnix
+        - mkvtoolnix-gui
+  become: true
