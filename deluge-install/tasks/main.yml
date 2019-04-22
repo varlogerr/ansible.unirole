@@ -1,0 +1,26 @@
+---
+- block:
+  - name: add apt signing key
+    apt_key:
+      id: 8EED8FB4A8E6DA6DFDF0192BC5E6A5ED249AD24C 
+      keyserver: hkp://keyserver.ubuntu.com:80
+      state: present
+    register: _deluge_apt_key_added
+    ignore_errors: yes
+
+  - name: add apt signing key
+    apt_key:
+      id: 8EED8FB4A8E6DA6DFDF0192BC5E6A5ED249AD24C 
+      keyserver: keyserver.ubuntu.com
+      state: present
+    when: _deluge_apt_key_added is failed
+
+  - name: add ppa
+    apt_repository: repo="{{ item }}" state=present
+    with_items:
+    - "deb http://ppa.launchpad.net/deluge-team/ppa/ubuntu {{ xfacts.distro.ubuntu_codename }} main"
+    - "deb-src http://ppa.launchpad.net/deluge-team/ppa/ubuntu {{ xfacts.distro.ubuntu_codename }} main"
+
+  - name: install deluge
+    apt: name=deluge state=latest
+  become: true
