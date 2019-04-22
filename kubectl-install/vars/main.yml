@@ -1,0 +1,2 @@
+---
+kubctl_autocomplete_path: /etc/bash_completion.d/kubectl
