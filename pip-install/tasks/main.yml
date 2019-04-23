@@ -1,4 +1,8 @@
 ---
 - name: install python-pip
-  package: name=python-pip state=present
+  package: name="{{ packages }}" state=present
+  vars:
+    packages:
+    - python-pip
+    - python-setuptools
   become: true
