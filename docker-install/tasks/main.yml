@@ -8,6 +8,15 @@
 - include_tasks: install-docker.redhat.yml
   when: xfacts.distro.osfamily == 'redhat'
 
-- name: start docker
-  service: name=docker state=started enabled=yes
+- block:
+  - name: start docker
+    service: name=docker state=started enabled=yes
+
+  - name: change defaults
+    lineinfile:
+      path: /etc/default/docker
+      line: "{{ item }}"
+      create: yes
+    with_items: "{{ docker_defaults }}"
+    notify: restart docker
   become: true
