@@ -1,0 +1,11 @@
+---
+- include_role: name=helper-launchpad-ppa
+  vars:
+    helper_launchpad_ppa:
+      ppa: alexx2000/doublecmd
+      fingerprint: 6CF401B78A9D7393F7F32E7510B3F6FDBE35DEDD
+  when: xfacts.distro.osfamily == 'debian'
+
+- name: install double commander
+  apt: name=doublecmd-gtk
+  become: true

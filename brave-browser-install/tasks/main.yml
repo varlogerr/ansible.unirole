@@ -1,0 +1,15 @@
+---
+- block:
+  - name: add apt signing key
+    apt_key:
+      url: https://brave-browser-apt-release.s3.brave.com/brave-core.asc
+      state: present
+
+  - name: add ppa
+    apt_repository:
+      repo: "deb [arch=amd64] https://brave-browser-apt-release.s3.brave.com/ {{ xfacts.distro.ubuntu_codename }} main"
+      filename: brave-browser
+
+  - name: install brave
+    apt: name="{{ brave_apps }}" state=present
+  become: true
