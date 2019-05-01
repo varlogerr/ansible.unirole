@@ -1,0 +1,5 @@
+---
+kubectx_bin_path: /usr/local/bin/kubectx
+kubectx_autocomplete_path: /etc/bash_completion.d/kubectx
+kubens_bin_path: /usr/local/bin/kubens
+kubens_autocomplete_path: /etc/bash_completion.d/kubens
