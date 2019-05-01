@@ -9,6 +9,7 @@ Usage
     asdf_apps: # optional. defaults to []
     - name: golang     # required
       version: 1.11.4  # optional. If absent, only plugin will be installed
+      globalize: true  # optional. set this version global
     - name: elixir
       version: 1.7.3
     - name: nodejs

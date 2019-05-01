@@ -1,4 +1,9 @@
 ---
+asdf_apps_completion_path:
+  kops: /etc/bash_completion.d/kops
+  kubectl: /etc/bash_completion.d/kubectl
+  minikube: /etc/bash_completion.d/minikube
+
 asdf_apps_install_prefixes:
   nodejs: NODEJS_CHECK_SIGNATURES=no
 

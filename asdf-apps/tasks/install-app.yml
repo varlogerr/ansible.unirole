@@ -29,6 +29,14 @@
     args:
       creates: "{{ asdf_dir }}/installs/{{ _asdf_apps_app_name }}/{{ _asdf_apps_app_version }}"
 
-  - name: "set {{ _asdf_apps_app_name }}:{{ _asdf_apps_app_version }} as global"
-    command: "bash -lc 'asdf global {{ _asdf_apps_app_name }} {{ _asdf_apps_app_version }}'"
+  - block:
+    - name: "set {{ _asdf_apps_app_name }}:{{ _asdf_apps_app_version }} as global"
+      command: "bash -lc 'asdf global {{ _asdf_apps_app_name }} {{ _asdf_apps_app_version }}'"
+
+    - include_tasks: "{{ item }}"
+      with_first_found:
+      - files:
+        - post-globalize/{{ _asdf_apps_app_name }}.yml
+        skip: true
+    when: _asdf_apps_app.globalize is defined and _asdf_apps_app.globalize
   when: _asdf_apps_app.version is defined
