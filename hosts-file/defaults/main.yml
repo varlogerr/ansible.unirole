@@ -1,2 +1,3 @@
 ---
 hosts_file_host_to_ip_map: {}
+hosts_file_current_to_localhost: false

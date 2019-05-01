@@ -6,5 +6,5 @@
 - include_tasks: add-host.yml
   vars:
     _hosts_file_domain: "{{ item.key }}"
-    _hosts_file_ip: "{{ item.value }}"
+    _hosts_file_ip: "{{ '127.0.0.1' if (inventory_hostname == item.key and hosts_file_current_to_localhost) else item.value }}"
   with_dict: "{{ hosts_file_host_to_ip_map }}"
