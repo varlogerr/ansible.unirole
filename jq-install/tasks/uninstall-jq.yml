@@ -1,0 +1,18 @@
+---
+- name: get installed version
+  command: jq --version warn=no
+  changed_when: false
+  failed_when: false
+  check_mode: false
+  register: _jq_installed_version_result
+
+- block:
+  - name: get installed version
+    set_fact:
+      _jq_installed_version: "{{ _jq_installed_version_result.stdout | regex_replace('^.*?(\\d+\\.\\d+)[^\\d]*$', '\\1') }}"
+
+  - name: uninstall jq:{{ _jq_installed_version }}
+    file: path="{{ jq_bin_path }}" state=absent
+    when: _jq_installed_version is version(jq_version, "!=")
+    become: true
+  when: _jq_installed_version_result.rc == 0

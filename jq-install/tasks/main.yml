@@ -1,0 +1,10 @@
+---
+- include_tasks: uninstall-jq.yml
+
+- block:
+  - name: install jq:{{ jq_version }}
+    get_url:
+      url: https://github.com/stedolan/jq/releases/download/jq-{{ jq_version }}/jq-linux64
+      dest: "{{ jq_bin_path }}"
+      mode: 0755
+  become: true

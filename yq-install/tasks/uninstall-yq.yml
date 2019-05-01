@@ -1,0 +1,18 @@
+---
+- name: get installed version
+  command: yq --version warn=no
+  changed_when: false
+  failed_when: false
+  check_mode: false
+  register: _yq_installed_version_result
+
+- block:
+  - name: get installed version
+    set_fact:
+      _yq_installed_version: "{{ _yq_installed_version_result.stdout | regex_replace('^.*?(\\d+\\.\\d+.\\d+)[^\\d]*$', '\\1') }}"
+
+  - name: uninstall yq:{{ _yq_installed_version }}
+    file: path="{{ yq_bin_path }}" state=absent
+    when: _yq_installed_version is version(yq_version, "!=")
+    become: true
+  when: _yq_installed_version_result.rc == 0
