@@ -1,0 +1,13 @@
+---
+- name: install awscli
+  pip:
+    executable: pip3
+    name: awscli
+    extra_args: --upgrade --user
+
+- name: add awscli to path
+  file:
+    src: "{{ xfacts.user.homedir }}/.local/bin/aws"
+    dest: "{{ aws_bin_path }}"
+    state: link
+  become: true
