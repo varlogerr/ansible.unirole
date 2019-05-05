@@ -2,3 +2,4 @@
 dependencies:
 - asdf-install
 - asdf-plugins-deps-install
+- curl-install
