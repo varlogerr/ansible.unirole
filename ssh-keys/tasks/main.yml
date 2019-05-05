@@ -1,0 +1,8 @@
+---
+- name: create ssh directory
+  file: path={{ ssh_keys_dir }} state=directory mode={{ ssh_keys_dir_mode }}
+
+- include_tasks: _create-key.yml
+  with_items: "{{ ssh_keys_list }}"
+  loop_control:
+    loop_var: _ssh_keys_key

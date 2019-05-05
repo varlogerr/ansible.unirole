@@ -1,0 +1,4 @@
+---
+ssh_keys_dir: "{{ xfacts.user.homedir }}/.ssh"
+ssh_keys_dir_mode: "0700"
+ssh_keys_config_file: "{{ ssh_keys_dir }}/config"

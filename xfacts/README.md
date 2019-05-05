@@ -25,6 +25,8 @@ xfacts:
     group: "..." # ansible user group
     homedir: "..." # ansible user home directory
   system: # system data
+    ansible_managed_text: '...' # text for ansible configured stuff
+    ansible_managed_pascal_case: '...' # pascal case text for ansible configured stuff
     ansible_managed_prefix: '...' # directory for ansible configured stuff
     ansible_managed_hidden_prefix: '...' # hidden directory for ansible configured stuff
     build_time: "..." # build time in Y-m-d_H-i-s format

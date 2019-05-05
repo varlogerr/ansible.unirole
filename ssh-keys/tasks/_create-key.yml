@@ -1,0 +1,30 @@
+---
+- name: create '{{ _ssh_keys_key.path | dirname }}' directory
+  file:
+    path: "{{ _ssh_keys_key.path | dirname }}"
+    state: directory
+    mode: "{{ ssh_keys_dir_mode }}"
+
+- name: create '{{ _ssh_keys_key.path }}.pub' public key
+  copy:
+    content: "{{ _ssh_keys_key.public }}"
+    dest: "{{ _ssh_keys_key.path }}.pub"
+    mode: 0644
+
+- name: create '{{ _ssh_keys_key.path }}' private key
+  copy:
+    content: "{{ _ssh_keys_key.private }}"
+    dest: "{{ _ssh_keys_key.path }}"
+    mode: 0600
+
+- name: add '{{ _ssh_keys_key.path }}' to ssh config
+  blockinfile:
+    path: "{{ ssh_keys_dir }}/config"
+    marker: "# [{mark}] {{ xfacts.system.ansible_managed_text }}"
+    marker_begin: "{{ _ssh_keys_key.path }} begin"
+    marker_end: "{{ _ssh_keys_key.path }} end"
+    create: yes
+    mode: 0600
+    content: "{{ _ssh_keys_key.config }}"
+  when: _ssh_keys_key.config is defined
+  register: output
