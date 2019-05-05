@@ -1,5 +1,6 @@
 ---
 asdf_apps_completion_path:
+  helm: /etc/bash_completion.d/helm
   kops: /etc/bash_completion.d/kops
   kubectl: /etc/bash_completion.d/kubectl
   minikube: /etc/bash_completion.d/minikube
