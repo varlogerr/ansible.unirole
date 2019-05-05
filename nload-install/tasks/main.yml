@@ -1,5 +1,4 @@
 ---
-- block:
-  - name: install nload
-    package: name=nload state=present
+- name: install nload
+  package: name=nload state=present
   become: true
