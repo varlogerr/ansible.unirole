@@ -1,0 +1,4 @@
+---
+ssh_utils:
+- openssh-client
+- openssh-server

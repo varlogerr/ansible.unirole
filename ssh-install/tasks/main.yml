@@ -1,0 +1,8 @@
+---
+- block:
+  - name: install openssh server and client
+    apt: name={{ ssh_utils }} state=present
+
+  - name: start ssh-server
+    service: name=ssh state=started enabled=yes
+  become: true
