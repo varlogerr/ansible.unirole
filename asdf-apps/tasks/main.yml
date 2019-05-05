@@ -1,7 +1,0 @@
----
-- include_tasks: install-app.yml
-  vars:
-    _asdf_apps_app: "{{ _asdf_apps_item }}"
-  with_items: "{{ asdf_apps }}"
-  loop_control:
-    loop_var: _asdf_apps_item

@@ -1,6 +1,6 @@
 ---
 - name: install common asdf plugins dependencies
-  apt: name="{{ packages }}" install_recommends=no state=latest
+  apt: name="{{ packages }}" install_recommends=no state=present
   vars:
     packages:
       - autoconf
