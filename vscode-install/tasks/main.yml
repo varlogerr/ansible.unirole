@@ -1,2 +1,3 @@
 ---
 - include_tasks: "main.{{ xfacts.distro.osfamily }}.yml"
+- include_tasks: install-extensions.yml

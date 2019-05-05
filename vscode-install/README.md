@@ -6,6 +6,7 @@ Usage
 # ...
   roles:
   - role: vscode-install
+    vscode_extensions: []
 # ...
 ```
 
