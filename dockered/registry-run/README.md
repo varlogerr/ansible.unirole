@@ -7,7 +7,7 @@ Usage
 ---
 # ...
   roles:
-  - role: dockered-registry-install
+  - role: dockered/registry-install
     dockered_registry_container_name: myregistry # optional. defaults to "{{xfacts.system.ansible_managed_prefix}}-registry"
     dockered_registry_version: "2.6" # optional. defaults to "2.7"
     dockered_registry_restart_policy: unless-stopped # optional. defaults to "always"

@@ -1,6 +1,6 @@
 Demo usage:
 ```
-- name: dockered-deluge-build
+- name: dockered/deluge-build
   dockered_deluge_image_name: dockered-deluge # optional. defaults to "{{ xfacts.system.ansible_managed_prefix }}-deluge"
 ```
 

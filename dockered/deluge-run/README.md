@@ -2,7 +2,7 @@ Demo usage
 ```
 # ...
   roles:
-  - role: dockered-deluge-run
+  - role: dockered/deluge-run
     dockered_deluge_network_mode: bridge # optional. defaults to host
     dockered_deluge_publish_ports: # optional. defaults to []
     - 8112:8112

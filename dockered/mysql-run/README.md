@@ -8,7 +8,7 @@ Usage
 ```
 # ...
   roles:
-  - role: dockered-mysql-run
+  - role: dockered/mysql-run
     dockered_mysql_container_name: mysql # optional. defaults to "{{xfacts.system.ansible_managed_prefix}}-mysql"
     dockered_mysql_image: mysql:8.0.15 # optional. defaults to mariadb:10.3.14
     dockered_mysql_restart_policy: unless-stopped # optional. defaults to always

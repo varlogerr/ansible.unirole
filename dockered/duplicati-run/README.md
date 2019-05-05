@@ -7,7 +7,7 @@ Usage
 ---
 # ...
   roles:
-  - role: dockered-duplicati-run
+  - role: dockered/duplicati-run
     dockered_duplicati_env: {uid: "1000", gid: "1000", tz: Europe/London} # optional. defaults to {}
     dockered_duplicati_container_name: duplicati # optional. defaults to "{{xfacts.system.ansible_managed_prefix}}-duplicati"
     dockered_duplicati_version: latest # optional. defaults to amd64-v2.0.4.5-2.0.4.5_beta_2018-11-28-ls15

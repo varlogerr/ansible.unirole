@@ -6,7 +6,7 @@ Usage
 ```
 # ...
   roles:
-  - role: dockered-nexus-run
+  - role: dockered/nexus-run
     dockered_nexus_container_name: mynexus # optional. defaults to "{{xfacts.system.ansible_managed_prefix}}-nexus"
     dockered_nexus_version: 3.14.0 # optional. defaults to 3.15.2
     dockered_nexus_restart_policy: unless-stopped # optional. defaults to "always"

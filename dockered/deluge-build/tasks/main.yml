@@ -3,6 +3,6 @@
   vars:
     docker_image:
       name: "{{ dockered_deluge_image_name }}"
-      local_src: "{{ role_path }}/../dockered-deluge-build/files/deluge"
+      local_src: "{{ role_path }}/../dockered/deluge-build/files/deluge"
       remote_src: "{{ dockered_deluge_remote_src }}"
       dockerfile: Dockerfile

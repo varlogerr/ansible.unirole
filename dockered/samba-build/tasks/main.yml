@@ -3,6 +3,6 @@
   vars:
     docker_image:
       name: "{{ dockered_samba_image_name }}"
-      local_src: "{{ role_path }}/../dockered-samba-build/files/samba"
+      local_src: "{{ role_path }}/../dockered/samba-build/files/samba"
       remote_src: "{{ dockered_samba_remote_src }}"
       dockerfile: Dockerfile-alpine

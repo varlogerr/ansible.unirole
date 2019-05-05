@@ -2,7 +2,7 @@ Demo usage
 ```
 # ...
   roles:
-  - role: dockered-samba-run
+  - role: dockered/samba-run
     dockered_samba_network_mode: bridge # optional. defaults to host
     dockered_samba_publish_ports: # optional. defaults to []
     - 445:445

@@ -1,4 +1,4 @@
 ---
 dependencies:
-- dockered-deluge-build
+- dockered/deluge-build
 - xfacts

@@ -6,7 +6,7 @@ Usage
 ```
 # ...
   roles:
-  - role: dockered-cms-strapi-run
+  - role: dockered/cms-strapi-run
     dockered_strapi_container_name: mystrapi # optional. defaults to  "{{xfacts.system.ansible_managed_prefix}}-strapi"
     dockered_strapi_image_tag: 3.9.2-php7.2-apache # optional. defaults to 3.9.2-php7.3-apache
     dockered_strapi_restart_policy: unless-stopped # optional. defaults always
