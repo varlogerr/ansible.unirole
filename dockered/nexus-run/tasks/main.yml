@@ -1,4 +1,11 @@
 ---
+- set_fact:
+    _dockered_nexus_volumes: []
+
+- set_fact:
+    _dockered_nexus_volumes: ["{{ dockered_nexus_host_data_dir }}:/nexus-data"]
+  when: dockered_nexus_host_data_dir is defined
+
 - name: run docker nexus:{{ dockered_nexus_version }}
   docker_container:
     name: "{{ dockered_nexus_container_name }}"
@@ -7,4 +14,5 @@
     restart_policy: "{{ dockered_nexus_restart_policy }}"
     network_mode: "{{ dockered_nexus_network_mode }}"
     ports: "{{ dockered_nexus_ports }}"
+    volumes: "{{ _dockered_nexus_volumes }}"
   become: true # work around for https://github.com/ansible/ansible/issues/20604
