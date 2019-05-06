@@ -19,4 +19,11 @@
       create: yes
     with_items: "{{ docker_defaults }}"
     notify: restart docker
+
+  - name: create '{{ docker_group }}' group
+    group: name={{ docker_group }} state=present
+
+  - name: add users to '{{ docker_group }}' group
+    user: name="{{ item }}" groups={{ docker_group }} append=yes
+    loop: "{{ docker_group_users }}"
   become: true
