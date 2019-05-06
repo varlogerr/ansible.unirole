@@ -1,6 +1,6 @@
 Demo usage:
 ```
-- name: dockered-samba-build
+- name: dockered/samba-build
   dockered_samba_image_name: dockered-samba # optional. defaults to "{{ xfacts.system.ansible_managed_prefix }}-samba"
 ```
 
