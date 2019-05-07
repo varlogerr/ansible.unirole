@@ -1,0 +1,20 @@
+---
+- block:
+  - name: install tmux
+    package: name=tmux state=present
+
+  - name: install tmux bash completion
+    get_url:
+      url: https://raw.githubusercontent.com/imomaliev/tmux-bash-completion/master/completions/tmux
+      dest: "{{ tmux_bash_completion_path }}"
+      mode: 0644
+  become: true
+
+- name: apply configurations
+  lineinfile:
+    dest: "{{ xfacts.user.homedir }}/.tmux.conf"
+    create: yes
+    mode: 0644
+    line: "{{ item }}"
+    insertafter: EOF
+  loop: "{{ tmux_settings }}"
