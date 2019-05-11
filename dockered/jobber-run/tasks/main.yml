@@ -1,0 +1,12 @@
+---
+- name: run docker jobber:{{ dockered_jobber_version }}
+  docker_container:
+    name: "{{ dockered_jobber_container_name }}"
+    image: "blacklabelops/jobber:{{ dockered_jobber_version }}"
+    state: started
+    restart_policy: "{{ dockered_jobber_restart_policy }}"
+    network_mode: "{{ dockered_jobber_network_mode }}"
+    ports: "{{ dockered_jobber_ports }}"
+    env: "{{ dockered_jobber_env }}"
+    volumes: "{{ dockered_jobber_volumes }}"
+  become: true # work around for https://github.com/ansible/ansible/issues/20604

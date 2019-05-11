@@ -1,0 +1,8 @@
+---
+dockered_jobber_env: {}
+dockered_jobber_container_name: "{{xfacts.system.ansible_managed_prefix}}-jobber"
+dockered_jobber_version: v1.2
+dockered_jobber_restart_policy: always
+dockered_jobber_network_mode: host
+dockered_jobber_ports: []
+dockered_jobber_volumes: []
