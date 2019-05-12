@@ -1,10 +1,15 @@
 FROM alpine:3.9
 LABEL maintainer="Varlog <varlog.err@gmail.com>"
 
-ENV APP_USER=app \
-    APP_USER_ID=1000 \
-    APP_GROUP=app \
-    APP_GROUP_ID=1000 \
+ARG APP_USER_DEFAULT=app
+ARG APP_USER_ID_DEFAULT=1000
+ARG APP_GROUP_DEFAULT=app
+ARG APP_GROUP_ID_DEFAULT=1000
+
+ENV APP_USER=${APP_USER_DEFAULT} \
+    APP_USER_ID=${APP_USER_ID_DEFAULT} \
+    APP_GROUP=${APP_GROUP_DEFAULT} \
+    APP_GROUP_ID=${APP_GROUP_ID_DEFAULT} \
     APP_DIR=/app \
     SAMBA_CONF_DIR=/etc/samba
 
@@ -13,12 +18,11 @@ ENV SAMBA_CONF=${SAMBA_CONF_DIR}/smb.conf \
 
 RUN : \
     # install tini and bash
-    && apk --no-cache upgrade \
-    && apk --no-cache add tini bash coreutils \
+    && apk --no-cache --update add tini bash coreutils \
     # install supervisor
-    && apk --no-cache add supervisor \
+    supervisor \
     #  install samba
-    && apk --no-cache add samba \
+    samba \
     # create app user and group
     && addgroup -g ${APP_GROUP_ID} ${APP_GROUP} \
     && adduser -D -H -G ${APP_GROUP} -s /bin/false -u ${APP_USER_ID} ${APP_USER} \
