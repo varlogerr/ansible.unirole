@@ -1,0 +1,4 @@
+---
+- name: install bup
+  apt: name=bup state=present
+  become: true
