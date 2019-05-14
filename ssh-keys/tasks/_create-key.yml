@@ -6,14 +6,14 @@
     mode: "{{ ssh_keys_dir_mode }}"
 
 - name: create '{{ _ssh_keys_key.path }}.pub' public key
-  copy:
-    content: "{{ _ssh_keys_key.public }}"
+  template:
+    src: "{{ _ssh_keys_key.public_file }}"
     dest: "{{ _ssh_keys_key.path }}.pub"
     mode: 0644
 
 - name: create '{{ _ssh_keys_key.path }}' private key
   copy:
-    content: "{{ _ssh_keys_key.private }}"
+    src: "{{ _ssh_keys_key.private_file }}"
     dest: "{{ _ssh_keys_key.path }}"
     mode: 0600
 
