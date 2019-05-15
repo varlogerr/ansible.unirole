@@ -1,24 +1,24 @@
 ---
 - block:
-  - name: install kubectx
+  - name: install kubectx:{{ kubectx_version }}
     get_url:
       url: https://raw.githubusercontent.com/ahmetb/kubectx/v{{ kubectx_version }}/kubectx
       dest: "{{ kubectx_bin_path }}"
       mode: 0755
   
-  - name: install kubectx completion
+  - name: install kubectx:{{ kubectx_version }} completion
     get_url:
       url: https://raw.githubusercontent.com/ahmetb/kubectx/v{{ kubectx_version }}/completion/kubectx.bash
       dest: "{{ kubectx_autocomplete_path }}"
       mode: 0644
 
-  - name: install kubens
+  - name: install kubens:{{ kubectx_version }}
     get_url:
       url: https://raw.githubusercontent.com/ahmetb/kubectx/v{{ kubectx_version }}/kubens
       dest: "{{ kubens_bin_path }}"
       mode: 0755
   
-  - name: install kubens completion
+  - name: install kubens:{{ kubectx_version }} completion
     get_url:
       url: https://raw.githubusercontent.com/ahmetb/kubectx/v{{ kubectx_version }}/completion/kubens.bash
       dest: "{{ kubens_autocomplete_path }}"
