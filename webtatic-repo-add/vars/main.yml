@@ -1,0 +1,2 @@
+---
+webtatic_repo_rpm_url: "https://mirror.webtatic.com/yum/el{{ xfacts.distro.major_version }}/webtatic-release.rpm"

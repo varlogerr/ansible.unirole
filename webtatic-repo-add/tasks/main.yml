@@ -1,0 +1,7 @@
+---
+- name: install webtatic repo
+  yum:
+    name: "{{ webtatic_repo_rpm_url }}"
+    state: present
+  when: xfacts.distro.osfamily == 'redhat'
+  become: true
