@@ -1,0 +1,22 @@
+---
+- name: get installed version
+  command: "{{ kubectl_bin_path }} version --short=true"
+  changed_when: false
+  failed_when: false
+  check_mode: false
+  register: _kubectl_installed_version_result
+
+- block:
+  - name: get installed version
+    set_fact:
+      _kubectl_installed_version: "{{ _kubectl_installed_version_result.stdout | regex_replace('^.*?(\\d+\\.\\d+\\.\\d+)[^\\d].*$', '\\1') }}"
+
+  - block:
+    - name: uninstall kubectl:{{ _kubectl_installed_version }}
+      file: path="{{ kubectl_bin_path }}" state=absent
+
+    - name: uninstall kubectl:{{ _kubectl_installed_version }} bash completion
+      file: path="{{ kubectl_autocomplete_path }}" state=absent
+    when: _kubectl_installed_version is version(kubectl_version, "!=")
+    become: true
+  when: _kubectl_installed_version_result.stdout is defined

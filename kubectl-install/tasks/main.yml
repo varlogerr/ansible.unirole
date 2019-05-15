@@ -1,21 +1,15 @@
 ---
+- include_tasks: uninstall-kubectl.yml
+
 - block:
-  - name: add apt-key
-    apt_key:
-      url: "https://packages.cloud.google.com/apt/doc/apt-key.gpg"
-      state: present
-
-  - name: add ppa
-    apt_repository:
-      repo: "deb https://apt.kubernetes.io/ kubernetes-xenial main"
-      filename: kubernetes
-      state: present
-
-  - name: install kubectl
-    apt: name=kubectl state=latest
+  - name: install kubectl:{{ kubectl_version }}
+    get_url:
+      url: "https://storage.googleapis.com/kubernetes-release/release/v{{ kubectl_version }}/bin/linux/amd64/kubectl"
+      dest: "{{ kubectl_bin_path }}"
+      mode: 0755
     register: _kubectl_installed_result
 
   - name: create autocomplete
-    shell: "kubectl completion bash > {{ kubctl_autocomplete_path }}"
+    shell: "{{ kubectl_bin_path }} completion bash > {{ kubectl_autocomplete_path }}"
     when: _kubectl_installed_result.changed
   become: true
