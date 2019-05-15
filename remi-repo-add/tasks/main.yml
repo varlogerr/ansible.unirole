@@ -1,0 +1,13 @@
+---
+- block:
+  - name: install remi repo
+    yum:
+      name: "{{ remi_repo_url }}"
+      state: present
+
+  - name: import remi gpg key
+    rpm_key:
+      key: "{{ remi_repo_gpg_key_url }}"
+      state: present
+  when: xfacts.distro.osfamily == 'redhat'
+  become: true
