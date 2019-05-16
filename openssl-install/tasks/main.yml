@@ -1,0 +1,4 @@
+---
+- name: install openssl
+  package: name=openssl state=present
+  become: true
