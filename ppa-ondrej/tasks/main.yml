@@ -1,0 +1,26 @@
+---
+- block:
+  - name: add apt signing key
+    apt_key:
+      id: 14AA40EC0831756756D7F66C4F4EA0AAE5267A6C
+      keyserver: hkp://keyserver.ubuntu.com:80
+      state: present
+    register: _ppa_ondrej_apt_key_added
+    ignore_errors: yes
+
+  - name: add apt signing key
+    apt_key:
+      id: 14AA40EC0831756756D7F66C4F4EA0AAE5267A6C
+      keyserver: keyserver.ubuntu.com
+      state: present
+    when: _ppa_ondrej_apt_key_added is failed
+
+  - name: add ppa
+    apt_repository:
+      repo: "{{ item }}"
+      filename: ondrej
+    loop:
+      - "deb http://ppa.launchpad.net/ondrej/php/ubuntu {{ xfacts.distro.ubuntu_codename }} main"
+      - "deb-src http://ppa.launchpad.net/ondrej/php/ubuntu {{ xfacts.distro.ubuntu_codename }} main"
+  become: true
+  when: xfacts.distro.osfamily == 'debian'

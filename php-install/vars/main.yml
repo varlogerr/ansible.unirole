@@ -1,0 +1,3 @@
+---
+php_no_ver_extensions:
+  - xdebug

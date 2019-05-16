@@ -1,0 +1,7 @@
+---
+- include_tasks: install-php-{{ xfacts.distro.osfamily }}.yml
+- include_tasks: install-composer.yml
+- include_tasks: install-extension-{{ xfacts.distro.osfamily }}.yml
+  vars:
+    _php_extension: "{{ item }}"
+  loop: "{{ php_extensions }}"

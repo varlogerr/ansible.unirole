@@ -1,0 +1,10 @@
+---
+- block:
+  - name: "install php{{ php_version }}-{{ _php_extension }} extension"
+    apt: name="php{{ php_version }}-{{ _php_extension }}" state=present
+    when: php_extension not in php_no_ver_extensions
+
+  - name: "install php-{{ _php_extension }} extension"
+    apt: name="php{{ php_version }}-{{ _php_extension }}" state=present
+    when: php_extension in php_no_ver_extensions
+  become: true
