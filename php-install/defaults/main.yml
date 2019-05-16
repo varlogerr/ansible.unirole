@@ -2,3 +2,4 @@
 php_version: "7.3"
 php_install_composer: false
 php_extensions: []
+php_pecl_extensions: []

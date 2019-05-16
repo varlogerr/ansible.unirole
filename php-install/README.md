@@ -17,5 +17,8 @@ Usage
       - pdo
       - xml
       - zip
+    php_pecl_extensions:
+      - xdebug
+      - redis
 # ...
 ```

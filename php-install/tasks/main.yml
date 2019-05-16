@@ -5,3 +5,7 @@
   vars:
     _php_extension: "{{ item }}"
   loop: "{{ php_extensions }}"
+- include_tasks: install-pecl-extension-{{ xfacts.distro.osfamily }}.yml
+  vars:
+    _php_pecl_extension: "{{ item }}"
+  loop: "{{ php_pecl_extensions }}"
