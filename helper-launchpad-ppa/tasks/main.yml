@@ -1,49 +1,50 @@
 ---
-- fail: msg="helper_launchpad_ppa.ppa is required"
-  when: helper_launchpad_ppa.ppa is undefined
-
-- fail: msg="helper_launchpad_ppa.fingerprint is required for ppa {{ helper_launchpad_ppa.ppa }}"
-  when: helper_launchpad_ppa.fingerprint is undefined
-
-- name: override defaults
-  set_fact:
-    _helper_launchpad_ppa:
-      ppa: "{{ helper_launchpad_ppa.ppa }}"
-      fingerprint: "{{ helper_launchpad_ppa.fingerprint }}"
-      ubuntu_codename: "{{ helper_launchpad_ppa.ubuntu_codename | default(_helper_launchpad_ppa_defaults.ubuntu_codename) }}"
-
 - block:
-  - name: add '{{ _helper_launchpad_ppa.ppa }}' apt fingerprint
-    apt_key:
-      id: "{{ _helper_launchpad_ppa.fingerprint }}"
-      keyserver: hkp://keyserver.ubuntu.com:80
-      state: present
-    register: _helper_launchpad_ppa_apt_key_added
-    ignore_errors: yes
+  - fail: msg="helper_launchpad_ppa.ppa is required"
+    when: helper_launchpad_ppa.ppa is undefined
 
-  - name: add '{{ _helper_launchpad_ppa.ppa }}' apt fingerprint
-    apt_key:
-      id: "{{ _helper_launchpad_ppa.fingerprint }}"
-      keyserver: keyserver.ubuntu.com
-      state: present
-    when: _helper_launchpad_ppa_apt_key_added is failed
+  - fail: msg="helper_launchpad_ppa.fingerprint is required for ppa {{ helper_launchpad_ppa.ppa }}"
+    when: helper_launchpad_ppa.fingerprint is undefined
 
-  - name: add '{{ _helper_launchpad_ppa.ppa }}' apt list
-    apt_repository:
-      repo: "{{ item }}"
-      filename: "{{ helper_launchpad_ppa.listname }}"
-      state: present
-    with_items:
-    - "deb http://ppa.launchpad.net/{{ _helper_launchpad_ppa.ppa }}/ubuntu {{ _helper_launchpad_ppa.ubuntu_codename }} main"
-    - "deb-src http://ppa.launchpad.net/{{ _helper_launchpad_ppa.ppa }}/ubuntu {{ _helper_launchpad_ppa.ubuntu_codename }} main"
-    when: helper_launchpad_ppa.listname is defined
-  
-  - name: add '{{ _helper_launchpad_ppa.ppa }}' apt list
-    apt_repository:
-      repo: "{{ item }}"
-      state: present
-    with_items:
-    - "deb http://ppa.launchpad.net/{{ _helper_launchpad_ppa.ppa }}/ubuntu {{ _helper_launchpad_ppa.ubuntu_codename }} main"
-    - "deb-src http://ppa.launchpad.net/{{ _helper_launchpad_ppa.ppa }}/ubuntu {{ _helper_launchpad_ppa.ubuntu_codename }} main"
-    when: helper_launchpad_ppa.listname is undefined
-  become: true
+  - set_fact:
+      _helper_launchpad_ppa:
+        ppa: "{{ helper_launchpad_ppa.ppa }}"
+        fingerprint: "{{ helper_launchpad_ppa.fingerprint }}"
+        ubuntu_codename: "{{ helper_launchpad_ppa.ubuntu_codename | default(xfacts.distro.ubuntu_codename) }}"
+
+  - block:
+    - name: add '{{ _helper_launchpad_ppa.ppa }}' apt fingerprint
+      apt_key:
+        id: "{{ _helper_launchpad_ppa.fingerprint }}"
+        keyserver: hkp://keyserver.ubuntu.com:80
+        state: present
+      register: _helper_launchpad_ppa_apt_key_added
+      ignore_errors: yes
+
+    - name: add '{{ _helper_launchpad_ppa.ppa }}' apt fingerprint
+      apt_key:
+        id: "{{ _helper_launchpad_ppa.fingerprint }}"
+        keyserver: keyserver.ubuntu.com
+        state: present
+      when: _helper_launchpad_ppa_apt_key_added is failed
+
+    - name: add '{{ _helper_launchpad_ppa.ppa }}' apt list
+      apt_repository:
+        repo: "{{ item }}"
+        filename: "{{ helper_launchpad_ppa.listname }}"
+        state: present
+      with_items:
+      - "deb http://ppa.launchpad.net/{{ _helper_launchpad_ppa.ppa }}/ubuntu {{ _helper_launchpad_ppa.ubuntu_codename }} main"
+      - "deb-src http://ppa.launchpad.net/{{ _helper_launchpad_ppa.ppa }}/ubuntu {{ _helper_launchpad_ppa.ubuntu_codename }} main"
+      when: helper_launchpad_ppa.listname is defined
+    
+    - name: add '{{ _helper_launchpad_ppa.ppa }}' apt list
+      apt_repository:
+        repo: "{{ item }}"
+        state: present
+      with_items:
+      - "deb http://ppa.launchpad.net/{{ _helper_launchpad_ppa.ppa }}/ubuntu {{ _helper_launchpad_ppa.ubuntu_codename }} main"
+      - "deb-src http://ppa.launchpad.net/{{ _helper_launchpad_ppa.ppa }}/ubuntu {{ _helper_launchpad_ppa.ubuntu_codename }} main"
+      when: helper_launchpad_ppa.listname is undefined
+    become: true
+  when: xfacts.distro.osfamily == 'debian'
