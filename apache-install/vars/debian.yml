@@ -1,3 +1,5 @@
 ---
 apache_package_name: apache2
 apache_service_name: apache2
+
+apache_server_root: /etc/apache2

@@ -8,7 +8,18 @@
   - name: start apache
     service: name={{ apache_service_name }} state=started enabled=yes
 
-  - name: install modules
-    package: name={{ apache_modules }} state=present
+  - name: enable modules
+    package: name="mod_{{ item }}" state=present
     notify: restart apache
+    loop: "{{ apache_modules }}"
+    when: xfacts.distro.osfamily == 'redhat'
+
+  - name: enable modules
+    file:
+      src: "{{ apache_server_root }}/mods-available/{{ item }}.load"
+      dest: "{{ apache_server_root }}/mods-enabled/{{ item }}.load"
+      state: link
+    notify: restart apache
+    loop: "{{ apache_modules }}"
+    when: xfacts.distro.osfamily == 'debian'
   become: yes
