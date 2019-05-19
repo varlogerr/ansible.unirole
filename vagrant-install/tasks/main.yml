@@ -1,7 +1,4 @@
 ---
-- block:
-
-  - name: install vagrant
-    apt: deb="https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_x86_64.deb"
-
+- name: install vagrant:{{ vagrant_version }}
+  apt: deb="https://releases.hashicorp.com/vagrant/{{ vagrant_version }}/vagrant_{{ vagrant_version }}_x86_64.deb"
   become: true
