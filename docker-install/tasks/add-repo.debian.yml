@@ -1,0 +1,16 @@
+---
+- include_vars: debian.yml
+  when: xfacts.distro.name == 'debian'
+
+- include_vars: ubuntu.yml
+  when: xfacts.distro.name != 'debian'
+
+- block:
+  - name: add apt signing key
+    apt_key: url="https://download.docker.com/linux/{{ docker_distro_name }}/gpg" state=present
+
+  - name: add apt list
+    apt_repository:
+      repo: "deb [arch=amd64] https://download.docker.com/linux/{{ docker_distro_name }} {{ docker_distro_codename }} stable"
+      filename: docker
+  become: true

@@ -1,14 +1,14 @@
 ---
-- include_tasks: install-docker.debian.yml
-  when: xfacts.distro.name == 'debian'
+- include_tasks: add-repo.debian.yml
+  when: xfacts.distro.osfamily == 'debian'
 
-- include_tasks: install-docker.ubuntu.yml
-  when: (xfacts.distro.osfamily == 'debian') and (xfacts.distro.name != 'debian')
-
-- include_tasks: install-docker.redhat.yml
+- include_tasks: add-repo.redhat.yml
   when: xfacts.distro.osfamily == 'redhat'
 
 - block:
+  - name: install docker
+    package: name=docker-ce state=present
+
   - name: start docker
     service: name=docker state=started enabled=yes
 

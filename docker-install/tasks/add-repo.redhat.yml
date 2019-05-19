@@ -12,7 +12,4 @@
       owner: root
       group: root
       mode: 0644
-
-  - name: install docker
-    yum: name=docker-ce state=present
   become: true
