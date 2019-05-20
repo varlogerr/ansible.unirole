@@ -1,0 +1,6 @@
+---
+- include_vars: "{{ xfacts.distro.osfamily }}.yml"
+
+- name: install common asdf plugins dependencies
+  package: name="{{ asdf_common_plugins_deps + asdf_plugins_deps }}" state=present
+  become: true

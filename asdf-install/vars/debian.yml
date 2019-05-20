@@ -1,0 +1,9 @@
+---
+asdf_plugins_deps:
+  - libncurses5-dev
+  - libffi-dev
+  - libreadline-dev
+  - libtool
+  - libssl-dev
+  - libxslt-dev
+  - libyaml-dev

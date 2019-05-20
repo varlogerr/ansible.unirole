@@ -1,4 +1,19 @@
 ---
+asdf_repo: https://github.com/asdf-vm/asdf.git
+
+asdf_common_plugins_deps:
+  - autoconf
+  - automake
+  - git
+  - gcc
+  - curl
+  - libtool
+  - make
+  - unzip
+  # - unixodbc-dev
+
+asdf_path: "{{ asdf_dir }}/bin/asdf"
+
 asdf_apps_completion_path:
   helm: /etc/bash_completion.d/helm
   kops: /etc/bash_completion.d/kops
@@ -6,10 +21,28 @@ asdf_apps_completion_path:
   minikube: /etc/bash_completion.d/minikube
 
 asdf_apps_install_prefixes:
+  erlang: KERL_BUILD_DOCS=yes
   nodejs: NODEJS_CHECK_SIGNATURES=no
 
 asdf_apps_deps:
   erlang:
-  - libgl1-mesa-dev
-  - libwxgtk3.0-dev
-  - m4
+    redhat:
+      - erlang-odbc.x86_64
+      - java-1.8.0-openjdk-devel
+      - libiodbc
+      - libxslt
+      - openssl-devel
+      - unixODBC.x86_64
+      - wxBase3
+      - wxGTK3-devel
+    debian:
+      - build-essential
+      - fop
+      - libgl1-mesa-dev
+      - libglu1-mesa-dev
+      - libpng-dev
+      - libssh-dev
+      - libwxgtk3.0-dev
+      - m4
+      - unixodbc-dev
+      - xsltproc

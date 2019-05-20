@@ -1,0 +1,7 @@
+---
+asdf_plugins_deps:
+  - binutils
+  - gcc-c++
+  - patch
+  - pkgconfig
+  - readline-devel

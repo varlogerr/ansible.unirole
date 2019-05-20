@@ -1,0 +1,4 @@
+---
+- name: "install {{ _asdf_app.name }} deps"
+  package: name="{{ asdf_apps_deps[_asdf_app.name][xfacts.distro.osfamily] }}" state=present
+  become: true

@@ -1,6 +1,6 @@
 Install asdf vm and apps
 
-Github https://github.com/asdf-vm/asdf
+[Github][asdf-github]
 
 Usage
 ```
@@ -11,18 +11,40 @@ Usage
     asdf_version: v0.6.3 # optional. defaults to v0.7.1
     asdf_dir: "{{ xfacts.user.homedir }}/.myasdf" # optional. defaults to "{{ xfacts.user.homedir }}/.asdf"
     asdf_apps: # optional. defaults to []
-    - name: golang     # required
-      version: 1.11.4  # optional. If absent, only plugin will be installed
-      globalize: true  # optional. set this version global
+    - name: erlang     # required
+      versions:        # optional. If absent or empty [], only plugin will be installed
+      - "22.0"
+      global: "22.0"   # optional. set global version
     - name: elixir
-      version: 1.7.3
+      versions:
+      - 1.8.2
+    - name: golang
+      versions:
+      - 1.12.5
+      global: 1.12.5
     - name: nodejs
-      version: 10.15.0
+      versions:
+      - 10.15.3
+      - 12.2.0
+      global: 10.15.3
     - name: rebar
-      version: 3.6.0
+      versions:
+      - 3.9.1
 # ...
 ```
 
-dependencies:
-- git-install
-- xfacts
+Known issues:  
+- [Unable to compile Erlang with wx][erlang memory leak]. Solution - increase memory  
+- [Unable to install node][node-checksum]. Solution - implemented in the role as prepending `asdf install` with `NODEJS_CHECK_SIGNATURES=no`. Impact: signing key security goes to `/dev/null`, so don't use in prod
+
+Articles:  
+- [Installing Erlang,Cowboy on Amazon EC2, Detailed Steps With Commands (CentOS)][erlang on amazon centos]  
+- [Erlang and Elixir: Managing Multiple versions with asdf (Ubuntu)][erlang and elixir with asdf ubuntu]  
+- [asdf erlang readme][asdf erlang readme]  
+
+[asdf-github]: https://github.com/asdf-vm/asdf
+[erlang memory leak]: https://github.com/asdf-vm/asdf-erlang/issues/91
+[node-checksum]: https://github.com/asdf-vm/asdf-nodejs/issues/82
+[erlang on amazon centos]: https://medium.com/@tojeevansingh/when-i-stopped-scripting-and-started-implementing-begun-with-installing-erlang-cowboy-on-amazon-fca282dc8ee
+[erlang and elixir with asdf ubuntu]: https://adhikary.net/2018/04/14/erlang-and-elixir-managing-multiple-versions-with-asdf/
+[asdf erlang readme]: https://github.com/asdf-vm/asdf-erlang/blob/master/README.md

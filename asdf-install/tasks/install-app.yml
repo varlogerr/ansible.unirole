@@ -1,42 +1,36 @@
 ---
 - fail: msg="asdf_apps.name is required"
-  when: _asdf_apps_app.name is undefined
+  when: _asdf_app.name is undefined
 
 - set_fact:
-    _asdf_apps_app_name: "{{ _asdf_apps_app.name }}"
+    _asdf_app_install_prefix: "{{ asdf_apps_install_prefixes[_asdf_app.name] | default('') }}"
 
-- set_fact:
-    _asdf_apps_app_install_prefix: "{{ asdf_apps_install_prefixes[_asdf_apps_app_name] | default('') }}"
-
-- name: "install {{ _asdf_apps_app_name }} plugin"
-  command: "bash -lc 'asdf plugin-add {{ _asdf_apps_app_name }}'"
+- name: "install {{ _asdf_app.name }} plugin"
+  command: "bash -lc '{{ asdf_path }} plugin-add {{ _asdf_app.name }}'"
   args:
-    creates: "{{ asdf_dir }}/plugins/{{ _asdf_apps_app_name }}"
+    creates: "{{ asdf_dir }}/plugins/{{ _asdf_app.name }}"
 
 - block:
-  - set_fact:
-      _asdf_apps_app_version: "{{ _asdf_apps_app.version }}"
+  - include_tasks: "{{ item }}"
+    with_first_found:
+    - files:
+      - pre-app/{{ _asdf_app.name }}.yml
+      - pre-app/default.yml
 
-  - name: "install {{ _asdf_apps_app_name }} deps"
-    apt: name="{{ packages }}" install_recommends=no state=present
-    vars:
-      packages: "{{ asdf_apps_deps[_asdf_apps_app_name] }}"
-    when: asdf_apps_deps[_asdf_apps_app_name] is defined
-    become: true
-
-  - name: "install {{ _asdf_apps_app_name }}:{{ _asdf_apps_app_version }}"
-    command: "bash -lc '{{ _asdf_apps_app_install_prefix }} asdf install {{ _asdf_apps_app_name }} {{ _asdf_apps_app_version }}'"
+  - name: "install {{ _asdf_app.name }}"
+    command: "bash -lc '{{ _asdf_app_install_prefix }} {{ asdf_path }} install {{ _asdf_app.name }} {{ item }}'"
     args:
-      creates: "{{ asdf_dir }}/installs/{{ _asdf_apps_app_name }}/{{ _asdf_apps_app_version }}"
+      creates: "{{ asdf_dir }}/installs/{{ _asdf_app.name }}/{{ item }}"
+    loop: "{{ _asdf_app.versions }}"  
 
   - block:
-    - name: "set {{ _asdf_apps_app_name }}:{{ _asdf_apps_app_version }} as global"
-      command: "bash -lc 'asdf global {{ _asdf_apps_app_name }} {{ _asdf_apps_app_version }}'"
+    - name: "set {{ _asdf_app.name }}:{{ _asdf_app.global }} as global"
+      command: "bash -lc '{{ asdf_path }} global {{ _asdf_app.name }} {{ _asdf_app.global }}'"
 
     - include_tasks: "{{ item }}"
       with_first_found:
       - files:
-        - post-globalize/{{ _asdf_apps_app_name }}.yml
-        skip: true
-    when: _asdf_apps_app.globalize is defined and _asdf_apps_app.globalize
-  when: _asdf_apps_app.version is defined
+        - post-globalize/{{ _asdf_app.name }}.yml
+        - post-globalize/default.yml
+    when: _asdf_app.global is defined
+  when: _asdf_app.versions is defined and _asdf_app.versions|length > 0

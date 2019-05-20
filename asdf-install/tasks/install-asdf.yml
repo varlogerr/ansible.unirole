@@ -1,17 +1,17 @@
 ---
 - name: checkout asdf
-  git:
-    repo: https://github.com/asdf-vm/asdf.git
-    dest: "{{ asdf_dir }}"
-    version: "{{ asdf_version }}"
+  git: repo={{ asdf_repo }} dest={{ asdf_dir }} version={{ asdf_version }}
 
-- name: add asdf to profile
+- name: add asdf to bashrc
   lineinfile:
-    dest: "{{ xfacts.user.homedir }}/.profile"
+    dest: "{{ xfacts.user.homedir }}/{{ item }}"
     create: yes
     mode: 0644
     line: ". {{ asdf_dir }}/asdf.sh"
     insertafter: EOF
+  loop:
+  - .bashrc
+  - .profile
 
 - name: add asdf completions to bashrc
   lineinfile:
