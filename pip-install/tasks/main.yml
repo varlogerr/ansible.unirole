@@ -1,8 +1,6 @@
 ---
+- include_vars: "{{ xfacts.distro.osfamily }}.yml"
+
 - name: install python-pip
-  package: name="{{ packages }}" state=present
-  vars:
-    packages:
-    - python-pip
-    - python-setuptools
+  package: name="{{ pip_common_packages + pip_packages }}" state=present
   become: true

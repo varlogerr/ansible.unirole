@@ -1,0 +1,4 @@
+---
+pip_common_packages:
+- python-pip
+- python-setuptools
