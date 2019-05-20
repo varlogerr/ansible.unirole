@@ -11,10 +11,11 @@ Usage
     asdf_version: v0.6.3 # optional. defaults to v0.7.1
     asdf_dir: "{{ xfacts.user.homedir }}/.myasdf" # optional. defaults to "{{ xfacts.user.homedir }}/.asdf"
     asdf_apps: # optional. defaults to []
-    - name: erlang     # required
-      versions:        # optional. If absent or empty [], only plugin will be installed
+    - name: erlang                  # required
+      versions:                     # optional. If absent or empty [], only plugin will be installed
       - "22.0"
-      global: "22.0"   # optional. set global version
+      global: "22.0"                # optional. Set global version
+      prefix: "KERL_BUILD_DOCS=yes" # optional. Prefixes 'asdf install'
     - name: elixir
       versions:
       - 1.8.2

@@ -2,9 +2,6 @@
 - fail: msg="asdf_apps.name is required"
   when: _asdf_app.name is undefined
 
-- set_fact:
-    _asdf_app_install_prefix: "{{ asdf_apps_install_prefixes[_asdf_app.name] | default('') }}"
-
 - name: "install {{ _asdf_app.name }} plugin"
   command: "bash -lc '{{ asdf_path }} plugin-add {{ _asdf_app.name }}'"
   args:
@@ -16,6 +13,12 @@
     - files:
       - pre-app/{{ _asdf_app.name }}.yml
       - pre-app/default.yml
+
+  - set_fact:
+      _asdf_app_install_prefix: "{{ asdf_apps_install_prefixes[_asdf_app.name] | default('') }}"
+
+  - set_fact:
+      _asdf_app_install_prefix: "{{ _asdf_app['prefix'] | default('') }} {{ _asdf_app_install_prefix }}"
 
   - name: "install {{ _asdf_app.name }}"
     command: "bash -lc '{{ _asdf_app_install_prefix }} {{ asdf_path }} install {{ _asdf_app.name }} {{ item }}'"
