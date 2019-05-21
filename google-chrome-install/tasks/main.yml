@@ -13,4 +13,5 @@
 
   - name: install google chrome
     apt: name=google-chrome-stable state=latest
+  when: xfacts.distro.osfamily == 'debian'
   become: true

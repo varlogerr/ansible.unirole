@@ -16,4 +16,5 @@
       name:
         - mkvtoolnix
         - mkvtoolnix-gui
+  when: xfacts.distro.osfamily == 'debian'
   become: true

@@ -12,4 +12,5 @@
 
   - name: install brave
     apt: name="{{ brave_apps }}" state=present
+  when: xfacts.distro.osfamily == 'debian'
   become: true
