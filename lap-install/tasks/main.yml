@@ -1,0 +1,6 @@
+---
+- name: install php module for apache
+  apt: name="libapache2-mod-php{{ php_version }}" state=present
+  when: xfacts.distro.osfamily == 'debian'
+  notify: restart apache
+  become: true
