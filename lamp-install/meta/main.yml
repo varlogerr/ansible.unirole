@@ -1,5 +1,0 @@
----
-dependencies:
-- php-install
-- mariadb-install
-- apache-install
