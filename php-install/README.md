@@ -15,10 +15,9 @@ Usage
       - intl
       - mbstring
       - pdo
+      - redis
+      - xdebug
       - xml
       - zip
-    php_pecl_extensions:
-      - xdebug
-      - redis
 # ...
 ```

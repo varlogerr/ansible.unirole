@@ -2,6 +2,10 @@
 - set_fact:
     _php_version: "{{ php_version | regex_replace('(\\d+)\\.(\\d+)$', '\\1\\2') }}"
 
-- name: install php-{{ _php_extension }}
+- set_fact:
+    _php_extension: php_redhat_extension_map[_php_extension]
+  when: php_redhat_extension_map[_php_extension] is defined
+
+- name: install php{{ _php_version}}-{{ _php_extension }}
   yum: name="php-{{ _php_extension }}" enablerepo=remi-php{{ _php_version }} state=present
   become: true

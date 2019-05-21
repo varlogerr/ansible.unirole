@@ -1,1 +1,4 @@
 ---
+php_redhat_extension_map:
+  xdebug: pecl-xdebug
+  redis: pecl-redis

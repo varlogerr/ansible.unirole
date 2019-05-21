@@ -1,7 +1,0 @@
----
-- set_fact:
-    _php_version: "{{ php_version | regex_replace('(\\d+)\\.(\\d+)$', '\\1\\2') }}"
-
-- name: install php-pecl-{{ _php_pecl_extension }}
-  yum: name="php-{{ _php_pecl_extension }}" enablerepo=remi-php{{ _php_version }} state=present
-  become: true
