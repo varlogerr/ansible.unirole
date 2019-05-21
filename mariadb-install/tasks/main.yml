@@ -5,16 +5,13 @@
 - block:
   - name: install mariadb client
     package: name="{{ mariadb_package_client_name }}" state=present
-    when: mariadb_install_client
+    when: mariadb_install_client | bool
 
   - block:
     - name: install mariadb server
       package: name="{{ mariadb_package_server_name }}" state=present
 
-    - set_fact:
-        _mariadb_server_installed: true
-
     - name: start mariadb
       service: name=mysql state=started enabled=yes
-    when: mariadb_install_server
+    when: mariadb_install_server | bool
   become: true

@@ -7,7 +7,7 @@
       login_user: root
       login_password: "{{ mariadb_root_password }}"
       state: absent
-    when: mariadb_no_anonymous_user
+    when: mariadb_no_anonymous_user | bool
 
   - name: create the users
     mysql_user:
@@ -30,7 +30,7 @@
       host_all: true
       login_user: root
       state: absent
-    when: mariadb_no_anonymous_user
+    when: mariadb_no_anonymous_user | bool
 
   - name: create users
     mysql_user:

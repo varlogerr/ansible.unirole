@@ -1,4 +1,4 @@
 ---
 mariadb_version: "10.3"
-mariadb_install_client: false
-mariadb_install_server: false
+mariadb_install_client: true
+mariadb_install_server: true
