@@ -11,10 +11,15 @@ Usage
     asdf_version: v0.6.3 # optional. defaults to v0.7.1
     asdf_dir: "{{ xfacts.user.homedir }}/.myasdf" # optional. defaults to "{{ xfacts.user.homedir }}/.asdf"
     asdf_apps: # optional. defaults to []
-    - name: erlang                  # required
+    - name: desk                    # required
       versions:                     # optional. If absent or empty [], only plugin will be installed
+        - 0.6.0
+      global: 0.6.0                 # optional. Set global version
+      repo: https://github.com/varlogerr/asdf-desk  # optional. Repo to pull plugin from
+    - name: erlang
+      versions:
       - "22.0"
-      global: "22.0"                # optional. Set global version
+      global: "22.0"
       prefix: "KERL_BUILD_DOCS=yes" # optional. Prefixes 'asdf install'
     - name: elixir
       versions:

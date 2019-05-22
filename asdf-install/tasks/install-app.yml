@@ -2,8 +2,15 @@
 - fail: msg="asdf_apps.name is required"
   when: _asdf_app.name is undefined
 
+- set_fact:
+    _asdf_plugin_add_command: "{{ asdf_path }} plugin-add {{ _asdf_app.name }}"
+
+- set_fact:
+    _asdf_plugin_add_command: "{{ _asdf_plugin_add_command }} {{ _asdf_app.repo }}"
+  when: _asdf_app.repo is defined
+
 - name: "install {{ _asdf_app.name }} plugin"
-  command: "bash -lc '{{ asdf_path }} plugin-add {{ _asdf_app.name }}'"
+  command: "bash -lc '{{ _asdf_plugin_add_command }}'"
   args:
     creates: "{{ asdf_dir }}/plugins/{{ _asdf_app.name }}"
 
