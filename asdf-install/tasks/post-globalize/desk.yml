@@ -1,0 +1,6 @@
+---
+- name: create {{ _asdf_app.name }}:{{ _asdf_app.global }} completion
+  lineinfile:
+    dest: "{{ xfacts.user.homedir }}/.bashrc"
+    line: ". {{ asdf_dir }}/installs/{{ _asdf_app.name }}/{{ _asdf_app.global }}/shell_plugins/bash/desk"
+    state: present
