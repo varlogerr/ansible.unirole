@@ -1,5 +1,8 @@
 Install visual studio code
 
+Reading:  
+- [Elixir Development with Visual Studio Code][elixir vscode medium.com]
+
 Usage
 ```
 ---
@@ -10,6 +13,4 @@ Usage
 # ...
 ```
 
-dependencies:
-- xfacts
-- ppa-utils-install
+[elixir vscode medium.com]: https://medium.com/@abadon.gutierrez/elixir-development-with-visual-studio-code-16b923e82653
