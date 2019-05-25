@@ -1,4 +1,3 @@
 ---
 - name: create {{ _asdf_app.name }}:{{ _asdf_app.global }} autocomplete
   shell: "{{ asdf_dir }}/installs/{{ _asdf_app.name }}/{{ _asdf_app.global }}/bin/{{ _asdf_app.name }} completion bash > {{ asdf_apps_completion_path[_asdf_app.name] }}"
-  become: true
