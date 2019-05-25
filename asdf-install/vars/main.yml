@@ -46,3 +46,6 @@ asdf_apps_deps:
       - m4
       - unixodbc-dev
       - xsltproc
+
+asdf_repos:
+  desk: https://github.com/varlogerr/asdf-desk

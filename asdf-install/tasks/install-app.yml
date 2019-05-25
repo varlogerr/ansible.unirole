@@ -3,11 +3,14 @@
   when: _asdf_app.name is undefined
 
 - set_fact:
-    _asdf_plugin_add_command: "{{ asdf_path }} plugin-add {{ _asdf_app.name }}"
+    _asdf_plugin_repo: "{{ asdf_repos[_asdf_app.name] | default('') }}"
 
 - set_fact:
-    _asdf_plugin_add_command: "{{ _asdf_plugin_add_command }} {{ _asdf_app.repo }}"
+    _asdf_plugin_repo: "{{ _asdf_app.repo }}"
   when: _asdf_app.repo is defined
+
+- set_fact:
+    _asdf_plugin_add_command: "{{ asdf_path }} plugin-add {{ _asdf_app.name }} {{ _asdf_plugin_repo }}"
 
 - name: "install {{ _asdf_app.name }} plugin"
   command: "bash -lc '{{ _asdf_plugin_add_command }}'"
