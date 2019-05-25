@@ -15,10 +15,10 @@ asdf_common_plugins_deps:
 asdf_path: "{{ asdf_dir }}/bin/asdf"
 
 asdf_apps_completion_path:
-  helm: /etc/bash_completion.d/helm
-  kops: /etc/bash_completion.d/kops
-  kubectl: /etc/bash_completion.d/kubectl
-  minikube: /etc/bash_completion.d/minikube
+  helm: "{{ bash_completion_dir }}/helm.sh"
+  kops: "{{ bash_completion_dir }}/kops.sh"
+  kubectl: "{{ bash_completion_dir }}/kubectl.sh"
+  minikube: "{{ bash_completion_dir }}/minikube.sh"
 
 asdf_apps_install_prefixes:
   erlang: KERL_BUILD_DOCS=yes

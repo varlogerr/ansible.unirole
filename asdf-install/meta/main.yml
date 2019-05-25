@@ -1,5 +1,6 @@
 ---
 dependencies:
+- bash-completion
 - curl-install
 - git-install
 - xfacts
