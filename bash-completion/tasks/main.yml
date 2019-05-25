@@ -1,0 +1,9 @@
+---
+- name: create completions dir
+  file: name={{ bash_completion_dir }} state=directory
+
+- name: source completions directory in bashrc
+  lineinfile:
+    dest: "{{ xfacts.user.homedir }}/.bashrc"
+    line: "for file in $(find {{ bash_completion_dir }} -type f -name '*.sh' -print); do source \"${file}\"; done"
+    state: present
