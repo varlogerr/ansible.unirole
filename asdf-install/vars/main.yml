@@ -21,7 +21,6 @@ asdf_apps_completion_path:
   minikube: "{{ bash_completion_dir }}/minikube.sh"
 
 asdf_apps_install_prefixes:
-  erlang: KERL_BUILD_DOCS=yes
   nodejs: NODEJS_CHECK_SIGNATURES=no
 
 asdf_apps_deps:
