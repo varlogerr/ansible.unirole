@@ -1,0 +1,7 @@
+---
+fzf_install_prefix: /usr/local
+fzf_bin_prefix: "{{ fzf_install_prefix }}/bin"
+fzf_src_prefix: "{{ fzf_install_prefix }}/src"
+fzf_src_dir: "{{ fzf_src_prefix }}/{{ xfacts.system.ansible_managed_prefix }}-fzf-src"
+fzf_repo: https://github.com/junegunn/fzf.git
+fzf_tgz_url: "https://github.com/junegunn/fzf-bin/releases/download/{{ fzf_version }}/fzf-{{ fzf_version }}-linux_amd64.tgz"

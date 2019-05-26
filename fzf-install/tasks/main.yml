@@ -1,0 +1,19 @@
+---
+- block:
+  - name: install package
+    unarchive: src={{ fzf_tgz_url }} dest={{ fzf_bin_prefix }} mode=0755 remote_src=yes
+
+  - name: checkout fzf
+    git: repo={{ fzf_repo }} dest={{ fzf_src_dir }} version={{ fzf_version }}
+
+  - name: create fzf bash
+    template: src=fzf.bash dest="{{ fzf_src_prefix }}/fzf.bash"
+  become: true
+
+- name: configure bash
+  lineinfile:
+    dest: "{{ xfacts.user.homedir }}/.bashrc"
+    create: yes
+    mode: 0644
+    line: "[ -f \"{{ fzf_src_prefix }}/fzf.bash\" ] && source \"{{ fzf_src_prefix }}/fzf.bash\""
+    insertafter: EOF
