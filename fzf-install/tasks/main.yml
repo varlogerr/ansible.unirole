@@ -7,7 +7,7 @@
     git: repo={{ fzf_repo }} dest={{ fzf_src_dir }} version={{ fzf_version }}
 
   - name: create fzf bash
-    template: src=fzf.bash dest="{{ fzf_src_prefix }}/fzf.bash"
+    template: src=fzf.bash dest="{{ fzf_src_prefix }}/fzf.bash" mode=0644
   become: true
 
 - name: configure bash
