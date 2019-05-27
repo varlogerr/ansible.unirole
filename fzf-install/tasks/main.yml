@@ -5,18 +5,10 @@
 
   - name: checkout fzf
     git: repo={{ fzf_repo }} dest={{ fzf_src_dir }} version={{ fzf_version }}
-
-  - name: create fzf bash
-    template: src=fzf.bash dest="{{ fzf_src_prefix }}/fzf.bash" mode=0644
   become: true
 
-- name: configure bash
-  lineinfile:
-    dest: "{{ xfacts.user.homedir }}/.bashrc"
-    create: yes
-    mode: 0644
-    line: "[ -f \"{{ fzf_src_prefix }}/fzf.bash\" ] && source \"{{ fzf_src_prefix }}/fzf.bash\""
-    insertafter: EOF
+- name: create fzf bash
+  template: src=fzf.bash dest="{{ bashrc_source_dir }}/fzf.sh" mode=0644
 
 - name: source fzf configuration file
   template: dest="{{ bashrc_source_dir }}/fzfrc.sh" src="{{ fzf_fzfrc }}"
