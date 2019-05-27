@@ -17,3 +17,6 @@
     mode: 0644
     line: "[ -f \"{{ fzf_src_prefix }}/fzf.bash\" ] && source \"{{ fzf_src_prefix }}/fzf.bash\""
     insertafter: EOF
+
+- name: source fzf configuration file
+  template: dest="{{ bashrc_source_dir }}/fzfrc.sh" src="{{ fzf_fzfrc }}"

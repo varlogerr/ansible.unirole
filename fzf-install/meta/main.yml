@@ -1,4 +1,5 @@
 ---
 dependencies:
+- bashrc-source-dir
 - git-install
 - xfacts
