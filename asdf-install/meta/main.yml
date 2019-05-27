@@ -1,6 +1,6 @@
 ---
 dependencies:
-- bash-completion
+- bashrc-source-dir
 - curl-install
 - git-install
 - xfacts

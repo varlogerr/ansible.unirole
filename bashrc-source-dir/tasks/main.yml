@@ -1,0 +1,9 @@
+---
+- name: create source dir
+  file: name={{ bashrc_source_dir }} state=directory
+
+- name: source to bashrc
+  lineinfile:
+    dest: "{{ xfacts.user.homedir }}/.bashrc"
+    line: "for file in $(find {{ bashrc_source_dir }} -type f -name '*.sh' -print); do source \"${file}\"; done"
+    state: present

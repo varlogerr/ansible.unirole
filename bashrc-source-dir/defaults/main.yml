@@ -1,0 +1,2 @@
+---
+bashrc_source_dir: "{{ xfacts.user.homedir }}/.bashrc-source"

@@ -15,10 +15,10 @@ asdf_common_plugins_deps:
 asdf_path: "{{ asdf_dir }}/bin/asdf"
 
 asdf_apps_completion_path:
-  helm: "{{ bash_completion_dir }}/helm.sh"
-  kops: "{{ bash_completion_dir }}/kops.sh"
-  kubectl: "{{ bash_completion_dir }}/kubectl.sh"
-  minikube: "{{ bash_completion_dir }}/minikube.sh"
+  helm: "{{ bashrc_source_dir }}/completion-helm.sh"
+  kops: "{{ bashrc_source_dir }}/completion-kops.sh"
+  kubectl: "{{ bashrc_source_dir }}/completion-kubectl.sh"
+  minikube: "{{ bashrc_source_dir }}/completion-minikube.sh"
 
 asdf_apps_install_prefixes:
   nodejs: NODEJS_CHECK_SIGNATURES=no
