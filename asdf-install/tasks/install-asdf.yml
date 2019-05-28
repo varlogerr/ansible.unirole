@@ -3,20 +3,16 @@
   git: repo={{ asdf_repo }} dest={{ asdf_dir }} version={{ asdf_version }}
 
 - name: add asdf to bashrc
+  copy:
+    dest: "{{ bashrc_source_dir }}/asdf.sh"
+    content: |
+      . {{ asdf_dir }}/asdf.sh
+      . {{ asdf_dir }}/completions/asdf.bash
+
+- name: add asdf to profile
   lineinfile:
-    dest: "{{ xfacts.user.homedir }}/{{ item }}"
+    dest: "{{ xfacts.user.homedir }}/.profile"
     create: yes
     mode: 0644
     line: ". {{ asdf_dir }}/asdf.sh"
-    insertafter: EOF
-  loop:
-  - .bashrc
-  - .profile
-
-- name: add asdf completions to bashrc
-  lineinfile:
-    dest: "{{ xfacts.user.homedir }}/.bashrc"
-    create: yes
-    mode: 0644
-    line: ". {{ asdf_dir }}/completions/asdf.bash"
     insertafter: EOF
