@@ -41,7 +41,7 @@ Usage
 
 Known issues:  
 - [Unable to compile Erlang with wx][erlang memory leak]. Solution - increase memory  
-- [Unable to install node][node-checksum]. Solution - implemented in the role as prepending `asdf install` with `NODEJS_CHECK_SIGNATURES=no`. Impact: signing key security goes to `/dev/null`, so don't use in prod
+- [Unable to install node][node-checksum]. Solution - implemented in the role as prepending `asdf install` with `NODEJS_CHECK_SIGNATURES=no` and same prefix is added to bashrc. Impact: signing key security goes to `/dev/null`, so don't use in prod
 
 Articles:  
 - [Installing Erlang,Cowboy on Amazon EC2, Detailed Steps With Commands (CentOS)][erlang on amazon centos]  
