@@ -10,11 +10,29 @@
       mode: 0644
   become: true
 
-- name: apply configurations
-  lineinfile:
-    dest: "{{ xfacts.user.homedir }}/.tmux.conf"
-    create: yes
-    mode: 0644
-    line: "{{ item }}"
-    insertafter: EOF
+- name: install plugin manager
+  git: repo={{ tmux_pm_repo }} dest={{ tmux_pm_dir }} version={{ tmux_pm_version }}
+
+- set_fact:
+    _tmux_configs: "# plugins\n"
+
+- set_fact:
+    _tmux_configs: "{{ _tmux_configs }}set -g @plugin '{{ item }}'\n"
+  loop: "{{ ['tmux-plugins/tpm'] + tmux_plugins }}"
+
+- set_fact:
+    _tmux_configs: "{{ _tmux_configs }}run -b '~/.tmux/plugins/tpm/tpm'\n"
+
+- set_fact:
+    _tmux_configs: "{{ _tmux_configs }}\n# configs\n"
+  when: tmux_settings | length > 0
+
+- set_fact:
+    _tmux_configs: "{{ _tmux_configs }}{{ item }}\n"
   loop: "{{ tmux_settings }}"
+
+- name: apply configurations
+  copy:
+    content: "{{ _tmux_configs }}"
+    dest: "{{ tmux_conf_file }}"
+    mode: 0644
